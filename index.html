@@ -58,10 +58,15 @@ button { cursor: pointer; }
 #app { height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr); }
 
 /* ---- title bar ---- */
+.top { min-width: 0; }
+.subtabs { display: flex; gap: 2px; padding: 0 16px; background: var(--panel); border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.subtab { padding: 7px 10px 6px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--ink-2); font-weight: 600; font-size: 12.5px; white-space: nowrap; flex: none; }
+.subtab:hover { color: var(--ink); }
+.subtab[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
 .bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; padding: 8px 16px; background: var(--panel); border-bottom: 1px solid var(--line); }
 .brand { font: 400 21px/1 var(--display); letter-spacing: 0.05em; white-space: nowrap; }
 .tabs { display: flex; gap: 4px; min-width: 0; overflow-x: auto; scrollbar-width: none; }
-.tab { padding: 6px 10px; border: 0; border-radius: 6px; font-weight: 600; font-size: 13px; background: transparent; color: var(--ink-2); white-space: nowrap; flex: none; }
+.tab { padding: 6px 12px; border: 0; border-radius: 6px; font-weight: 600; font-size: 14px; background: transparent; color: var(--ink-2); white-space: nowrap; flex: none; }
 .tab:hover { color: var(--ink); background: var(--raise); }
 .tab[aria-current="page"] { background: var(--accent-soft); color: var(--ink); }
 .mapctl { display: contents; }
@@ -125,6 +130,7 @@ button { cursor: pointer; }
 .swatch .blank.empty { background: var(--empty); }
 .swatch .blank.void { background: var(--void); }
 .swatch span { min-width: 0; font-weight: 500; }
+#pal-hint { margin-top: 8px; font-size: 12.5px; }
 .row { display: flex; align-items: center; gap: 8px; }
 .row input[type="range"] { flex: 1 1 0; min-width: 0; accent-color: var(--accent); }
 .row output { min-width: 2ch; text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
@@ -306,7 +312,7 @@ details.fold > * + * { margin-top: 10px; }
   .side h2 { margin-bottom: 6px; }
   .swatches { flex-direction: row; overflow-x: auto; padding-bottom: 4px; }
   .swatch { width: auto; flex: none; flex-direction: column; gap: 3px; padding: 4px 6px; font-size: 11.5px; }
-  .zoomer input[type="range"], .mini, #mode-note { display: none; }
+  .zoomer input[type="range"], .mini, #mode-note, #pal-hint { display: none; }
   .lib-item { grid-template-columns: 72px minmax(0, 1fr); }
   .lib-item canvas { width: 72px; height: 48px; }
   .lib-item .acts { grid-column: 1 / -1; justify-content: flex-start; }
@@ -316,7 +322,7 @@ details.fold > * + * { margin-top: 10px; }
 }
 @media (hover: none) { .tool kbd { display: none; } }
 @media (prefers-reduced-motion: no-preference) {
-  .tool, .swatch, .btn, .tab, .nav-b, .chip-btn { transition: background-color 0.12s, border-color 0.12s, color 0.12s; }
+  .tool, .swatch, .btn, .tab, .subtab, .nav-b, .chip-btn { transition: background-color 0.12s, border-color 0.12s, color 0.12s; }
 }
 
 /* ---- sign-in gate ---- */
@@ -335,18 +341,13 @@ details.fold > * + * { margin-top: 10px; }
 .acct { margin-left: auto; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
 
 /* ---- campaigns tab ---- */
-.camp { overflow: auto; min-height: 0; background: var(--bg); }
-.camp-in { max-width: 860px; margin: 0 auto; padding: 18px 24px 56px; display: flex; flex-direction: column; gap: 30px; }
-.camp section { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-.camp h2 { margin: 0; font: 400 26px/1.1 var(--display); letter-spacing: 0.03em; }
-.camp .sub { max-width: 70ch; }
-.camp-form { display: flex; flex-wrap: wrap; gap: 8px; }
+.camp { background: var(--bg); }
+.camp .ref-main > .wide { max-width: none; }
 .tin { height: 34px; flex: 1 1 220px; min-width: 0; max-width: 360px; padding: 0 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--raise); }
-.camp-list { display: flex; flex-direction: column; gap: 12px; }
-.camp-card { display: flex; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); min-width: 0; }
+.camp-form { display: flex; flex-wrap: wrap; gap: 8px; }
 .camp-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
-.camp-head h3 { margin: 0; font: 600 17px/1.25 var(--ui); min-width: 0; overflow-wrap: anywhere; }
-.camp-head .grow { flex: 1 1 0; }
+.camp-head h2 { min-width: 0; overflow-wrap: anywhere; }
+.grow { flex: 1 1 0; }
 .cap { font: 600 11px/1 var(--ui); letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-2); }
 .pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 4px 3px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--raise); font-size: 13px; font-weight: 500; }
 .pill button { width: 22px; height: 22px; border: 0; border-radius: 50%; background: transparent; color: var(--ink-2); font-size: 16px; line-height: 1; }
@@ -355,7 +356,6 @@ details.fold > * + * { margin-top: 10px; }
 .person { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 9px 12px; border-top: 1px solid var(--line); }
 .person:first-child { border-top: 0; }
 .person .nm { font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
-.person .grow { flex: 1 1 0; }
 .badge { padding: 2px 8px; border-radius: 999px; background: var(--raise); border: 1px solid var(--line); font-size: 12px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
 .badge.dm { background: var(--accent-soft); color: var(--ink); border-color: transparent; }
 .ref-msg { grid-column: 1 / -1; padding: 32px 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -363,8 +363,100 @@ details.fold > * + * { margin-top: 10px; }
 .acct-camps { display: flex; flex-direction: column; gap: 8px; }
 .acct-camp { padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--raise); }
 .acct-camp strong { display: block; overflow-wrap: anywhere; }
+.banner { margin: 0; padding: 9px 12px; border: 1px solid var(--danger); border-radius: 8px; color: var(--danger); background: var(--raise); font-size: 13px; }
+.rowcards { display: flex; flex-direction: column; gap: 8px; }
+.rcard { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--raise); min-width: 0; }
+.rcard .body { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.rcard h4 { margin: 0; font: 600 15px/1.3 var(--ui); overflow-wrap: anywhere; }
+.rcard p { margin: 0; max-width: 90ch; overflow-wrap: anywhere; white-space: pre-wrap; }
+.rcard .acts { display: flex; flex-wrap: wrap; gap: 6px; }
+.rcard canvas.thumb { width: 96px; height: 64px; border-radius: 6px; background: var(--stage); display: block; image-rendering: pixelated; flex: none; }
+.rcard .ttl { display: block; font: 600 15px/1.3 var(--ui); overflow-wrap: anywhere; }
+.rcard .body .sub { display: block; }
+.rcard.pick { cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; }
+.rcard.pick:hover { border-color: var(--accent); }
+.stats { display: flex; flex-wrap: wrap; gap: 6px; }
+.statp { display: inline-flex; align-items: baseline; gap: 5px; padding: 2px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); font-size: 12.5px; }
+.statp b { font: 600 10.5px var(--ui); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-2); }
+.st-active { border-color: var(--accent); color: var(--accent); }
+.field textarea, .cs textarea { min-height: 76px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--raise); color: inherit; font: inherit; resize: vertical; width: 100%; }
+dialog .dlg-foot .grow { flex: 1 1 0; }
+
+/* ---- character sheet ---- */
+.cs { display: flex; flex-direction: column; gap: 16px; }
+.cs-top { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr); gap: 12px; padding: 14px 16px; border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 10px; background: var(--raise); }
+.cs-top .cs-name input { height: 44px; font: 400 24px/1 var(--display); letter-spacing: 0.03em; }
+.cs-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.cs-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1.15fr); gap: 14px; align-items: start; }
+.cs-col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.cs-box { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--raise); min-width: 0; }
+.cs-box > h3 { margin: 0; font: 600 11px/1 var(--ui); letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent); }
+.cf { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.cf > span { font: 600 10.5px/1.2 var(--ui); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-2); }
+.cs input[type="text"], .cs input[type="number"] { height: 32px; min-width: 0; width: 100%; padding: 0 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+.cs textarea { background: var(--panel); }
+.cs input:focus, .cs textarea:focus { border-color: var(--accent); outline: none; background: var(--raise); }
+.cs input[type="checkbox"] { accent-color: var(--accent); width: 15px; height: 15px; margin: 0; flex: none; }
+.cs-abil { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.ab { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+.ab b { font: 600 10.5px var(--ui); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.ab output { font: 600 20px/1 var(--ui); font-variant-numeric: tabular-nums; }
+.ab input[type="number"] { height: 26px; width: 58px; text-align: center; padding: 0 2px; background: var(--raise); }
+.cs-lines { display: flex; flex-direction: column; gap: 3px; }
+.cs-line { display: flex; align-items: center; gap: 7px; min-height: 22px; }
+.cs-line output { min-width: 3ch; text-align: right; font: 600 13px var(--mono); font-variant-numeric: tabular-nums; }
+.cs-line .lab { flex: 1 1 0; min-width: 0; }
+.cs-line .lab small { color: var(--ink-2); }
+.cs-line .ex { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; color: var(--ink-2); }
+.cs-trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.cs-duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.cs-coins { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.cs-calc { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+.cs-calc output { font: 600 16px var(--mono); }
+.cs-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.62fr) minmax(0, 1.5fr) auto; gap: 6px; align-items: center; }
+.cs-row.spell { grid-template-columns: auto minmax(0, 1fr) auto; }
+.mini-x { width: 26px; height: 26px; border: 0; border-radius: 6px; background: transparent; color: var(--ink-2); font-size: 17px; line-height: 1; }
+.mini-x:hover { background: var(--accent-soft); color: var(--ink); }
+.cs-death { display: flex; align-items: center; gap: 6px; font-size: 12.5px; }
+.cs-death span { min-width: 62px; color: var(--ink-2); }
+.cs-spells { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; align-items: start; }
+.cs-status { font-size: 12.5px; color: var(--ink-2); }
+.cs.ro input, .cs.ro textarea { background: transparent; border-color: transparent; padding-left: 0; resize: none; }
+.cs.ro .ab input { border-color: var(--line); padding: 0 2px; }
+.cs.ro textarea { min-height: 0; }
+
+/* ---- the map table: a shared map with its cover layer ---- */
+.ref-main.table-open { padding: 0; gap: 0; overflow: hidden; }
+.tbl { flex: 1 1 auto !important; min-height: 0; max-width: none !important; display: flex; flex-direction: column; }
+.tbl-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 8px 12px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.tbl-bar h3 { margin: 0 4px; font: 600 15px/1.2 var(--ui); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 30ch; }
+.tbl-bar .sep { width: 1px; align-self: stretch; background: var(--line); margin: 2px 2px; }
+.tbl-bar .row { gap: 6px; }
+.tbl-bar input[type="range"] { width: 84px; accent-color: var(--accent); }
+.segb { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--raise); }
+.segb button { height: 30px; padding: 0 10px; border: 0; border-left: 1px solid var(--line); background: transparent; font-size: 13px; font-weight: 500; }
+.segb button:first-child { border-left: 0; }
+.segb button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.tbl-stage { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: var(--stage); }
+.tbl-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.tbl-stage canvas.tov { touch-action: none; cursor: crosshair; }
+.tbl-stage canvas.tov[data-cursor="grab"] { cursor: grab; }
+.tbl-stage canvas.tov[data-cursor="grabbing"] { cursor: grabbing; }
+.tbl-stage.dark { background: var(--void); }
+.tbl-note { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; pointer-events: none; color: #d8dbe0; }
+.tbl-note p { max-width: 40ch; margin: 0; padding: 10px 14px; border-radius: 8px; background: rgba(10, 12, 15, 0.72); }
+.tbl-status { font-size: 12.5px; color: var(--ink-2); }
+.tbl-status.err { color: var(--danger); }
+
+@media (max-width: 980px) {
+  .cs-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .cs-cols > .cs-col:first-child { grid-column: 1 / -1; }
+}
 @media (max-width: 720px) {
-  .camp-in { padding: 14px 16px 48px; }
+  .cs-top, .cs-cols { grid-template-columns: minmax(0, 1fr); }
+  .cs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .subtabs { padding: 0 10px; }
+  .tbl-bar h3 { max-width: 16ch; }
 }
 </style>
 </head>
@@ -410,14 +502,13 @@ details.fold > * + * { margin-top: 10px; }
   </div>
 </div>
 <div id="app" hidden>
+  <div class="top">
   <header class="bar">
     <div class="brand">The Game</div>
-    <nav class="tabs" aria-label="Sections">
-      <button class="tab" type="button" data-tab="map" aria-current="page">Map Builder</button>
-      <button class="tab" type="button" data-tab="phb" aria-current="false">Player&rsquo;s Handbook</button>
-      <button class="tab" type="button" data-tab="dmg" aria-current="false">Dungeon Master&rsquo;s Guide</button>
-      <button class="tab" type="button" data-tab="mm" aria-current="false">Monster Manual</button>
-      <button class="tab" type="button" data-tab="camp" aria-current="false">Campaigns</button>
+    <nav class="tabs" aria-label="Main sections">
+      <button class="tab" type="button" data-group="create" aria-current="page">Creating</button>
+      <button class="tab" type="button" data-group="info" aria-current="false">Info</button>
+      <button class="tab" type="button" data-group="camp" aria-current="false">Campaigns</button>
     </nav>
     <div id="map-controls" class="mapctl">
     <input id="map-name" class="mapname" type="text" maxlength="80" spellcheck="false" autocomplete="off" aria-label="Map name" value="">
@@ -431,6 +522,13 @@ details.fold > * + * { margin-top: 10px; }
     </div>
     <button id="btn-account" class="btn acct" type="button" hidden></button>
   </header>
+  <nav id="subtabs" class="subtabs" aria-label="Pages in this section">
+    <button class="subtab" type="button" data-tab="map" aria-current="page">Map Builder</button>
+    <button class="subtab" type="button" data-tab="phb" aria-current="false">Player&rsquo;s Handbook</button>
+    <button class="subtab" type="button" data-tab="dmg" aria-current="false">Dungeon Master&rsquo;s Guide</button>
+    <button class="subtab" type="button" data-tab="mm" aria-current="false">Monster Manual</button>
+  </nav>
+  </div>
 
   <div id="tab-map" class="work">
     <div class="rail" role="toolbar" aria-label="Tools">
@@ -466,6 +564,7 @@ details.fold > * + * { margin-top: 10px; }
       <section>
         <h2 id="pal-title">Terrain</h2>
         <div id="swatches" class="swatches"></div>
+        <p id="pal-hint" class="hint" hidden>Paint a Door square in each doorway. In a campaign, players see a door once the room beside it is uncovered, and the Room tool uncovers up to the doors.</p>
       </section>
       <section>
         <h2>Brush size</h2>
@@ -500,34 +599,8 @@ details.fold > * + * { margin-top: 10px; }
   <div id="tab-phb" class="ref" hidden></div>
   <div id="tab-dmg" class="ref" hidden></div>
   <div id="tab-mm" class="ref" hidden></div>
-  <div id="tab-camp" class="camp" hidden>
-    <div class="camp-in">
-      <section>
-        <h2>Campaigns</h2>
-        <form id="camp-new" class="camp-form" novalidate>
-          <input id="camp-name" class="tin" type="text" maxlength="80" autocomplete="off" placeholder="Name of a new campaign" aria-label="Name of a new campaign">
-          <button class="btn primary" type="submit">Start campaign</button>
-        </form>
-        <p id="camp-err" class="warn" role="alert" hidden></p>
-        <div id="camp-list" class="camp-list"></div>
-      </section>
-      <section>
-        <h2>People</h2>
-        <p class="sub">Everyone who has created an account. Players see only the Player&rsquo;s Handbook, and only once they are in a campaign. A DM sees everything you do and has their own maps and campaigns.</p>
-        <div id="people-list"></div>
-      </section>
-      <section>
-        <h2>Rulebooks</h2>
-        <p class="sub">The three books are kept on the server so that it decides who may read each one. Upload the <code>rulebooks.json</code> file once. Uploading again replaces them.</p>
-        <div id="book-status" class="people"></div>
-        <div class="camp-form">
-          <button id="book-pick" class="btn" type="button">Upload rulebooks.json&hellip;</button>
-          <input id="book-file" type="file" accept="application/json,.json" hidden>
-        </div>
-        <p id="book-msg" class="hint" role="status" hidden></p>
-      </section>
-    </div>
-  </div>
+  <div id="tab-camp" class="ref camp" hidden></div>
+  <input id="book-file" type="file" accept="application/json,.json" hidden>
 </div>
 
 <dialog id="dlg-lib">
@@ -579,7 +652,7 @@ details.fold > * + * { margin-top: 10px; }
         <div class="field"><label for="nm-orient">Hex layout</label><select id="nm-orient"><option value="flat">Flat-top (columns)</option><option value="pointy">Pointy-top (rows)</option></select></div>
         <div class="field"><label for="nm-fill">Start filled with</label><select id="nm-fill"><option value="4">Ocean</option><option value="1">Grass</option><option value="0">Nothing</option></select></div>
       </div>
-      <p id="nm-sq-note" class="hint" hidden>Starts black. Paint floors and the walls draw themselves around them. One square is 5 ft.</p>
+      <p id="nm-sq-note" class="hint" hidden>Starts black. Paint floors and the walls draw themselves around them; paint a Door in each doorway. One square is 5 ft.</p>
       <p id="nm-err" class="warn" hidden></p>
     </div>
     <div class="dlg-foot"><button class="btn" type="button" data-close>Cancel</button><button class="btn primary" type="submit">Create map</button></div>
@@ -619,8 +692,15 @@ details.fold > * + * { margin-top: 10px; }
     <div class="dlg-foot"><button id="acct-out" class="btn" type="button">Sign out</button></div>
   </div>
 </dialog>
+<dialog id="dlg-item">
+  <form id="form-item" class="dlg" novalidate>
+    <div class="dlg-head"><h1 id="item-title"></h1><button class="x" type="button" data-close aria-label="Close">&times;</button></div>
+    <div id="item-body" class="dlg-body"></div>
+    <div class="dlg-foot"><button id="item-del" class="btn danger" type="button" hidden>Delete</button><span class="grow"></span><button class="btn" type="button" data-close>Cancel</button><button class="btn primary" type="submit">Save</button></div>
+  </form>
+</dialog>
 <script src="firebase-config.js"></script>
-<script src="cloud.js"></script>
+<script src="cloud.js?v=2"></script>
 <script>
 (function () {
 'use strict';
@@ -1079,9 +1159,46 @@ const TEXTURE_BUILDERS = {
     });
     return { cv, ctx };
   },
+
+  /* The cover that hides a world map from players: old yellowed parchment,
+     a few faint scratches and very faint stains, nothing drawn on it. */
+  parchment() {
+    const f1 = field(2, 2, 4, 181), f2 = field(6, 6, 3, 187), f3 = field(40, 40, 2, 191);
+    const stops = [[205, 181, 122], [220, 198, 142], [231, 212, 160]];
+    const { cv, ctx } = makeCanvas((x, y, p, c) => {
+      ramp(stops, 0.5 + f1[p] * 0.24 + f2[p] * 0.07, c);
+      const g = f3[p] * 4 + (hash3(x, y, 33) - 0.5) * 5;
+      c[0] += g; c[1] += g; c[2] += g * 0.8;
+    });
+    const r = mulberry(707);
+    for (let i = 0; i < 6; i++) {
+      const x = r() * TEX, y = r() * TEX, rad = 22 + r() * 40, dark = r() < 0.7;
+      const sx = 0.7 + r() * 0.6, rot = r() * Math.PI;
+      wrapDraw(x, y, rad * 1.5, (X, Y) => {
+        ctx.save(); ctx.translate(X, Y); ctx.rotate(rot); ctx.scale(sx, 1);
+        const g = ctx.createRadialGradient(0, 0, rad * 0.15, 0, 0, rad);
+        g.addColorStop(0, dark ? 'rgba(126, 92, 44, 0.05)' : 'rgba(247, 236, 200, 0.07)');
+        g.addColorStop(0.75, dark ? 'rgba(126, 92, 44, 0.03)' : 'rgba(247, 236, 200, 0.04)');
+        g.addColorStop(1, dark ? 'rgba(126, 92, 44, 0)' : 'rgba(247, 236, 200, 0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, rad, 0, 7); ctx.fill(); ctx.restore();
+      });
+    }
+    ctx.lineCap = 'round';
+    for (let i = 0; i < 34; i++) {
+      const x = r() * TEX, y = r() * TEX, len = 22 + r() * 95, ang = r() * Math.PI, bend = (r() - 0.5) * len * 0.18;
+      const light = r() < 0.25;
+      ctx.strokeStyle = light ? '#f6ecca' : '#7a5c2e';
+      ctx.globalAlpha = light ? 0.2 : 0.1 + r() * 0.1;
+      ctx.lineWidth = 0.6 + r() * 0.6;
+      const ex = Math.cos(ang) * len, ey = Math.sin(ang) * len;
+      wrapDraw(x, y, len + 8, (X, Y) => { ctx.beginPath(); ctx.moveTo(X, Y); ctx.quadraticCurveTo(X + ex * 0.5 - Math.sin(ang) * bend, Y + ey * 0.5 + Math.cos(ang) * bend, X + ex, Y + ey); ctx.stroke(); });
+    }
+    ctx.globalAlpha = 1;
+    return { cv, ctx, flatHeight: true };
+  },
 };
 
-const TEXTURE_KEYS = ['grass', 'dirt', 'sand', 'ocean', 'forest', 'rock', 'snow', 'wood', 'flagstone', 'brick', 'cobble', 'marble', 'carpet', 'wall'];
+const TEXTURE_KEYS = ['grass', 'dirt', 'sand', 'ocean', 'forest', 'rock', 'snow', 'wood', 'flagstone', 'brick', 'cobble', 'marble', 'carpet', 'wall', 'parchment'];
 
 /* Build one texture: returns the swatch canvas, RGBA pixels (alpha = blend height) and mean colour. */
 function buildTexture(key) {
@@ -1128,10 +1245,19 @@ const MATERIALS = [
   { id: 21, key: 'carpet', name: 'Carpet', grid: 'square', tex: 'carpet', span: 2 },
   { id: 22, key: 'earth', name: 'Packed earth', grid: 'square', tex: 'dirt', span: 3 },
   { id: 23, key: 'water', name: 'Water', grid: 'square', tex: 'ocean', span: 3 },
+  { id: 24, key: 'door', name: 'Door', grid: 'square', tex: 'wall', span: 2, door: true },
 ];
 const MAT_BY_ID = new Map(MATERIALS.map((m) => [m.id, m]));
 const MAX_MAT = 32;
 const WALL_SPAN = 2;
+/* Doors are floor squares drawn as a doorway. They stop the "uncover a room" tool,
+   and players see a door as soon as the room on either side of it is uncovered. */
+const DOOR = 24;
+/* The cover layer. This id only ever appears in the copy of a map that players are
+   sent: on a world map it is drawn as parchment, indoors as darkness. It is never
+   stored in a map you build, and never offered in the palette. */
+const COVER = 31;
+const COVER_MAT = { id: COVER, key: 'cover', name: 'Covered', grid: 'hex', tex: 'parchment', span: 13, bias: 0.34 };
 
 const HEX_H = 0.8660254037844386, HEX_R = 0.5773502691896258;
 
@@ -1176,6 +1302,7 @@ const float RAD = 0.5773503;
 const float BLEND_W = 0.30;
 const float SHORE_W = 0.50;
 const float DEPTH = 0.14;
+const int COVER = 31;
 const vec2 DIR[6] = vec2[6](vec2(1.0, 0.0), vec2(0.5, -0.8660254), vec2(-0.5, -0.8660254), vec2(-1.0, 0.0), vec2(-0.5, 0.8660254), vec2(0.5, 0.8660254));
 const ivec2 AXN[6] = ivec2[6](ivec2(1, 0), ivec2(1, -1), ivec2(0, -1), ivec2(-1, 0), ivec2(-1, 1), ivec2(0, 1));
 
@@ -1198,7 +1325,7 @@ int cellId(ivec2 a) {
   if (cell.x < 0 || cell.y < 0 || cell.x >= u_size.x || cell.y >= u_size.y) return -1;
   return int(texelFetch(u_data, cell, 0).r * 255.0 + 0.5);
 }
-bool isLand(int id) { return id > 0 && u_water[id] < 0.5; }
+bool isLand(int id) { return id > 0 && id != COVER && u_water[id] < 0.5; }
 
 vec4 sampleMat(int id, vec2 p, float shore, vec4 nz, vec4 nf) {
   if (id < 0) return vec4(u_stage, 0.0);
@@ -1215,7 +1342,8 @@ vec4 sampleMat(int id, vec2 p, float shore, vec4 nz, vec4 nf) {
     c = mix(c, vec3(0.93, 0.97, 0.98), foam * 0.5 * smoothstep(0.25, 0.6, nf.a + 0.15));
     return vec4(c, 0.0);
   }
-  t.rgb *= 0.92 + 0.16 * nz.b;
+  /* The cover gets a few broad, very faint stains that never repeat across a map. */
+  t.rgb *= (id == COVER) ? 0.95 + 0.1 * textureLod(u_noise, p * 0.017 + vec2(0.13, 0.71), 0.0).a : 0.92 + 0.16 * nz.b;
   t.a += u_bias[id];
   return t;
 }
@@ -1284,10 +1412,16 @@ void main() {
       tot += b;
     }
     col = acc / max(tot, 1e-5);
+    /* The cover is a sheet lying on top of the map: it shades what it borders and has a slightly darker rim. */
+    float lift = 0.0;
+    for (int i = 0; i < 6; i++) {
+      if ((ids[i] == COVER) != (id0 == COVER)) lift = max(lift, 1.0 - smoothstep(0.0, 0.3, ds[i]));
+    }
+    col *= 1.0 - ((id0 == COVER) ? 0.13 : 0.34) * lift * lift;
   }
 
   float px = 1.0 / u_scale;
-  if (u_grid > 0.0) {
+  if (u_grid > 0.0 && idg != COVER && id0 != COVER) {
     vec2 ad = abs(d0);
     float e = 0.5 - max(ad.x, ad.x * 0.5 + ad.y * H);
     float a = (1.0 - smoothstep(0.4 * px, 1.4 * px, e)) * u_grid * smoothstep(5.0, 16.0, u_scale);
@@ -1303,7 +1437,10 @@ const FRAG_SQUARE = FRAG_HEAD + `
 uniform float u_wallLayer;
 uniform float u_wallScale;
 uniform vec3 u_void;
+uniform float u_fog;
 const float WALL_T = 0.2;
+const int DOOR = 24;
+const int COVER = 31;
 
 int cellId(ivec2 c) {
   if (c.x < 0 || c.y < 0 || c.x >= u_size.x || c.y >= u_size.y) return -1;
@@ -1320,14 +1457,17 @@ void main() {
   float e = min(min(f.x, 1.0 - f.x), min(f.y, 1.0 - f.y));
   float gridA = (1.0 - smoothstep(0.4 * px, 1.4 * px, e)) * u_grid * smoothstep(5.0, 16.0, u_scale);
 
-  float dVoid = 9.0, dSeam = 9.0, dFloor = 9.0, shade = 0.0;
+  float dVoid = 9.0, dSeam = 9.0, dFloor = 9.0, dDark = 9.0, shade = 0.0;
   for (int j = -1; j <= 1; j++) {
     for (int i = -1; i <= 1; i++) {
       if (i == 0 && j == 0) continue;
       int idn = cellId(c + ivec2(i, j));
       vec2 g = vec2(i < 0 ? f.x : (i > 0 ? 1.0 - f.x : 0.0), j < 0 ? f.y : (j > 0 ? 1.0 - f.y : 0.0));
+      if (id0 == COVER) continue;
       if (id0 > 0) {
-        if (idn <= 0) {
+        if (idn == COVER) {
+          dDark = min(dDark, length(g));
+        } else if (idn <= 0) {
           float dist = length(g);
           dVoid = min(dVoid, dist);
           float len = (i <= 0 && j <= 0) ? 0.34 : 0.13;
@@ -1335,22 +1475,44 @@ void main() {
         } else if (idn != id0) {
           dSeam = min(dSeam, length(g));
         }
-      } else if (idn > 0) {
+      } else if (idn > 0 && idn != COVER) {
         dFloor = min(dFloor, max(g.x, g.y));
       }
     }
   }
 
   vec3 col;
-  if (id0 > 0) {
+  if (id0 == COVER) {
+    col = u_void;
+  } else if (id0 > 0) {
     float s = u_tscale[id0];
     col = textureGrad(u_tex, vec3(pw * s, u_layer[id0]), vec2(s * px, 0.0), vec2(0.0, s * px)).rgb;
+    if (id0 == DOOR) {
+      /* A doorway: a stone sill with the door leaf standing across the way through. */
+      int nl = cellId(c + ivec2(-1, 0)), nr = cellId(c + ivec2(1, 0)), nu = cellId(c + ivec2(0, -1)), nd = cellId(c + ivec2(0, 1));
+      int ew = (nl > 0 ? 1 : 0) + (nr > 0 ? 1 : 0), ns = (nu > 0 ? 1 : 0) + (nd > 0 ? 1 : 0);
+      vec2 q = (ew >= ns) ? f : f.yx;
+      float ax = abs(q.x - 0.5);
+      col *= 0.62 + 0.2 * smoothstep(0.1, 0.5, ax);
+      float leaf = (1.0 - smoothstep(0.105, 0.105 + 1.5 * px, ax)) * smoothstep(0.03, 0.03 + 1.5 * px, q.y) * (1.0 - smoothstep(0.97 - 1.5 * px, 0.97, q.y));
+      float grain = 0.86 + 0.28 * fract(sin(floor(q.y * 5.0) * 12.9898) * 43758.5453);
+      vec3 wood = vec3(0.43, 0.26, 0.13) * grain * (1.0 - 0.3 * smoothstep(0.0, 0.105, ax));
+      float seam = 1.0 - smoothstep(0.0, max(0.012, 1.2 * px), abs(fract(q.y * 5.0 + 0.5) - 0.5) / 5.0);
+      wood *= 1.0 - 0.35 * seam;
+      float rim = smoothstep(0.105 - max(0.02, 1.5 * px), 0.105, ax) + (1.0 - smoothstep(0.03, 0.03 + max(0.02, 1.5 * px), q.y)) + smoothstep(0.97 - max(0.02, 1.5 * px), 0.97, q.y);
+      wood = mix(wood, vec3(0.07, 0.045, 0.03), clamp(rim, 0.0, 1.0) * 0.85);
+      float knob = 1.0 - smoothstep(0.03, 0.03 + 1.5 * px, length(q - vec2(0.5, 0.76)));
+      wood = mix(wood, vec3(0.80, 0.66, 0.30), knob);
+      col = mix(col, wood, leaf);
+    }
     col *= 1.0 - 0.3 * (1.0 - smoothstep(0.0, lineW * 1.6, dSeam));
     col = mix(col, vec3(0.03, 0.03, 0.04), gridA * 0.3);
     col *= 1.0 - 0.58 * shade * shade;
     col = mix(col, vec3(0.035, 0.03, 0.03), 1.0 - smoothstep(lineW * 0.45, lineW, dVoid));
+    /* Where the way on is still covered, the floor fades into the dark. */
+    col = mix(u_void, col, smoothstep(0.0, 0.42, dDark));
   } else {
-    vec3 base = (id0 < 0) ? u_stage : mix(u_void, u_emptyLine, gridA * 0.55);
+    vec3 base = (id0 < 0) ? u_stage : mix(u_void, u_emptyLine, gridA * 0.55 * (1.0 - u_fog));
     col = base;
     if (dFloor < WALL_T + px) {
       vec3 wt = textureGrad(u_tex, vec3(pw * u_wallScale, u_wallLayer), vec2(u_wallScale * px, 0.0), vec2(0.0, u_wallScale * px)).rgb;
@@ -1416,7 +1578,7 @@ function createGLRenderer(canvas, textures, noisePixels, noiseSize) {
 
     const data = gl.createTexture();
     const layer = new Float32Array(MAX_MAT), tscale = new Float32Array(MAX_MAT), bias = new Float32Array(MAX_MAT), water = new Float32Array(MAX_MAT);
-    for (const m of MATERIALS) { layer[m.id] = layerOf[m.tex]; tscale[m.id] = 1 / m.span; bias[m.id] = m.bias || 0; water[m.id] = m.water ? 1 : 0; }
+    for (const m of MATERIALS.concat([COVER_MAT])) { layer[m.id] = layerOf[m.tex]; tscale[m.id] = 1 / m.span; bias[m.id] = m.bias || 0; water[m.id] = m.water ? 1 : 0; }
     for (const pr of [hex, sq]) {
       gl.useProgram(pr.p);
       gl.uniform1i(pr.u.u_data, 0); gl.uniform1i(pr.u.u_tex, 1); gl.uniform1i(pr.u.u_noise, 2);
@@ -1473,7 +1635,7 @@ function createGLRenderer(canvas, textures, noisePixels, noiseSize) {
       if (pr.u.u_empty) gl.uniform3fv(pr.u.u_empty, opts.colors.empty);
       gl.uniform3fv(pr.u.u_emptyLine, map.grid === 'hex' ? opts.colors.emptyLine : opts.colors.voidLine);
       if (map.grid === 'hex') gl.uniform1i(pr.u.u_flat, map.orient === 'flat' ? 1 : 0);
-      else gl.uniform3fv(pr.u.u_void, opts.colors.void);
+      else { gl.uniform3fv(pr.u.u_void, opts.colors.void); if (pr.u.u_fog) gl.uniform1f(pr.u.u_fog, opts.fog ? 1 : 0); }
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     },
   };
@@ -1512,7 +1674,7 @@ function createCanvasRenderer(canvas, textures) {
         }
       }
       for (const [id, p] of paths) {
-        const m = MAT_BY_ID.get(id);
+        const m = id === COVER ? (map.grid === 'hex' ? COVER_MAT : null) : MAT_BY_ID.get(id);
         if (!m) { ctx.fillStyle = rgb(map.grid === 'hex' ? opts.colors.empty : opts.colors.void); ctx.fill(p); continue; }
         const t = texOf[m.tex];
         if (!patterns[m.tex]) patterns[m.tex] = ctx.createPattern(t.canvas, 'repeat');
@@ -1523,10 +1685,19 @@ function createCanvasRenderer(canvas, textures) {
       }
       if (map.grid === 'square') {
         const T = 0.2 * s, wall = 'rgb(' + texOf.wall.mean.join(',') + ')';
-        const at = (c, r) => (c < 0 || r < 0 || c >= map.w || r >= map.h ? 0 : map.cells[r * map.w + c]);
+        const raw = (c, r) => (c < 0 || r < 0 || c >= map.w || r >= map.h ? 0 : map.cells[r * map.w + c]);
+        const at = (c, r) => { const v = raw(c, r); return v === COVER ? 0 : v; };
+        for (let r = rmin; r <= rmax; r++) for (let c = cmin; c <= cmax; c++) {
+          if (raw(c, r) !== DOOR) continue;
+          const x = ox + c * s, y = oy + r * s;
+          const ew = (raw(c - 1, r) > 0 ? 1 : 0) + (raw(c + 1, r) > 0 ? 1 : 0) >= (raw(c, r - 1) > 0 ? 1 : 0) + (raw(c, r + 1) > 0 ? 1 : 0);
+          ctx.fillStyle = '#6e4221'; ctx.strokeStyle = '#120b07'; ctx.lineWidth = Math.max(1, 0.03 * s);
+          if (ew) { ctx.fillRect(x + 0.395 * s, y + 0.03 * s, 0.21 * s, 0.94 * s); ctx.strokeRect(x + 0.395 * s, y + 0.03 * s, 0.21 * s, 0.94 * s); }
+          else { ctx.fillRect(x + 0.03 * s, y + 0.395 * s, 0.94 * s, 0.21 * s); ctx.strokeRect(x + 0.03 * s, y + 0.395 * s, 0.94 * s, 0.21 * s); }
+        }
         ctx.lineWidth = Math.max(1, 0.03 * s);
         for (let r = rmin - 1; r <= rmax + 1; r++) for (let c = cmin - 1; c <= cmax + 1; c++) {
-          if (at(c, r) > 0) continue;
+          if (raw(c, r) > 0) continue;
           const x = ox + c * s, y = oy + r * s;
           ctx.fillStyle = wall;
           const L = at(c - 1, r) > 0, R = at(c + 1, r) > 0, U = at(c, r - 1) > 0, D = at(c, r + 1) > 0;
@@ -1549,7 +1720,7 @@ function createCanvasRenderer(canvas, textures) {
       }
       if (opts.grid && s > 8) {
         ctx.strokeStyle = 'rgba(10,12,14,0.3)'; ctx.lineWidth = 1;
-        for (const [id, p] of paths) if (id > 0 || map.grid === 'hex') ctx.stroke(p);
+        for (const [id, p] of paths) if (id !== COVER && (id > 0 || (map.grid === 'hex' && !opts.fog))) ctx.stroke(p);
       }
     },
   };
@@ -2220,22 +2391,48 @@ function mmBestiary(m, st) {
 
 /* ---- tab switching ---- */
 const ALL_TABS = ['map', 'phb', 'dmg', 'mm', 'camp'];
-let TABS = []; /* the tabs this person may open; set when they enter */
+/* Three main tabs, each holding one or more pages. New pages (more creating tools, say) join a group here. */
+const GROUPS = [{ id: 'create', tabs: ['map'] }, { id: 'info', tabs: ['phb', 'dmg', 'mm'] }, { id: 'camp', tabs: ['camp'] }];
+const groupOf = (tab) => GROUPS.find((g) => g.tabs.includes(tab));
+const lastIn = {};
+let TABS = []; /* the pages this person may open; set when they enter */
 /* The monster pages link into the handbook's spells, conditions and languages. */
 const BOOK_DEPS = { phb: ['phb'], dmg: ['dmg'], mm: ['phb', 'mm'] };
 let activeTab = 'map';
 function showTab(tab, rebuild) {
   if (!TABS.length) return;
   if (!TABS.includes(tab)) tab = TABS[0];
+  if (activeTab === 'camp' && tab !== 'camp') campLeave();
   activeTab = tab;
-  for (const t of ALL_TABS) { $('tab-' + t).hidden = t !== tab; const b = document.querySelector('.tab[data-tab="' + t + '"]'); if (b) b.setAttribute('aria-current', t === tab ? 'page' : 'false'); }
-  $('map-controls').hidden = tab !== 'map';
+  lastIn[groupOf(tab).id] = tab;
+  for (const t of ALL_TABS) $('tab-' + t).hidden = t !== tab;
+  syncTabBar(tab);
   prefSet('tab', tab);
   if (tab === 'map') { resizeStage(); requestDraw(); return; }
-  if (tab === 'camp') { renderCampaigns(); return; }
+  if (tab === 'camp') { renderCamp(); return; }
   if (REF.built[tab] && !rebuild) return;
   if (BOOK_DEPS[tab].some((b) => !REF.loaded[b])) { openBooks(tab); return; }
   buildTab(tab);
+}
+function syncTabBar(tab) {
+  const grp = groupOf(tab);
+  for (const b of document.querySelectorAll('.tab[data-group]')) b.setAttribute('aria-current', b.dataset.group === grp.id ? 'page' : 'false');
+  const pages = grp.tabs.filter((t) => TABS.includes(t));
+  $('subtabs').hidden = grp.id === 'camp';
+  for (const b of document.querySelectorAll('.subtab[data-tab]')) { b.hidden = !pages.includes(b.dataset.tab); b.setAttribute('aria-current', b.dataset.tab === tab ? 'page' : 'false'); }
+  $('map-controls').hidden = tab !== 'map';
+}
+function showGroup(id) {
+  const g = GROUPS.find((x) => x.id === id);
+  const pages = g ? g.tabs.filter((t) => TABS.includes(t)) : [];
+  if (pages.length) showTab(pages.includes(lastIn[id]) ? lastIn[id] : pages[0]);
+}
+/* Accepts a page id or a main tab's name, as used in links such as #info or #campaigns. */
+function tabFromName(name) {
+  if (TABS.includes(name)) return name;
+  const g = GROUPS.find((x) => x.id === name || (name === 'campaigns' && x.id === 'camp') || (name === 'creating' && x.id === 'create'));
+  const pages = g ? g.tabs.filter((t) => TABS.includes(t)) : [];
+  return pages.length ? (pages.includes(lastIn[g.id]) ? lastIn[g.id] : pages[0]) : '';
 }
 function buildTab(tab) {
   try { ({ phb: buildPHB, dmg: buildDMG, mm: buildMM })[tab](); REF.built[tab] = true; }
@@ -2263,7 +2460,7 @@ async function openBooks(tab) {
   catch (e) {
     console.warn('book load failed', e && e.code);
     if (BOOK_DEPS[tab].every((b) => REF.loaded[b])) { if (activeTab === tab) buildTab(tab); return; }
-    if (e && e.code === 'not-uploaded') refMessage(tab, ME.role === 'dm' ? 'This book hasn’t been uploaded to the site yet. Upload rulebooks.json from the Campaigns tab.' : 'Your DM hasn’t added this book to the site yet.', ME.role === 'dm' ? 'Go to Campaigns' : null, () => showTab('camp'));
+    if (e && e.code === 'not-uploaded') refMessage(tab, ME.role === 'dm' ? 'This book hasn’t been uploaded to the site yet. Upload rulebooks.json from Campaigns, under Rulebooks.' : 'Your DM hasn’t added this book to the site yet.', ME.role === 'dm' ? 'Go to Rulebooks' : null, () => { CG.view = 'books'; showTab('camp'); });
     else if (e && e.code === 'permission-denied') refMessage(tab, 'Your account isn’t allowed to open this book.');
     else refMessage(tab, (e && e.friendly) || 'This book couldn’t be loaded.', 'Try again', () => showTab(tab, true));
     return;
@@ -2360,12 +2557,12 @@ function serialize(m) {
   const e = encodeCells(m.cells);
   return { v: 1, name: m.name, grid: m.grid, orient: m.orient || '', w: m.w, h: m.h, enc: e.enc, cells: e.cells, created: m.created, updated: m.updated };
 }
-function deserialize(id, b) {
+function deserialize(id, b, allowCover) {
   if (!b || (b.grid !== 'hex' && b.grid !== 'square')) throw new Error('grid');
   const w = b.w | 0, h = b.h | 0;
   if (w < 1 || h < 1 || w > MAX_DIM || h > MAX_DIM) throw new Error('dims');
   const cells = decodeCells(b.enc, b.cells, w * h);
-  for (let i = 0; i < cells.length; i++) { const mt = MAT_BY_ID.get(cells[i]); if (cells[i] && (!mt || mt.grid !== b.grid)) cells[i] = 0; }
+  for (let i = 0; i < cells.length; i++) { if (allowCover && cells[i] === COVER) continue; const mt = MAT_BY_ID.get(cells[i]); if (cells[i] && (!mt || mt.grid !== b.grid)) cells[i] = 0; }
   return { id, name: String(b.name || 'Untitled map').slice(0, 80), grid: b.grid, orient: b.grid === 'hex' ? (b.orient === 'pointy' ? 'pointy' : 'flat') : '',
     w, h, cells, created: Number(b.created) || Date.now(), updated: Number(b.updated) || Date.now(), saved: true, example: false };
 }
@@ -2398,6 +2595,7 @@ function exampleDungeon() {
     [16, 15, 3, 3, 23], [3, 17, 3, 3, 22],
   ];
   for (const [x, y, w, h, id] of rects) for (let r = y; r < y + h; r++) for (let c = x; c < x + w; c++) m.cells[r * m.w + c] = id;
+  for (const [c, r] of [[11, 5], [23, 4], [5, 9], [6, 9], [12, 16], [12, 17], [24, 16], [24, 17], [28, 13], [17, 11]]) m.cells[r * m.w + c] = DOOR;
   m.example = true;
   return m;
 }
@@ -2438,7 +2636,8 @@ function readColors() {
 }
 function matName(id, grid) { const mt = MAT_BY_ID.get(id); return mt ? mt.name : grid === 'hex' ? 'Empty' : 'Void'; }
 function meanColor(id, grid) {
-  const mt = MAT_BY_ID.get(id);
+  if (id === DOOR) return [104, 62, 30];
+  const mt = id === COVER ? (grid === 'hex' ? COVER_MAT : null) : MAT_BY_ID.get(id);
   if (mt && texByKey[mt.tex]) return texByKey[mt.tex].mean;
   const c = grid === 'hex' ? colors.empty : colors.void;
   return [c[0] * 255, c[1] * 255, c[2] * 255];
@@ -2615,8 +2814,9 @@ function resizeStage() {
 }
 
 /* ---------- editing ---------- */
-function brushCells(wx, wy) {
-  const m = S.map, n = S.brush, out = [];
+function brushCells(wx, wy) { return brushCellsOf(S.map, S.brush, wx, wy); }
+function brushCellsOf(m, n, wx, wy) {
+  const out = [];
   if (m.grid === 'square') {
     const sx = Math.round(wx - n / 2), sy = Math.round(wy - n / 2);
     for (let r = sy; r < sy + n; r++) for (let c = sx; c < sx + n; c++) if (inMap(m, c, r)) out.push([c, r]);
@@ -2715,6 +2915,7 @@ function buildPalette() {
   const m = S.map, box = $('swatches');
   box.textContent = '';
   $('pal-title').textContent = m.grid === 'hex' ? 'Terrain' : 'Floors';
+  $('pal-hint').hidden = m.grid === 'hex';
   const add = (id, name, node) => {
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'swatch'; b.dataset.id = String(id);
@@ -2729,7 +2930,14 @@ function buildPalette() {
     const cv = document.createElement('canvas');
     cv.width = cv.height = 76;
     const src = Math.min(TEX, Math.round((TEX / mt.span) * (m.grid === 'hex' ? 1.4 : 1.1)));
-    cv.getContext('2d').drawImage(texByKey[mt.tex].canvas, 0, 0, src, src, 0, 0, 76, 76);
+    const sx = cv.getContext('2d');
+    sx.drawImage(texByKey[mt.tex].canvas, 0, 0, src, src, 0, 0, 76, 76);
+    if (mt.door) {
+      sx.fillStyle = 'rgba(0,0,0,0.38)'; sx.fillRect(0, 0, 76, 76);
+      sx.fillStyle = '#6e4221'; sx.fillRect(30, 3, 16, 70);
+      sx.strokeStyle = '#120b07'; sx.lineWidth = 2; sx.strokeRect(30, 3, 16, 70);
+      sx.fillStyle = '#cca84c'; sx.beginPath(); sx.arc(38, 58, 3, 0, 7); sx.fill();
+    }
     add(mt.id, mt.name, cv);
   }
   const blank = document.createElement('i');
@@ -2898,6 +3106,7 @@ function onLibraryChanged(definitive) {
   }
   if ($('dlg-lib').open) renderLibrary();
   updateStatus();
+  campRefresh('lib');
 }
 
 /* ---------- library dialog ---------- */
@@ -3144,7 +3353,8 @@ document.addEventListener('visibilitychange', () => { if (document.hidden && S.d
 
 /* ---------- controls ---------- */
 for (const b of document.querySelectorAll('.tool[data-tool]')) b.addEventListener('click', () => selectTool(b.dataset.tool));
-for (const b of document.querySelectorAll('.tab[data-tab]')) b.addEventListener('click', () => showTab(b.dataset.tab));
+for (const b of document.querySelectorAll('.tab[data-group]')) b.addEventListener('click', () => showGroup(b.dataset.group));
+for (const b of document.querySelectorAll('.subtab[data-tab]')) b.addEventListener('click', () => showTab(b.dataset.tab));
 $('btn-undo').addEventListener('click', undo);
 $('btn-redo').addEventListener('click', redo);
 $('brush-size').addEventListener('input', (e) => setBrush(Number(e.target.value)));
@@ -3413,16 +3623,18 @@ function onCloud(st) {
 function enter(st, mode) {
   clearTimeout(gateTimer);
   entered = mode; ME.uid = st.uid; ME.name = st.name; ME.role = st.role;
-  TABS = mode === 'dm' ? ALL_TABS.slice() : ['phb'];
-  for (const b of document.querySelectorAll('.tab[data-tab]')) b.hidden = !TABS.includes(b.dataset.tab);
+  TABS = mode === 'dm' ? ALL_TABS.slice() : ['phb', 'camp'];
+  for (const b of document.querySelectorAll('.tab[data-group]')) b.hidden = !GROUPS.find((g) => g.id === b.dataset.group).tabs.some((t) => TABS.includes(t));
   $('gate').hidden = true; $('app').hidden = false;
   $('btn-account').hidden = false;
+  initCommon();
   renderAccount();
-  Cloud.watchCampaigns((list) => { CAMP.camps = list; renderAccount(); renderCampaigns(); }, (msg) => { CAMP.err = msg; renderCampaigns(); });
+  Cloud.watchCampaigns((list) => { CAMP.camps = list; renderAccount(); campRefresh('camps'); }, (msg) => { CAMP.err = msg; campRefresh('err'); });
   if (mode === 'dm') {
-    Cloud.watchUsers((list) => { CAMP.users = list; renderCampaigns(); }, (msg) => { CAMP.err = msg; renderCampaigns(); });
+    Cloud.watchUsers((list) => { CAMP.users = list; campRefresh('users'); }, (msg) => { CAMP.err = msg; campRefresh('err'); });
+    syncTabBar('map');
     boot({});
-  } else showTab('phb');
+  } else showTab(tabFromName((location.hash || '').replace('#', '')) || prefGet('tab', 'camp'));
 }
 
 /* ---- account dialog ---- */
@@ -3433,7 +3645,7 @@ function renderAccount() {
   const box = $('acct-camps');
   box.textContent = '';
   if (!CAMP.camps) { box.append(h('p', { class: 'hint', text: 'Loading…' })); return; }
-  if (!CAMP.camps.length) { box.append(h('p', { class: 'hint', text: ME.role === 'dm' ? 'None yet. Start one in the Campaigns tab.' : 'None yet.' })); return; }
+  if (!CAMP.camps.length) { box.append(h('p', { class: 'hint', text: ME.role === 'dm' ? 'None yet. Start one under Campaigns.' : 'None yet.' })); return; }
   for (const c of CAMP.camps) {
     const names = c.members.map((m) => m.name);
     box.append(h('div', { class: 'acct-camp' }, h('strong', { text: c.name }),
@@ -3453,74 +3665,264 @@ $('acct-pass').addEventListener('submit', async (e) => {
   b.disabled = false;
 });
 
-/* ---- campaigns tab (DMs) ---- */
-function campError(text) { const el = $('camp-err'); el.textContent = text || ''; el.hidden = !text; }
+/* ============================================================
+   Campaigns: everything to do with one campaign.
+   A DM sees the campaign's players and their character sheets,
+   its maps (with the cover layer), its locations and its quests.
+   A player sees their own character sheet and the maps the DM
+   has put on the table.
+
+   Where it is kept (the server's rules decide who may read each):
+     campaigns/{id}/characters/{player}  the player writes, the DM reads
+     campaigns/{id}/quests, /locations   the DM only
+     campaigns/{id}/maps/{map}           the DM only: the whole map and what is uncovered
+     campaigns/{id}/shared/{map}         what players are sent: the map with every
+                                         covered part already removed
+   ============================================================ */
+
+/* ---- data access ---- */
+function fsx() {
+  const f = window.Cloud && Cloud._fs ? Cloud._fs() : null;
+  return f && f.db && f.onSnapshot && f.writeBatch ? f : null;
+}
+function dbErrText(e) {
+  const code = e && e.code;
+  if (code === 'permission-denied') return 'The server refused that. The campaign rules haven’t been published in Firebase yet (see the note that came with this version), or you are no longer part of this campaign.';
+  if (code === 'unavailable') return 'Can’t reach the server. Check your connection.';
+  return (e && e.friendly) || 'Something went wrong (' + (code || (e && e.message) || 'unknown') + ').';
+}
+const DB = {
+  ok() { return !!fsx(); },
+  watchCol(path, cb, onErr) {
+    const f = fsx();
+    return f.onSnapshot(f.collection(f.db, ...path), (s) => cb(s.docs.map((d) => Object.assign({ id: d.id }, d.data()))), onErr);
+  },
+  watchDoc(path, cb, onErr) {
+    const f = fsx();
+    return f.onSnapshot(f.doc(f.db, ...path), (s) => cb(s.exists() ? s.data() : null), onErr);
+  },
+  set(path, data) { const f = fsx(); return f.setDoc(f.doc(f.db, ...path), data); },
+  /* ops: {path, set} | {path, update} | {path, del: true}; all of them happen, or none do. */
+  batch(ops) {
+    const f = fsx(), b = f.writeBatch(f.db);
+    for (const o of ops) { const r = f.doc(f.db, ...o.path); if (o.set) b.set(r, o.set); else if (o.update) b.update(r, o.update); else b.delete(r); }
+    return b.commit();
+  },
+  /* The ids in a collection, as the server has them now. */
+  listOnce(path) {
+    const f = fsx();
+    return new Promise((res, rej) => {
+      let un = null, done = false;
+      const end = (fn, v) => { if (done) return; done = true; clearTimeout(timer); if (un) un(); fn(v); };
+      const timer = setTimeout(() => { const e = new Error('timeout'); e.code = 'unavailable'; end(rej, e); }, 12000);
+      un = f.onSnapshot(f.collection(f.db, ...path), { includeMetadataChanges: true }, (s) => { if (!s.metadata.fromCache) end(res, s.docs.map((d) => d.id)); }, (e) => end(rej, e));
+      if (done) un();
+    });
+  },
+};
+function newId(prefix) { return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+/* ---- state ---- */
+const CG = { built: false, nav: null, main: null, view: '', cid: '', data: null, unsubs: [], sec: { dm: 'players', pl: 'sheet' }, openMap: '', openChar: '', qFilter: 'all', armed: '', busy: false, err: '', mainKey: '', texAsked: false };
+function campList() { return CAMP.camps || []; }
+function curCamp() { return campList().find((c) => c.id === CG.cid) || null; }
+function campIsDm(c) { return !!c && c.dmUid === ME.uid; }
+function campSec(dm) { return dm ? CG.sec.dm : CG.sec.pl; }
+
+/* ---- listening to one campaign ---- */
+function campStop() {
+  sheetFlush(); tableFlush();
+  for (const u of CG.unsubs) { try { u(); } catch (e) { /* already stopped */ } }
+  CG.unsubs = []; CG.data = null; CG.cid = '';
+  CG.openMap = ''; CG.openChar = '';
+  sheetReset();
+}
+function campStart(c) {
+  const dm = campIsDm(c);
+  if (CG.data && CG.cid === c.id && CG.data.dm === dm) return;
+  campStop();
+  CG.cid = c.id;
+  prefSet('camp', c.id);
+  const D = CG.data = { dm, chars: null, quests: null, locs: null, maps: null, shared: null, err: '' };
+  if (!DB.ok()) { D.err = 'This part of the site needs the newer cloud.js file. Upload it next to index.html, then reload.'; return; }
+  const base = ['campaigns', c.id];
+  const onErr = (e) => { console.warn('campaign data', e && e.code, e); if (CG.data !== D) return; D.err = dbErrText(e); campRefresh('err'); };
+  const col = (name, key, kind) => CG.unsubs.push(DB.watchCol(base.concat(name), (docs) => { if (CG.data !== D) return; D[key] = docs; campRefresh(kind); }, onErr));
+  try {
+    if (dm) { col('characters', 'chars', 'chars'); col('maps', 'maps', 'maps'); col('locations', 'locs', 'locs'); col('quests', 'quests', 'quests'); }
+    else {
+      col('shared', 'shared', 'shared');
+      CG.unsubs.push(DB.watchDoc(base.concat('characters', ME.uid), (data) => { if (CG.data !== D) return; sheetRemote(c.id, data); }, onErr));
+    }
+  } catch (e) { onErr(e); }
+}
+
+/* ---- drawing the tab ---- */
+function campLeave() { sheetFlush(); tableFlush(); }
+function renderCamp() {
+  if (activeTab !== 'camp' || !entered) return;
+  if (!CG.built) {
+    CG.nav = h('nav', { class: 'ref-nav', 'aria-label': 'Campaigns' });
+    CG.main = h('div', { class: 'ref-main', tabindex: '-1' });
+    const root = $('tab-camp');
+    root.textContent = ''; root.append(CG.nav, CG.main);
+    CG.built = true;
+  }
+  campPickView();
+  drawCampNav(); drawCampMain();
+}
+function campPickView() {
+  const camps = CAMP.camps;
+  if (CG.view === 'camp' && camps && !camps.some((c) => c.id === CG.cid)) { campStop(); CG.view = ''; }
+  if (ME.role !== 'dm' && CG.view !== 'camp') CG.view = '';
+  if (CG.view === 'camp') { const c = curCamp(); if (c) campStart(c); return; }
+  if (CG.view || !camps) return;
+  const c = camps.find((x) => x.id === prefGet('camp', '')) || camps[0];
+  if (c) { CG.view = 'camp'; campStart(c); }
+  else if (ME.role === 'dm') CG.view = 'new';
+}
+function campGo(view, cid) {
+  CG.armed = ''; CG.err = '';
+  if (view === 'camp') {
+    const c = campList().find((x) => x.id === cid);
+    if (!c) return;
+    CG.view = 'camp';
+    campStart(c);
+  } else { campStop(); CG.view = view; }
+  renderCamp();
+  CG.main.scrollTop = 0;
+}
+/* Something changed on the server. Redraw only what shows it, and never pull a form out from under someone typing. */
+function campRefresh(kind) {
+  if (activeTab !== 'camp' || !CG.built) return;
+  const before = CG.view + ':' + CG.cid;
+  campPickView();
+  drawCampNav();
+  if (before !== CG.view + ':' + CG.cid || kind === 'err') { drawCampMain(); return; }
+  if (CG.view === 'camp') {
+    const c = curCamp(), D = CG.data;
+    if (!c || !D) { drawCampMain(); return; }
+    const sec = campSec(D.dm);
+    if (sec === 'maps' && CG.openMap) { if (kind === 'maps' || kind === 'shared' || kind === 'lib') tableSync(); return; }
+    if (!D.dm && sec === 'sheet') {
+      if (kind === 'sheet') sheetApplyRemote();
+      /* keep the count on the Maps button right without redrawing the sheet */
+      const b = [...CG.main.querySelectorAll('.chips .chip-btn')].find((x) => /^Maps/.test(x.textContent));
+      if (b && D.shared) b.textContent = 'Maps ' + D.shared.length;
+      return;
+    }
+    const deps = D.dm ? { players: ['camps', 'chars', 'users'], maps: ['maps', 'lib', 'tex'], locations: ['locs', 'maps'], quests: ['quests', 'locs'] }[sec] : ['shared', 'camps'];
+    if (deps.includes(kind)) drawCampMain();
+  } else if (CG.view === 'people') { if (kind === 'users' || kind === 'camps') drawCampMain(); }
+  else if (CG.view === 'books') { if (kind === 'books') drawCampMain(); }
+  else drawCampMain();
+}
+function navBtn(label, current, fn, small, title) {
+  return h('button', { type: 'button', class: 'nav-b', 'aria-current': current ? 'page' : null, title: title || null, onclick: fn }, h('span', { text: label }), small !== undefined ? h('small', { text: small }) : null);
+}
+function drawCampNav() {
+  const nav = CG.nav;
+  nav.textContent = '';
+  nav.append(h('div', { class: 'nav-h', text: ME.role === 'dm' ? 'Campaigns' : 'Your campaigns' }));
+  if (!CAMP.camps) nav.append(h('div', { class: 'nav-h muted', text: 'Loading…' }));
+  for (const c of campList()) {
+    const mine = campIsDm(c);
+    nav.append(navBtn(c.name, CG.view === 'camp' && CG.cid === c.id, () => campGo('camp', c.id), mine ? String(c.members.length) : (ME.role === 'dm' ? 'player' : undefined), mine ? count(c.members.length, 'player') : 'Run by ' + (c.dmName || 'your DM')));
+  }
+  if (ME.role === 'dm') {
+    nav.append(navBtn('+ New campaign', CG.view === 'new', () => campGo('new')));
+    nav.append(h('div', { class: 'nav-h', text: 'This site' }));
+    nav.append(navBtn('People', CG.view === 'people', () => campGo('people'), CAMP.users ? String(CAMP.users.length) : undefined));
+    nav.append(navBtn('Rulebooks', CG.view === 'books', () => campGo('books')));
+  }
+}
+function campDrawSame() { drawCampMain(); }
+function drawCampMain() {
+  const main = CG.main;
+  const D = CG.data, secName = CG.view === 'camp' && D ? campSec(D.dm) : '';
+  const key = [CG.view, CG.cid, secName, CG.openMap, CG.openChar].join(':');
+  const keep = key === CG.mainKey ? main.scrollTop : 0;
+  CG.mainKey = key;
+  main.textContent = '';
+  main.classList.remove('table-open');
+  sheetDetach();
+  if (CAMP.err) main.append(h('p', { class: 'banner', role: 'alert', text: CAMP.err }));
+  if (CG.err) main.append(h('p', { class: 'banner', role: 'alert', text: CG.err }));
+  if (CG.view === 'camp') {
+    const c = curCamp();
+    if (c && D) (D.dm ? viewCampDm : viewCampPlayer)(main, c, D);
+    else main.append(h('p', { class: 'none', text: 'Loading…' }));
+  }
+  else if (CG.view === 'new') viewNew(main);
+  else if (CG.view === 'people') viewPeople(main);
+  else if (CG.view === 'books') viewBooks(main);
+  else if (!CAMP.camps) main.append(h('p', { class: 'none', text: 'Loading…' }));
+  else main.append(h('p', { class: 'none', text: 'You aren’t in a campaign yet. Your DM adds you, and it appears here by itself.' }));
+  main.scrollTop = keep;
+}
 async function campDo(fn) {
-  if (CAMP.busy) return;
-  CAMP.busy = true; campError('');
-  try { await fn(); } catch (e) { campError(errText(e)); }
-  CAMP.busy = false; renderCampaigns();
+  if (CG.busy) return;
+  CG.busy = true; CG.err = '';
+  try { await fn(); } catch (e) { console.warn(e); CG.err = e && e.code && !e.friendly ? dbErrText(e) : errText(e); }
+  CG.busy = false;
+  if (activeTab === 'camp' && CG.built) { campPickView(); drawCampNav(); drawCampMain(); }
+}
+/* A write whose result is already on screen: only a failure needs reporting. */
+function campWrite(promise) {
+  Promise.resolve(promise).catch((e) => { console.warn(e); CG.err = dbErrText(e); if (activeTab === 'camp' && CG.built && !(CG.data && !CG.data.dm && campSec(false) === 'sheet')) drawCampMain(); });
 }
 function armBtn(key, label, armedLabel, cls, fn) {
-  if (CAMP.armed === key) return [
-    h('button', { type: 'button', class: 'btn small danger', text: armedLabel, onclick: () => { CAMP.armed = ''; campDo(fn); } }),
-    h('button', { type: 'button', class: 'btn small', text: 'Cancel', onclick: () => { CAMP.armed = ''; renderCampaigns(); } }),
+  if (CG.armed === key) return [
+    h('button', { type: 'button', class: 'btn small danger', text: armedLabel, onclick: () => { CG.armed = ''; campDo(fn); } }),
+    h('button', { type: 'button', class: 'btn small', text: 'Cancel', onclick: () => { CG.armed = ''; drawCampMain(); } }),
   ];
-  return [h('button', { type: 'button', class: 'btn small ' + (cls || ''), text: label, onclick: () => { CAMP.armed = key; renderCampaigns(); } })];
+  return [h('button', { type: 'button', class: 'btn small ' + (cls || ''), text: label, onclick: () => { CG.armed = key; drawCampMain(); } })];
 }
-function renderCampaigns() {
-  if (ME.role !== 'dm' || activeTab !== 'camp') return;
-  if (CAMP.err) campError(CAMP.err);
-  const list = $('camp-list');
-  list.textContent = '';
-  const users = CAMP.users || [];
-  if (!CAMP.camps) list.append(h('p', { class: 'none', text: 'Loading…' }));
-  else if (!CAMP.camps.length) list.append(h('p', { class: 'none', text: 'No campaigns yet. Name one above to start it, then add the players who have signed up.' }));
-  else for (const c of CAMP.camps) {
-    const mine = c.dmUid === ME.uid;
-    const card = h('div', { class: 'camp-card' });
-    card.append(h('div', { class: 'camp-head' }, h('h3', { text: c.name }),
-      h('span', { class: 'sub', text: mine ? (c.members.length === 1 ? '1 player' : c.members.length + ' players') : 'Run by ' + (c.dmName || 'another DM') + '. You are a player in it.' }),
-      h('span', { class: 'grow' }), mine ? armBtn('del:' + c.id, 'Delete campaign', 'Delete forever', '', () => Cloud.deleteCampaign(c)) : null));
-    card.append(h('span', { class: 'cap', text: 'In this campaign' }));
-    card.append(c.members.length
-      ? h('div', { class: 'chips' }, c.members.map((m) => h('span', { class: 'pill' }, m.name, mine ? h('button', { type: 'button', 'aria-label': 'Remove ' + m.name + ' from ' + c.name, title: 'Remove from this campaign', text: '×', onclick: () => campDo(() => Cloud.removeMember(c.id, m.uid)) }) : h('span', { style: 'width:7px' }))))
-      : h('p', { class: 'sub', text: 'No players yet.' }));
-    if (mine) {
-      const others = users.filter((u) => u.uid !== ME.uid && !c.memberUids.includes(u.uid));
-      card.append(h('span', { class: 'cap', text: 'Add players' }));
-      card.append(others.length
-        ? h('div', { class: 'chips' }, others.map((u) => h('button', { type: 'button', class: 'chip-btn', text: '+ ' + u.name, onclick: () => campDo(() => Cloud.addMember(c.id, u)) })))
-        : h('p', { class: 'sub', text: !CAMP.users ? 'Loading…' : users.length > 1 ? 'Everyone who has signed up is already in.' : 'Nobody else has created an account yet. Send your players the link to this site.' }));
-    }
-    list.append(card);
-  }
+function secChips(dm, items) {
+  return chips(items, campSec(dm), (v) => {
+    sheetFlush(); tableFlush();
+    if (dm) CG.sec.dm = v; else CG.sec.pl = v;
+    CG.armed = ''; CG.err = ''; CG.openMap = ''; CG.openChar = '';
+    drawCampMain(); CG.main.scrollTop = 0;
+  }, 'Parts of this campaign');
+}
 
-  const people = $('people-list');
-  people.textContent = '';
-  if (!CAMP.users) people.append(h('p', { class: 'none', text: 'Loading…' }));
-  else {
-    const st = Cloud.getState();
-    const box = h('div', { class: 'people' });
-    for (const u of users) {
-      const self = u.uid === ME.uid, owner = st.ownerUid === u.uid;
-      const n = u.campaignIds.length;
-      box.append(h('div', { class: 'person' }, h('span', { class: 'nm', text: u.name + (self ? ' (you)' : '') }),
-        h('span', { class: 'badge' + (u.role === 'dm' ? ' dm' : ''), text: owner ? 'DM · owner' : u.role === 'dm' ? 'DM' : 'Player' }),
-        h('span', { class: 'sub', text: (n === 0 ? 'in no campaign' : n === 1 ? 'in 1 campaign' : 'in ' + n + ' campaigns') + (u.created ? ' · joined ' + fmtDate(u.created) : '') }),
-        h('span', { class: 'grow' }),
-        self || owner ? null : u.role === 'dm'
-          ? armBtn('role:' + u.uid, 'Make player', 'Remove DM access', '', () => Cloud.setRole(u.uid, 'player'))
-          : armBtn('role:' + u.uid, 'Make DM', 'Give full access', '', () => Cloud.setRole(u.uid, 'dm'))));
-    }
-    people.append(box);
-  }
-  renderBooks();
+/* ---- starting, people, rulebooks ---- */
+function viewNew(main) {
+  const input = h('input', { id: 'camp-name', class: 'tin', type: 'text', maxlength: '80', autocomplete: 'off', placeholder: 'Name of the new campaign', 'aria-label': 'Name of the new campaign' });
+  const form = h('form', { class: 'camp-form', novalidate: true }, input, h('button', { class: 'btn primary', type: 'submit', text: 'Start campaign' }));
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = input.value;
+    campDo(async () => { const id = await Cloud.createCampaign(name); campStop(); CG.view = ''; prefSet('camp', id); CG.sec.dm = 'players'; });
+  });
+  main.append(h('h2', { text: 'New campaign' }),
+    h('p', { class: 'lead', text: 'A campaign keeps its own players, maps, locations and quests. Name it, then add the players who have signed up.' }), form);
+  if (CAMP.camps && !CAMP.camps.length) main.append(h('p', { class: 'sub', text: 'You have no campaigns yet.' }));
 }
-function renderBooks() {
-  const box = $('book-status');
-  box.textContent = '';
-  if (!CAMP.booksAsked) { CAMP.booksAsked = true; Cloud.bookStatus().then((s) => { CAMP.books = s; renderBooks(); }); }
+function viewPeople(main) {
+  main.append(h('h2', { text: 'People' }),
+    h('p', { class: 'sub', text: 'Everyone who has created an account. Players get in once they are in a campaign: they see the Player’s Handbook, their character sheet, and the maps their DM shares. A DM sees everything you do and has their own maps and campaigns.' }));
+  if (!CAMP.users) { main.append(h('p', { class: 'none', text: 'Loading…' })); return; }
+  const st = Cloud.getState(), box = h('div', { class: 'people' });
+  for (const u of CAMP.users) {
+    const self = u.uid === ME.uid, owner = st.ownerUid === u.uid, n = u.campaignIds.length;
+    box.append(h('div', { class: 'person' }, h('span', { class: 'nm', text: u.name + (self ? ' (you)' : '') }),
+      h('span', { class: 'badge' + (u.role === 'dm' ? ' dm' : ''), text: owner ? 'DM · owner' : u.role === 'dm' ? 'DM' : 'Player' }),
+      h('span', { class: 'sub', text: (n === 0 ? 'in no campaign' : n === 1 ? 'in 1 campaign' : 'in ' + n + ' campaigns') + (u.created ? ' · joined ' + fmtDate(u.created) : '') }),
+      h('span', { class: 'grow' }),
+      self || owner ? null : u.role === 'dm'
+        ? armBtn('role:' + u.uid, 'Make player', 'Remove DM access', '', () => Cloud.setRole(u.uid, 'player'))
+        : armBtn('role:' + u.uid, 'Make DM', 'Give full access', '', () => Cloud.setRole(u.uid, 'dm'))));
+  }
+  main.append(box);
+}
+let bookNote = '', bookBusy = false;
+function viewBooks(main) {
+  main.append(h('h2', { text: 'Rulebooks' }),
+    h('p', { class: 'sub' }, 'The three books under Info are kept on the server so that it decides who may read each one. Upload the ', h('code', { text: 'rulebooks.json' }), ' file once. Uploading again replaces them.'));
+  if (!CAMP.booksAsked) { CAMP.booksAsked = true; Cloud.bookStatus().then((s) => { CAMP.books = s; campRefresh('books'); }); }
+  const box = h('div', { class: 'people' });
   for (const b of ['phb', 'dmg', 'mm']) {
     const s = CAMP.books && CAMP.books[b];
     box.append(h('div', { class: 'person' }, h('span', { class: 'nm', text: BOOK_LABEL[b] }),
@@ -3528,32 +3930,1046 @@ function renderBooks() {
       h('span', { class: 'sub', text: s && s.uploaded && s.updated ? fmtDate(s.updated) : s && s.error ? s.error : '' }),
       h('span', { class: 'grow' }), h('span', { class: 'sub', text: b === 'phb' ? 'DMs, and players in a campaign' : 'DMs only' })));
   }
+  main.append(box, h('div', { class: 'camp-form' }, h('button', { id: 'book-pick', class: 'btn', type: 'button', text: 'Upload rulebooks.json…', disabled: bookBusy, onclick: () => { $('book-file').value = ''; $('book-file').click(); } })),
+    h('p', { id: 'book-msg', class: 'hint', role: 'status', text: bookNote, hidden: !bookNote }));
 }
-function bookMsg(text) { const el = $('book-msg'); el.textContent = text || ''; el.hidden = !text; }
-$('camp-new').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const name = $('camp-name').value;
-  campDo(async () => { await Cloud.createCampaign(name); $('camp-name').value = ''; });
-});
-$('book-pick').addEventListener('click', () => { $('book-file').value = ''; $('book-file').click(); });
+function bookMsg(text) { bookNote = text || ''; const el = $('book-msg'); if (el) { el.textContent = bookNote; el.hidden = !bookNote; } }
 $('book-file').addEventListener('change', async () => {
   const f = $('book-file').files && $('book-file').files[0];
-  if (!f) return;
-  const b = $('book-pick');
+  if (!f || bookBusy) return;
   let data;
   try { data = JSON.parse(await f.text()); } catch (e) { bookMsg('That file couldn’t be read as rulebooks.json.'); return; }
-  b.disabled = true; bookMsg('Starting…');
+  bookBusy = true; bookMsg('Starting…');
+  const pick = $('book-pick'); if (pick) pick.disabled = true;
   try {
     await Cloud.uploadBooks(data, (t) => { if (t) bookMsg('Uploading. ' + t + '. Keep this page open.'); });
     REF.data = { notes: {} }; REF.cache = {}; REF.built = {}; REF.loaded = {}; REF.bookP = {};
     bookMsg('All three books uploaded and checked.');
   } catch (e) { bookMsg('Upload stopped: ' + errText(e)); }
-  b.disabled = false;
-  CAMP.booksAsked = false; renderBooks();
+  bookBusy = false;
+  CAMP.booksAsked = false; campRefresh('books');
 });
+
+/* ---- a campaign, as its DM ---- */
+function viewCampDm(main, c, D) {
+  const sec = campSec(true);
+  if (sec === 'maps' && CG.openMap && !D.err) { main.classList.add('table-open'); tableShow(main); return; }
+  main.append(h('div', { class: 'camp-head' }, h('h2', { text: c.name }),
+    h('span', { class: 'sub', text: 'You run this campaign.' }), h('span', { class: 'grow' }),
+    armBtn('del:' + c.id, 'Delete campaign', 'Delete it and everything in it', '', () => campDelete(c))));
+  const n = (list) => (list ? ' ' + list.length : '');
+  main.append(secChips(true, [{ value: 'players', label: 'Players ' + c.members.length }, { value: 'maps', label: 'Maps' + n(D.maps) }, { value: 'locations', label: 'Locations' + n(D.locs) }, { value: 'quests', label: 'Quests' + n(D.quests) }]));
+  if (D.err) { main.append(h('p', { class: 'banner', role: 'alert', text: D.err })); if (sec !== 'players') return; }
+  ({ players: dmPlayers, maps: dmMaps, locations: dmLocations, quests: dmQuests })[sec](main, c, D);
+}
+async function campDelete(c) {
+  if (CG.cid === c.id) { campStop(); CG.view = ''; }
+  if (DB.ok()) {
+    for (const sub of ['shared', 'maps', 'quests', 'locations', 'characters']) {
+      let ids = [];
+      try { ids = await DB.listOnce(['campaigns', c.id, sub]); }
+      catch (e) { if (e && e.code === 'permission-denied') continue; throw e; }
+      for (let i = 0; i < ids.length; i += 200) await DB.batch(ids.slice(i, i + 200).map((id) => ({ path: ['campaigns', c.id, sub, id], del: true })));
+    }
+  }
+  await Cloud.deleteCampaign(c);
+}
+
+/* players */
+function charLine(d) {
+  const lv = clampInt(d.level, 1, 20, 0);
+  return [lv ? 'Level ' + lv : '', d.species, d.cls + (d.subclass ? ' (' + d.subclass + ')' : '')].filter((x) => x && x.trim()).join(' ');
+}
+function statPill(label, value) { return value === '' || value === null || value === undefined ? null : h('span', { class: 'statp' }, h('b', { text: label }), String(value)); }
+function dmPlayers(main, c, D) {
+  const users = CAMP.users || [];
+  if (CG.openChar) {
+    const raw = (D.chars || []).find((x) => x.id === CG.openChar), mem = c.members.find((m) => m.uid === CG.openChar);
+    main.append(h('div', { class: 'camp-head' }, h('button', { type: 'button', class: 'btn small', text: '← All players', onclick: () => { CG.openChar = ''; drawCampMain(); CG.main.scrollTop = 0; } }),
+      h('span', { class: 'sub', text: (mem ? mem.name : 'A player') + '’s sheet. It updates here as they change it.' })));
+    if (raw) main.append(sheetForm(normSheet(raw), true, mem ? mem.name : raw.playerName || ''));
+    else main.append(h('p', { class: 'none', text: 'This player hasn’t started their character sheet yet.' }));
+    return;
+  }
+  main.append(sect('In this campaign', 'Each player fills in their own character sheet under Campaigns. What they enter shows up here.'));
+  if (!c.members.length) main.append(h('p', { class: 'none', text: 'No players yet. Add the people who have signed up, below.' }));
+  else {
+    const list = h('div', { class: 'rowcards' });
+    for (const m of c.members) {
+      const raw = (D.chars || []).find((x) => x.id === m.uid), d = raw ? normSheet(raw) : null;
+      const body = h('div', { class: 'body' }, h('h4', { text: d && d.name ? d.name : m.name }),
+        h('p', { class: 'sub', text: d ? ['Played by ' + m.name, charLine(d)].filter(Boolean).join(' · ') : !D.chars && !D.err ? 'Loading…' : 'No character sheet yet.' }));
+      if (d) {
+        const pp = sheetCalc(d, 'passive');
+        body.append(h('div', { class: 'stats' }, statPill('HP', d.hp || d.hpMax ? (d.hp || '–') + ' / ' + (d.hpMax || '–') : ''), statPill('AC', d.ac), statPill('Speed', d.speed),
+          statPill('Init', d.initiative || sheetCalc(d, 'mod.dex')), statPill('Passive perception', pp), statPill('Background', d.background), statPill('Alignment', d.alignment)));
+      }
+      list.append(h('div', { class: 'rcard' }, body, h('div', { class: 'acts' },
+        d ? h('button', { type: 'button', class: 'btn small primary', text: 'Open sheet', onclick: () => { CG.openChar = m.uid; CG.armed = ''; drawCampMain(); CG.main.scrollTop = 0; } }) : null,
+        armBtn('rm:' + m.uid, 'Remove', 'Remove from campaign', '', () => Cloud.removeMember(c.id, m.uid)))));
+    }
+    main.append(list);
+  }
+  const others = users.filter((u) => u.uid !== ME.uid && !c.memberUids.includes(u.uid));
+  main.append(sect('Add players'));
+  main.append(others.length
+    ? h('div', { class: 'chips' }, others.map((u) => h('button', { type: 'button', class: 'chip-btn', text: '+ ' + u.name, onclick: () => campDo(() => Cloud.addMember(c.id, u)) })))
+    : h('p', { class: 'sub', text: !CAMP.users ? 'Loading…' : users.length > 1 ? 'Everyone who has signed up is already in.' : 'Nobody else has created an account yet. Send your players the link to this site.' }));
+}
+
+/* maps */
+function fogBody(fog) { const e = encodeCells(fog); return { fogEnc: e.enc, fog: e.cells }; }
+function decodeFog(doc, n) {
+  try { const f = decodeCells(doc.fogEnc, doc.fog, n); for (let i = 0; i < n; i++) f[i] = f[i] ? 1 : 0; return f; }
+  catch (e) { return new Uint8Array(n); }
+}
+/* What players are sent: the map with everything still covered taken out.
+   World maps: a covered hex becomes parchment.
+   Interiors: a covered square becomes nothing at all, except that a door beside an
+   uncovered square is shown, and a covered square beside something shown becomes
+   darkness, so players can tell the way goes on without seeing where to. */
+function maskCells(m, fog) {
+  const w = m.w, hh = m.h, n = w * hh, cells = m.cells, out = new Uint8Array(n);
+  if (m.grid === 'hex') { for (let i = 0; i < n; i++) out[i] = fog[i] ? cells[i] : COVER; return out; }
+  const seen = new Uint8Array(n);
+  const near = (i, test) => { const c = i % w, r = (i - c) / w; return (c > 0 && test(i - 1)) || (c < w - 1 && test(i + 1)) || (r > 0 && test(i - w)) || (r < hh - 1 && test(i + w)); };
+  for (let i = 0; i < n; i++) if (fog[i] && cells[i]) seen[i] = 1;
+  for (let i = 0; i < n; i++) if (cells[i] === DOOR && !seen[i] && near(i, (j) => seen[j] === 1 && cells[j] !== DOOR)) seen[i] = 2;
+  for (let i = 0; i < n; i++) {
+    if (seen[i]) out[i] = cells[i];
+    else if (cells[i] && near(i, (j) => seen[j] > 0)) out[i] = COVER;
+  }
+  return out;
+}
+function sharedBody(m, name, masked, now) {
+  const e = encodeCells(masked);
+  return { v: 1, name: String(name || 'Untitled map').slice(0, 80), grid: m.grid, orient: m.orient || '', w: m.w, h: m.h, enc: e.enc, cells: e.cells, updated: now };
+}
+function uncoveredPct(m, fog) {
+  let all = 0, open = 0;
+  for (let i = 0; i < fog.length; i++) { if (m.grid === 'square' && !m.cells[i]) continue; all++; if (fog[i]) open++; }
+  return all ? Math.round((open / all) * 100) : 0;
+}
+function mapPath(id, shared) { return ['campaigns', CG.cid, shared ? 'shared' : 'maps', id]; }
+function campAddMap(lib) {
+  let m;
+  try { m = deserialize(lib.id, lib); } catch (e) { CG.err = 'That map’s data is damaged and can’t be added.'; drawCampMain(); return; }
+  const now = Date.now();
+  const body = Object.assign(serialize(m), { srcUpdated: Number(lib.updated) || 0, shared: false, added: now, updated: now }, fogBody(new Uint8Array(m.w * m.h)));
+  campWrite(DB.set(mapPath(lib.id), body));
+}
+function campShareMap(doc, on) {
+  const now = Date.now();
+  if (!on) { campWrite(DB.batch([{ path: mapPath(doc.id), update: { shared: false, updated: now } }, { path: mapPath(doc.id, true), del: true }])); return; }
+  let m;
+  try { m = deserialize(doc.id, doc); } catch (e) { CG.err = 'That map’s data is damaged and can’t be shared.'; drawCampMain(); return; }
+  const fog = decodeFog(doc, m.w * m.h);
+  campWrite(DB.batch([{ path: mapPath(doc.id), update: { shared: true, updated: now } }, { path: mapPath(doc.id, true), set: sharedBody(m, m.name, maskCells(m, fog), now) }]));
+}
+function dmMaps(main, c, D) {
+  if (!textures && !CG.texAsked) { CG.texAsked = true; ensureTextures().then(() => campRefresh('tex')); }
+  main.append(sect('Maps in this campaign', 'Every map starts fully covered. Open one to uncover parts of it; share it and your players see only what you have uncovered.'));
+  if (!D.maps) main.append(h('p', { class: 'none', text: 'Loading…' }));
+  else if (!D.maps.length) main.append(h('p', { class: 'none', text: 'No maps here yet. Add one of the maps you have built, below.' }));
+  else {
+    const list = h('div', { class: 'rowcards' });
+    for (const doc of D.maps.slice().sort((a, b) => String(a.name).localeCompare(String(b.name)))) {
+      const cv = h('canvas', { class: 'thumb' });
+      let m = null;
+      try { m = deserialize(doc.id, doc); drawThumbInto(cv, m, 96, 64); } catch (e) { m = null; }
+      const pct = m ? uncoveredPct(m, decodeFog(doc, m.w * m.h)) : 0;
+      list.append(h('div', { class: 'rcard' }, cv,
+        h('div', { class: 'body' }, h('h4', { text: String(doc.name || 'Untitled map') }),
+          h('p', { class: 'sub', text: m ? (m.grid === 'hex' ? 'World map, parchment cover' : 'Interior, black cover') + ' · ' + m.w + ' × ' + m.h + ' · ' + pct + '% uncovered' : 'This map’s data is damaged.' }),
+          h('div', { class: 'stats' }, h('span', { class: 'badge' + (doc.shared ? ' dm' : ''), text: doc.shared ? 'Players can see it' : 'Hidden from players' }))),
+        h('div', { class: 'acts' },
+          m ? h('button', { type: 'button', class: 'btn small primary', text: 'Open', onclick: () => { CG.openMap = doc.id; CG.armed = ''; drawCampMain(); } }) : null,
+          m ? h('button', { type: 'button', class: 'btn small', text: doc.shared ? 'Stop sharing' : 'Share with players', onclick: () => campShareMap(doc, !doc.shared) }) : null,
+          armBtn('rmmap:' + doc.id, 'Remove', 'Remove from campaign', '', () => { campWrite(DB.batch([{ path: mapPath(doc.id), del: true }, { path: mapPath(doc.id, true), del: true }])); }))));
+    }
+    main.append(list);
+  }
+  main.append(sect('Add a map', 'From the maps you have saved under Creating. The campaign keeps its own copy and picks up your later edits when you open it here.'));
+  const have = new Set((D.maps || []).map((m) => m.id));
+  const lib = store.docs.filter((d) => !have.has(d.id)).sort((a, b) => String(a.name).localeCompare(String(b.name)));
+  if (!D.maps || !store.listed) main.append(h('p', { class: 'sub', text: 'Loading…' }));
+  else if (lib.length) main.append(h('div', { class: 'chips' }, lib.map((d) => h('button', { type: 'button', class: 'chip-btn', text: '+ ' + String(d.name || 'Untitled map'), onclick: () => campAddMap(d) }))));
+  else main.append(h('p', { class: 'sub', text: store.docs.length ? 'Every map you have saved is already in this campaign.' : 'You have no saved maps yet. Build one under Creating first.' }));
+}
+
+/* locations and quests */
+const QUEST_STATES = [{ value: 'active', label: 'Active' }, { value: 'todo', label: 'Not started' }, { value: 'done', label: 'Completed' }, { value: 'failed', label: 'Failed' }];
+function questState(v) { return (QUEST_STATES.find((s) => s.value === v) || QUEST_STATES[1]); }
+function dmLocations(main, c, D) {
+  const maps = D.maps || [];
+  const edit = (loc) => openItem(loc ? 'Location' : 'New location', [
+    { k: 'name', label: 'Name', max: 100 },
+    { k: 'kind', label: 'Kind of place (town, dungeon, wilderness…)', max: 60 },
+    { k: 'mapId', label: 'Map', type: 'select', options: [{ value: '', label: 'No map' }].concat(maps.map((m) => ({ value: m.id, label: String(m.name || 'Untitled map') }))) },
+    { k: 'body', label: 'Description', type: 'area', rows: 5 },
+    { k: 'secrets', label: 'DM notes and secrets', type: 'area', rows: 4 },
+  ], loc || { mapId: '' }, (v) => {
+    const id = loc ? loc.id : newId('l'), now = Date.now();
+    campWrite(DB.set(['campaigns', c.id, 'locations', id], { v: 1, name: v.name, kind: v.kind, mapId: v.mapId, body: v.body, secrets: v.secrets, created: loc ? Number(loc.created) || now : now, updated: now }));
+  }, loc ? () => campWrite(DB.batch([{ path: ['campaigns', c.id, 'locations', loc.id], del: true }])) : null);
+  main.append(h('div', { class: 'camp-head' }, sect('Locations', 'The places of this campaign. Only you can see these.'), h('span', { class: 'grow' }),
+    h('button', { type: 'button', class: 'btn primary', text: 'New location', onclick: () => edit(null) })));
+  if (!D.locs) { main.append(h('p', { class: 'none', text: 'Loading…' })); return; }
+  if (!D.locs.length) { main.append(h('p', { class: 'none', text: 'No locations yet.' })); return; }
+  const list = h('div', { class: 'rowcards' });
+  for (const loc of D.locs.slice().sort((a, b) => String(a.name).localeCompare(String(b.name)))) {
+    const map = maps.find((m) => m.id === loc.mapId);
+    const quests = (D.quests || []).filter((q) => q.locId === loc.id);
+    list.append(h('div', { class: 'rcard' }, h('div', { class: 'body' }, h('h4', { text: String(loc.name || 'Unnamed place') }),
+      loc.kind ? h('p', { class: 'sub', text: String(loc.kind) }) : null,
+      loc.body ? h('p', { text: String(loc.body) }) : null,
+      loc.secrets ? h('p', { class: 'tnote', text: String(loc.secrets) }) : null,
+      quests.length ? h('p', { class: 'sub', text: 'Quests here: ' + quests.map((q) => q.name).join(', ') }) : null),
+      h('div', { class: 'acts' },
+        map ? h('button', { type: 'button', class: 'btn small', text: 'Open map', title: String(map.name || ''), onclick: () => { CG.sec.dm = 'maps'; CG.openMap = map.id; drawCampMain(); } }) : null,
+        h('button', { type: 'button', class: 'btn small', text: 'Edit', onclick: () => edit(loc) }))));
+  }
+  main.append(list);
+}
+function dmQuests(main, c, D) {
+  const locs = D.locs || [];
+  const edit = (q) => openItem(q ? 'Quest' : 'New quest', [
+    { k: 'name', label: 'Name', max: 100 },
+    { k: 'status', label: 'Status', type: 'select', options: QUEST_STATES },
+    { k: 'giver', label: 'Given by', max: 80 },
+    { k: 'locId', label: 'Location', type: 'select', options: [{ value: '', label: 'No location' }].concat(locs.map((l) => ({ value: l.id, label: String(l.name || 'Unnamed place') }))) },
+    { k: 'reward', label: 'Reward', max: 200 },
+    { k: 'body', label: 'What it involves', type: 'area', rows: 5 },
+    { k: 'secrets', label: 'DM notes and secrets', type: 'area', rows: 4 },
+  ], q ? Object.assign({}, q, { status: questState(q.status).value }) : { status: 'todo', locId: '' }, (v) => {
+    const id = q ? q.id : newId('q'), now = Date.now();
+    campWrite(DB.set(['campaigns', c.id, 'quests', id], { v: 1, name: v.name, status: questState(v.status).value, giver: v.giver, locId: v.locId, reward: v.reward, body: v.body, secrets: v.secrets, created: q ? Number(q.created) || now : now, updated: now }));
+  }, q ? () => campWrite(DB.batch([{ path: ['campaigns', c.id, 'quests', q.id], del: true }])) : null);
+  main.append(h('div', { class: 'camp-head' }, sect('Quests', 'What the party is doing, could do, and has done. Only you can see these.'), h('span', { class: 'grow' }),
+    h('button', { type: 'button', class: 'btn primary', text: 'New quest', onclick: () => edit(null) })));
+  if (!D.quests) { main.append(h('p', { class: 'none', text: 'Loading…' })); return; }
+  const tally = (v) => D.quests.filter((q) => questState(q.status).value === v).length;
+  main.append(chips([{ value: 'all', label: 'All ' + D.quests.length }].concat(QUEST_STATES.map((s) => ({ value: s.value, label: s.label + ' ' + tally(s.value) }))), CG.qFilter, (v) => { CG.qFilter = v; drawCampMain(); }, 'Quest status'));
+  const shown = D.quests.filter((q) => CG.qFilter === 'all' || questState(q.status).value === CG.qFilter);
+  if (!shown.length) { main.append(h('p', { class: 'none', text: D.quests.length ? 'No quests with that status.' : 'No quests yet.' })); return; }
+  const order = { active: 0, todo: 1, done: 2, failed: 3 };
+  const list = h('div', { class: 'rowcards' });
+  for (const q of shown.slice().sort((a, b) => order[questState(a.status).value] - order[questState(b.status).value] || String(a.name).localeCompare(String(b.name)))) {
+    const st = questState(q.status), loc = locs.find((l) => l.id === q.locId);
+    list.append(h('div', { class: 'rcard' }, h('div', { class: 'body' }, h('h4', { text: String(q.name || 'Unnamed quest') }),
+      h('div', { class: 'stats' }, h('span', { class: 'statp' + (st.value === 'active' ? ' st-active' : ''), text: st.label }), statPill('From', q.giver), statPill('Where', loc ? loc.name : ''), statPill('Reward', q.reward)),
+      q.body ? h('p', { text: String(q.body) }) : null,
+      q.secrets ? h('p', { class: 'tnote', text: String(q.secrets) }) : null),
+      h('div', { class: 'acts' },
+        st.value !== 'done' ? h('button', { type: 'button', class: 'btn small', text: st.value === 'active' ? 'Mark completed' : 'Mark active', onclick: () => campWrite(DB.batch([{ path: ['campaigns', c.id, 'quests', q.id], update: { status: st.value === 'active' ? 'done' : 'active', updated: Date.now() } }])) }) : null,
+        h('button', { type: 'button', class: 'btn small', text: 'Edit', onclick: () => edit(q) }))));
+  }
+  main.append(list);
+}
+
+/* the editor used for a location or a quest */
+let itemCtx = null;
+function openItem(title, fields, value, onSave, onDelete) {
+  itemCtx = { fields, onSave, onDelete, armed: false };
+  $('item-title').textContent = title;
+  const body = $('item-body');
+  body.textContent = '';
+  for (const f of fields) {
+    const id = 'itemf-' + f.k;
+    let input;
+    if (f.type === 'area') input = h('textarea', { id, rows: String(f.rows || 4), maxlength: String(f.max || 4000) });
+    else if (f.type === 'select') input = h('select', { id }, f.options.map((o) => h('option', { value: o.value, text: o.label })));
+    else input = h('input', { id, type: 'text', maxlength: String(f.max || 120), autocomplete: 'off' });
+    body.append(h('div', { class: 'field' }, h('label', { for: id, text: f.label }), input));
+    const v = value[f.k] === null || value[f.k] === undefined ? '' : String(value[f.k]);
+    input.value = v;
+    if (f.type === 'select' && input.value !== v) input.value = f.options[0].value;
+  }
+  body.append(h('p', { id: 'item-err', class: 'warn', role: 'alert', hidden: true }));
+  const del = $('item-del');
+  del.hidden = !onDelete; del.textContent = 'Delete';
+  openDialog($('dlg-item'));
+  const first = $('itemf-' + fields[0].k);
+  if (first) first.focus();
+}
+$('form-item').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!itemCtx) return;
+  const v = {};
+  for (const f of itemCtx.fields) { const el = $('itemf-' + f.k); v[f.k] = f.type === 'area' ? el.value.slice(0, f.max || 4000) : el.value.trim().slice(0, f.max || 120); }
+  if (!v.name) { const er = $('item-err'); er.textContent = 'Give it a name.'; er.hidden = false; $('itemf-name').focus(); return; }
+  const ctx = itemCtx;
+  itemCtx = null;
+  closeDialog($('dlg-item'));
+  ctx.onSave(v);
+});
+$('item-del').addEventListener('click', () => {
+  if (!itemCtx || !itemCtx.onDelete) return;
+  if (!itemCtx.armed) { itemCtx.armed = true; $('item-del').textContent = 'Delete forever'; return; }
+  const ctx = itemCtx;
+  itemCtx = null;
+  closeDialog($('dlg-item'));
+  ctx.onDelete();
+});
+
+/* ---- a campaign, as one of its players ---- */
+function viewCampPlayer(main, c, D) {
+  const sec = campSec(false);
+  if (sec === 'maps' && CG.openMap && !D.err) { main.classList.add('table-open'); tableShow(main); return; }
+  main.append(h('div', { class: 'camp-head' }, h('h2', { text: c.name }), h('span', { class: 'sub', text: 'Run by ' + (c.dmName || 'your DM') + '.' })));
+  main.append(secChips(false, [{ value: 'sheet', label: 'My character' }, { value: 'maps', label: 'Maps' + (D.shared ? ' ' + D.shared.length : '') }]));
+  if (D.err) { main.append(h('p', { class: 'banner', role: 'alert', text: D.err })); return; }
+  if (sec === 'sheet') { sheetView(main, c); return; }
+  main.append(sect('Maps', 'The maps your DM has put on the table. More of each appears as your DM uncovers it.'));
+  if (!D.shared) { main.append(h('p', { class: 'none', text: 'Loading…' })); return; }
+  if (!D.shared.length) { main.append(h('p', { class: 'none', text: 'Your DM hasn’t shared a map yet. It appears here by itself when they do.' })); return; }
+  const list = h('div', { class: 'rowcards' });
+  for (const doc of D.shared.slice().sort((a, b) => (Number(b.updated) || 0) - (Number(a.updated) || 0))) {
+    list.append(h('button', { type: 'button', class: 'rcard pick', onclick: () => { CG.openMap = doc.id; drawCampMain(); } },
+      h('span', { class: 'body' }, h('span', { class: 'ttl', text: String(doc.name || 'Untitled map') }), h('span', { class: 'sub', text: (doc.grid === 'hex' ? 'World map' : 'Interior') + (doc.updated ? ' · last changed ' + fmtDate(Number(doc.updated)) : '') })),
+      h('span', { class: 'btn small primary', text: 'Open' })));
+  }
+  main.append(list);
+}
+
+/* ============================================================
+   Character sheets: one per player per campaign, laid out after
+   the fifth-edition sheet (core page, background page, spells).
+   ============================================================ */
+const ABILS = [['str', 'Strength'], ['dex', 'Dexterity'], ['con', 'Constitution'], ['int', 'Intelligence'], ['wis', 'Wisdom'], ['cha', 'Charisma']];
+const SKILLS = [
+  ['acrobatics', 'Acrobatics', 'dex'], ['animal', 'Animal Handling', 'wis'], ['arcana', 'Arcana', 'int'], ['athletics', 'Athletics', 'str'],
+  ['deception', 'Deception', 'cha'], ['history', 'History', 'int'], ['insight', 'Insight', 'wis'], ['intimidation', 'Intimidation', 'cha'],
+  ['investigation', 'Investigation', 'int'], ['medicine', 'Medicine', 'wis'], ['nature', 'Nature', 'int'], ['perception', 'Perception', 'wis'],
+  ['performance', 'Performance', 'cha'], ['persuasion', 'Persuasion', 'cha'], ['religion', 'Religion', 'int'], ['sleight', 'Sleight of Hand', 'dex'],
+  ['stealth', 'Stealth', 'dex'], ['survival', 'Survival', 'wis'],
+];
+const SHEET_SHORT = ['name', 'cls', 'subclass', 'level', 'background', 'species', 'alignment', 'xp', 'ac', 'initiative', 'speed', 'hpMax', 'hp', 'hpTemp', 'hitDiceTotal', 'hitDice',
+  'cp', 'sp', 'ep', 'gp', 'pp', 'age', 'height', 'weight', 'eyes', 'skin', 'hair', 'faction', 'spellClass', 'spellAbility', 'spellDC', 'spellAtk'];
+const SHEET_LONG = ['attackNotes', 'profLang', 'equipment', 'traits', 'ideals', 'bonds', 'flaws', 'features', 'appearance', 'backstory', 'allies', 'features2', 'treasure'];
+function clampInt(v, lo, hi, dflt) { const n = parseInt(v, 10); return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : dflt; }
+/* Whatever is stored, hand back a complete, well-formed sheet. */
+function normSheet(raw) {
+  raw = raw && typeof raw === 'object' ? raw : {};
+  const str = (v, max) => (typeof v === 'string' ? v : typeof v === 'number' && isFinite(v) ? String(v) : '').slice(0, max);
+  const obj = (v) => (v && typeof v === 'object' && !Array.isArray(v) ? v : {});
+  const d = {};
+  for (const k of SHEET_SHORT) d[k] = str(raw[k], 80);
+  for (const k of SHEET_LONG) d[k] = str(raw[k], 6000);
+  d.inspiration = raw.inspiration === true;
+  d.deathS = clampInt(raw.deathS, 0, 3, 0); d.deathF = clampInt(raw.deathF, 0, 3, 0);
+  d.abil = {}; d.saveProf = {}; d.skill = {};
+  for (const [k] of ABILS) { d.abil[k] = str(obj(raw.abil)[k], 3); d.saveProf[k] = obj(raw.saveProf)[k] === true; }
+  for (const [k] of SKILLS) d.skill[k] = clampInt(obj(raw.skill)[k], 0, 2, 0);
+  d.attacks = (Array.isArray(raw.attacks) ? raw.attacks : []).slice(0, 12).map((a) => ({ name: str(obj(a).name, 60), bonus: str(obj(a).bonus, 20), damage: str(obj(a).damage, 60) }));
+  const sp = Array.isArray(raw.spells) ? raw.spells : [];
+  d.spells = [];
+  for (let i = 0; i < 10; i++) {
+    const g = obj(sp[i]);
+    d.spells.push({ total: str(g.total, 4), used: str(g.used, 4), list: (Array.isArray(g.list) ? g.list : []).slice(0, 40).map((x) => ({ n: str(obj(x).n, 80), p: obj(x).p === true })) });
+  }
+  return d;
+}
+function blankSheet() { return normSheet({ attacks: [{}, {}, {}] }); }
+function abilMod(d, k) { const n = parseInt(d.abil[k], 10); return Number.isFinite(n) ? Math.floor((n - 10) / 2) : null; }
+function profBonus(d) { return 2 + Math.floor((clampInt(d.level, 1, 20, 1) - 1) / 4); }
+/* The numbers the sheet works out for you. */
+function sheetCalc(d, key) {
+  const dot = key.indexOf('.'), kind = dot < 0 ? key : key.slice(0, dot), k = dot < 0 ? '' : key.slice(dot + 1);
+  const fmt = (n) => (n === null ? '' : signed(n));
+  if (kind === 'mod') return fmt(abilMod(d, k));
+  if (kind === 'prof') return signed(profBonus(d));
+  if (kind === 'save') { const m = abilMod(d, k); return fmt(m === null ? null : m + (d.saveProf[k] ? profBonus(d) : 0)); }
+  if (kind === 'skill') { const sk = SKILLS.find((s) => s[0] === k), m = sk ? abilMod(d, sk[2]) : null; return fmt(m === null ? null : m + d.skill[k] * profBonus(d)); }
+  if (kind === 'passive') { const m = abilMod(d, 'wis'); return m === null ? '' : String(10 + m + d.skill.perception * profBonus(d)); }
+  return '';
+}
+function sheetSetPath(d, path, value) {
+  const parts = path.split('.');
+  let o = d;
+  for (let i = 0; i < parts.length - 1; i++) { o = o[parts[i]]; if (o === null || o === undefined) return; }
+  o[parts[parts.length - 1]] = value;
+}
+
+/* ---- the player's own sheet: loading, saving ---- */
+const SH = { cid: '', loaded: false, remote: null, data: null, dirty: false, pending: 0, timer: 0, err: '', root: null, status: null, listsAsked: false };
+function sheetReset() { clearTimeout(SH.timer); Object.assign(SH, { cid: '', loaded: false, remote: null, data: null, dirty: false, pending: 0, timer: 0, err: '', root: null, status: null }); }
+function sheetDetach() { SH.root = null; SH.status = null; }
+function sheetRemote(cid, data) {
+  SH.cid = cid; SH.remote = data;
+  if (!SH.loaded) { SH.loaded = true; SH.data = data ? normSheet(data) : blankSheet(); }
+  campRefresh('sheet');
+}
+/* The server's copy changed (another device, say). Take it, unless this copy has changes of its own on the way. */
+function sheetApplyRemote() {
+  if (!SH.loaded) return;
+  if (!SH.root) { drawCampMain(); return; }
+  if (SH.dirty || SH.pending) return;
+  const n = SH.remote ? normSheet(SH.remote) : blankSheet();
+  if (JSON.stringify(n) === JSON.stringify(SH.data)) { sheetStatus(); return; }
+  SH.data = n;
+  drawCampMain();
+}
+function sheetStatus() {
+  if (!SH.status) return;
+  SH.status.textContent = SH.err ? SH.err : SH.pending ? 'Saving…' : SH.dirty ? 'Unsaved changes' : SH.remote ? 'Saved' : 'Not started yet';
+  SH.status.classList.toggle('warn', !!SH.err);
+}
+function sheetRecalc() {
+  if (!SH.root || !SH.data) return;
+  for (const el of SH.root.querySelectorAll('[data-calc]')) el.textContent = sheetCalc(SH.data, el.dataset.calc) || '–';
+  const init = SH.root.querySelector('[data-k="initiative"]');
+  if (init) init.placeholder = sheetCalc(SH.data, 'mod.dex');
+}
+function sheetTouched() {
+  SH.dirty = true; SH.err = '';
+  clearTimeout(SH.timer);
+  SH.timer = setTimeout(sheetSave, 900);
+  sheetStatus(); sheetRecalc();
+}
+function sheetSave() {
+  clearTimeout(SH.timer); SH.timer = 0;
+  if (!SH.dirty || !SH.data || !SH.cid || !DB.ok()) return;
+  const cid = SH.cid;
+  const body = Object.assign({ v: 1, uid: ME.uid, playerName: ME.name, updated: Date.now() }, normSheet(SH.data));
+  SH.dirty = false; SH.pending++;
+  sheetStatus();
+  let p;
+  try { p = DB.set(['campaigns', cid, 'characters', ME.uid], body); } catch (e) { p = Promise.reject(e); }
+  p.then(() => { if (SH.cid !== cid) return; SH.pending = Math.max(0, SH.pending - 1); sheetStatus(); },
+    (e) => { console.warn('sheet save', e); if (SH.cid !== cid) return; SH.pending = Math.max(0, SH.pending - 1); SH.dirty = true; SH.err = 'Not saved. ' + dbErrText(e); sheetStatus(); });
+}
+function sheetFlush() { if (SH.dirty) sheetSave(); }
+function sheetView(main) {
+  if (!SH.loaded) { main.append(h('p', { class: 'none', text: 'Opening your character sheet…' })); return; }
+  if (!SH.dirty && !SH.pending) SH.data = SH.remote ? normSheet(SH.remote) : blankSheet();
+  const status = h('span', { class: 'cs-status', role: 'status' });
+  main.append(h('div', { class: 'camp-head' }, h('p', { class: 'sub', text: 'Your character for this campaign. It saves by itself as you type, and your DM sees it.' }), h('span', { class: 'grow' }), status));
+  const form = sheetForm(SH.data, false, ME.name);
+  main.append(form);
+  SH.root = form; SH.status = status;
+  sheetStatus(); sheetRecalc(); sheetLists();
+}
+/* Suggestions for class, species and background come from the Player's Handbook when it can be read. Anything may still be typed. */
+function sheetLists() {
+  if (!$('dl-align')) {
+    const dlist = (id, values) => h('datalist', { id }, values.map((v) => h('option', { value: v })));
+    document.body.append(dlist('dl-align', ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil', 'Unaligned']),
+      dlist('dl-abil', ['Intelligence', 'Wisdom', 'Charisma']), dlist('dl-class', []), dlist('dl-species', []), dlist('dl-background', []));
+  }
+  if (SH.listsAsked) return;
+  SH.listsAsked = true;
+  fetchBook('phb').then(() => {
+    const fill = (id, values) => { const el = $(id); el.textContent = ''; for (const v of uniq(values).filter(Boolean)) el.append(h('option', { value: v })); };
+    fill('dl-class', objs('phb', 'classes').map((c) => c.Class));
+    fill('dl-species', objs('phb', 'species').map((c) => c.Species));
+    fill('dl-background', objs('phb', 'backgrounds').map((c) => c.Background));
+  }).catch(() => { /* the sheet works without suggestions */ });
+}
+
+/* ---- the sheet itself. ro = read-only (the DM's view of a player's sheet). ---- */
+function sheetForm(d, ro, playerName) {
+  const get = (k) => { let o = d; for (const p of k.split('.')) { if (o === null || o === undefined) return ''; o = o[p]; } return o; };
+  const txt = (k, extra) => { const e = h('input', Object.assign({ type: 'text', 'data-k': k, autocomplete: 'off', spellcheck: 'false', maxlength: '80' }, extra || {})); e.value = get(k) || ''; if (ro) e.readOnly = true; return e; };
+  const num = (k, lo, hi, label) => { const e = h('input', { type: 'number', 'data-k': k, min: String(lo), max: String(hi), step: '1', inputmode: 'numeric', 'aria-label': label || null }); e.value = get(k) || ''; if (ro) e.readOnly = true; return e; };
+  const area = (k, rows, label) => {
+    const e = h('textarea', { 'data-k': k, rows: String(rows), maxlength: '6000', 'aria-label': label || null });
+    e.value = get(k) || '';
+    if (ro) { e.readOnly = true; e.rows = Math.min(16, Math.max(1, e.value.split('\n').length + Math.floor(e.value.length / 60))); }
+    return e;
+  };
+  const chk = (attrs, on) => { const e = h('input', Object.assign({ type: 'checkbox' }, attrs)); e.checked = !!on; if (ro) e.disabled = true; return e; };
+  const cf = (label, input) => h('label', { class: 'cf' }, h('span', { text: label }), input);
+  const calc = (key) => h('output', { 'data-calc': key, text: sheetCalc(d, key) || '–' });
+  const box = (title, kids) => h('section', { class: 'cs-box' }, title ? h('h3', { text: title }) : null, kids);
+  const touched = () => { if (!ro) sheetTouched(); };
+
+  const player = h('input', { type: 'text', 'aria-label': 'Player' });
+  player.value = playerName || ''; player.readOnly = true;
+  const top = h('div', { class: 'cs-top' },
+    h('div', { class: 'cs-name' }, cf('Character name', txt('name'))),
+    h('div', { class: 'cs-grid' },
+      cf('Class', txt('cls', { list: 'dl-class' })), cf('Level', num('level', 1, 20)), cf('Background', txt('background', { list: 'dl-background' })),
+      cf('Player', player), cf('Species (race)', txt('species', { list: 'dl-species' })), cf('Alignment', txt('alignment', { list: 'dl-align' })),
+      cf('Subclass', txt('subclass')), cf('Experience points', txt('xp'))));
+
+  /* left: abilities, saves, skills */
+  const abilities = box('Ability scores', [h('div', { class: 'cs-abil' }, ABILS.map(([k, label]) => h('div', { class: 'ab', title: label }, h('b', { text: k }), calc('mod.' + k), num('abil.' + k, 1, 30, label + ' score'))))]);
+  const insp = box('', [h('label', { class: 'cs-line' }, chk({ 'data-k': 'inspiration' }, d.inspiration), h('span', { class: 'lab', text: 'Inspiration' })),
+    h('div', { class: 'cs-calc' }, h('span', { text: 'Proficiency bonus' }), calc('prof')),
+    h('div', { class: 'cs-calc' }, h('span', { text: 'Passive Wisdom (Perception)' }), calc('passive'))]);
+  const saves = box('Saving throws', [h('div', { class: 'cs-lines' }, ABILS.map(([k, label]) => h('label', { class: 'cs-line' }, chk({ 'data-k': 'saveProf.' + k, title: 'Proficient' }, d.saveProf[k]), calc('save.' + k), h('span', { class: 'lab', text: label }))))]);
+  const skills = box('Skills', [h('div', { class: 'cs-lines' }, SKILLS.map(([k, label, ab]) => h('div', { class: 'cs-line' },
+    chk({ 'data-skill': k, 'data-lvl': '1', 'aria-label': label + ': proficient', title: 'Proficient' }, d.skill[k] >= 1), calc('skill.' + k),
+    h('span', { class: 'lab' }, label + ' ', h('small', { text: '(' + ab + ')' })),
+    h('label', { class: 'ex', title: 'Expertise: the proficiency bonus counts twice' }, chk({ 'data-skill': k, 'data-lvl': '2', 'aria-label': label + ': expertise' }, d.skill[k] >= 2), 'exp.')))),
+    h('p', { class: 'hint', text: 'Tick a skill you are proficient in. The numbers follow your ability scores and level.' })]);
+  const profs = box('Other proficiencies & languages', [area('profLang', 4, 'Other proficiencies and languages')]);
+
+  /* middle: combat, attacks, equipment */
+  const death = (k, label) => h('div', { class: 'cs-death' }, h('span', { text: label }), [0, 1, 2].map((i) => chk({ 'data-count': k, 'aria-label': label + ' ' + (i + 1) }, d[k] > i)));
+  const init = txt('initiative'); init.placeholder = sheetCalc(d, 'mod.dex');
+  const combat = box('Combat', [
+    h('div', { class: 'cs-trio' }, cf('Armor class', txt('ac')), cf('Initiative', init), cf('Speed', txt('speed'))),
+    h('div', { class: 'cs-trio' }, cf('Hit point maximum', txt('hpMax')), cf('Current hit points', txt('hp')), cf('Temporary hit points', txt('hpTemp'))),
+    h('div', { class: 'cs-duo' }, cf('Hit dice (total)', txt('hitDiceTotal')), cf('Hit dice (left)', txt('hitDice'))),
+    h('div', null, h('span', { class: 'cap', text: 'Death saves' }), death('deathS', 'Successes'), death('deathF', 'Failures'))]);
+  const atkRows = h('div', { class: 'cs-lines' });
+  const drawAttacks = () => {
+    atkRows.textContent = '';
+    d.attacks.forEach((a, i) => atkRows.append(h('div', { class: 'cs-row' },
+      txt('attacks.' + i + '.name', { placeholder: 'Name', 'aria-label': 'Attack name', maxlength: '60' }), txt('attacks.' + i + '.bonus', { placeholder: 'Atk bonus', 'aria-label': 'Attack bonus', maxlength: '20' }),
+      txt('attacks.' + i + '.damage', { placeholder: 'Damage / type', 'aria-label': 'Damage and type', maxlength: '60' }),
+      ro ? h('span') : h('button', { type: 'button', class: 'mini-x', 'aria-label': 'Remove this attack', title: 'Remove', text: '×', onclick: () => { d.attacks.splice(i, 1); drawAttacks(); touched(); } }))));
+  };
+  drawAttacks();
+  const attacks = box('Attacks & spellcasting', [atkRows,
+    ro ? null : h('div', null, h('button', { type: 'button', class: 'btn small', text: 'Add attack', onclick: () => { if (d.attacks.length >= 12) return; d.attacks.push({ name: '', bonus: '', damage: '' }); drawAttacks(); touched(); const rows = atkRows.querySelectorAll('.cs-row'); rows[rows.length - 1].querySelector('input').focus(); } })),
+    area('attackNotes', 3, 'Attack and spellcasting notes')]);
+  const equipment = box('Equipment', [h('div', { class: 'cs-coins' }, ['cp', 'sp', 'ep', 'gp', 'pp'].map((k) => cf(k.toUpperCase(), txt(k, { maxlength: '12' })))), area('equipment', 7, 'Equipment')]);
+
+  /* right: personality, features */
+  const persona = box('Character', [cf('Personality traits', area('traits', 3)), cf('Ideals', area('ideals', 2)), cf('Bonds', area('bonds', 2)), cf('Flaws', area('flaws', 2))]);
+  const features = box('Features & traits', [area('features', 12, 'Features and traits')]);
+
+  const cols = h('div', { class: 'cs-cols' },
+    h('div', { class: 'cs-col' }, abilities, insp, saves, skills, profs),
+    h('div', { class: 'cs-col' }, combat, attacks, equipment),
+    h('div', { class: 'cs-col' }, persona, features));
+
+  /* second page: who they are */
+  const story = box('Appearance & backstory', [
+    h('div', { class: 'cs-grid' }, cf('Age', txt('age')), cf('Height', txt('height')), cf('Weight', txt('weight')), cf('Eyes', txt('eyes')), cf('Skin', txt('skin')), cf('Hair', txt('hair'))),
+    h('div', { class: 'cs-duo' }, cf('Appearance', area('appearance', 5)), cf('Backstory', area('backstory', 5))),
+    h('div', { class: 'cs-duo' }, h('div', { class: 'cs-col' }, cf('Allies & organisations', area('allies', 4)), cf('Faction or organisation name', txt('faction'))), cf('Additional features & traits', area('features2', 6))),
+    cf('Treasure', area('treasure', 3))]);
+
+  /* third page: spells */
+  const spellBox = (lv) => {
+    const g = d.spells[lv], rows = h('div', { class: 'cs-lines' });
+    const draw = () => {
+      rows.textContent = '';
+      g.list.forEach((s, i) => rows.append(h('div', { class: 'cs-row spell' },
+        lv ? chk({ 'data-k': 'spells.' + lv + '.list.' + i + '.p', title: 'Prepared', 'aria-label': 'Prepared' }, s.p) : h('span'),
+        txt('spells.' + lv + '.list.' + i + '.n', { placeholder: lv ? 'Spell' : 'Cantrip', 'aria-label': 'Spell name' }),
+        ro ? h('span') : h('button', { type: 'button', class: 'mini-x', 'aria-label': 'Remove this spell', title: 'Remove', text: '×', onclick: () => { g.list.splice(i, 1); draw(); touched(); } }))));
+      if (ro && !g.list.length) rows.append(h('p', { class: 'sub', text: 'None.' }));
+    };
+    draw();
+    return box(lv ? 'Level ' + lv : 'Cantrips', [
+      lv ? h('div', { class: 'cs-duo' }, cf('Slots total', txt('spells.' + lv + '.total', { maxlength: '4' })), cf('Slots expended', txt('spells.' + lv + '.used', { maxlength: '4' }))) : null,
+      rows,
+      ro ? null : h('div', null, h('button', { type: 'button', class: 'btn small', text: lv ? 'Add spell' : 'Add cantrip', onclick: () => { if (g.list.length >= 40) return; g.list.push({ n: '', p: false }); draw(); touched(); const all = rows.querySelectorAll('input[type="text"]'); all[all.length - 1].focus(); } }))]);
+  };
+  const spells = box('Spellcasting', [
+    h('div', { class: 'cs-grid' }, cf('Spellcasting class', txt('spellClass', { list: 'dl-class' })), cf('Spellcasting ability', txt('spellAbility', { list: 'dl-abil' })), cf('Spell save DC', txt('spellDC', { maxlength: '6' })), cf('Spell attack bonus', txt('spellAtk', { maxlength: '6' }))),
+    ro ? null : h('p', { class: 'hint', text: 'Tick a spell to mark it as prepared.' }),
+    h('div', { class: 'cs-spells' }, d.spells.map((g, lv) => (ro && lv && !g.list.length && !g.total && !g.used ? null : spellBox(lv))))]);
+
+  const form = h('div', { class: 'cs wide' + (ro ? ' ro' : '') }, top, cols, story, spells);
+  if (!ro) form.addEventListener('input', (e) => {
+    const t = e.target;
+    if (t.dataset.k) sheetSetPath(d, t.dataset.k, t.type === 'checkbox' ? t.checked : t.value);
+    else if (t.dataset.skill) {
+      const k = t.dataset.skill, lvl = Number(t.dataset.lvl);
+      d.skill[k] = t.checked ? lvl : lvl - 1;
+      for (const b of form.querySelectorAll('[data-skill="' + k + '"]')) b.checked = d.skill[k] >= Number(b.dataset.lvl);
+    } else if (t.dataset.count) {
+      const boxes = [...form.querySelectorAll('[data-count="' + t.dataset.count + '"]')], n = boxes.filter((b) => b.checked).length;
+      d[t.dataset.count] = n;
+      boxes.forEach((b, i) => { b.checked = i < n; });
+    } else return;
+    sheetTouched();
+  });
+  return form;
+}
+
+/* ============================================================
+   The map table: one of a campaign's maps, with its cover.
+   The DM sees the whole map with the covered parts tinted, and
+   uncovers or covers them. Players (and the DM's "see as
+   players") are drawn only the copy with the covered parts
+   already removed, so there is nothing hidden to dig out.
+   ============================================================ */
+const T = {
+  el: null, bar: null, stage: null, gl: null, ov: null, ctx: null, noteEl: null, statusEl: null, renderer: null, asked: false,
+  key: '', cid: '', id: '', dm: false, base: null, cells: null, fog: null, masked: null, rect: undefined, name: '', shared: false, docUpdated: 0, bad: false,
+  view: { x: 0, y: 0, scale: BASE_SCALE }, cw: 1, ch: 1, dpr: 1, needFit: true,
+  tool: 'brush', mode: 1, brush: 2, preview: false, armed: '',
+  raf: 0, cellsDirty: true, cover: null, gesture: null, pointers: new Map(), hover: null, zoomBase: 0,
+  dirty: false, pending: 0, timer: 0, err: '', undo: [], snap: null, hasDoors: false,
+};
+function tablePath(shared) { return ['campaigns', T.cid, shared ? 'shared' : 'maps', T.id]; }
+function tableReal() { return { grid: T.base.grid, orient: T.base.orient, w: T.base.w, h: T.base.h, cells: T.cells }; }
+function tableRemask() { T.masked = maskCells(tableReal(), T.fog); T.rect = undefined; }
+function tableRedraw(all) {
+  if (all) T.cellsDirty = true;
+  if (!T.el || T.raf) return;
+  T.raf = requestAnimationFrame(tableFrame);
+}
+
+/* ---- opening, and keeping up with the server ---- */
+function tableBuild() {
+  if (T.el) return;
+  T.bar = h('div', { class: 'tbl-bar' });
+  T.gl = h('canvas');
+  T.ov = h('canvas', { class: 'tov', 'aria-label': 'Map' });
+  T.noteEl = h('div', { class: 'tbl-note', hidden: true }, h('p'));
+  const zoom = h('div', { class: 'zoomer', role: 'group', 'aria-label': 'Zoom' },
+    h('button', { type: 'button', 'aria-label': 'Zoom out', title: 'Zoom out', text: '−', onclick: () => tableZoomAt(T.cw / 2, T.ch / 2, 1 / 1.25) }),
+    h('button', { type: 'button', 'aria-label': 'Zoom in', title: 'Zoom in', text: '+', onclick: () => tableZoomAt(T.cw / 2, T.ch / 2, 1.25) }),
+    h('button', { type: 'button', title: 'Fit what can be seen', text: 'Fit', onclick: () => { tableFit(); tableRedraw(); } }));
+  T.stage = h('div', { class: 'tbl-stage' }, T.gl, T.ov, T.noteEl, zoom);
+  T.el = h('div', { class: 'tbl' }, T.bar, T.stage);
+  T.ctx = T.ov.getContext('2d');
+  tableEvents();
+  if (window.ResizeObserver) new ResizeObserver(tableResize).observe(T.stage); else window.addEventListener('resize', tableResize);
+}
+function tableShow(main) {
+  tableBuild();
+  main.append(T.el);
+  if (!T.renderer && !T.asked) {
+    T.asked = true;
+    ensureTextures().then(() => {
+      T.renderer = makeRenderer(T.gl);
+      T.renderer.onRestore = () => tableRedraw(true);
+      tableNote(); tableResize(); tableRedraw(true);
+    });
+  }
+  tableSync();
+  tableResize();
+}
+function tableBack() { tableFlush(); CG.openMap = ''; T.key = ''; drawCampMain(); }
+function tableSync() {
+  const D = CG.data, id = CG.openMap;
+  if (!D || !id || !T.el) return;
+  const list = D.dm ? D.maps : D.shared;
+  if (!list) { tableBar(); tableNote(); return; }
+  const doc = list.find((m) => m.id === id);
+  if (!doc) { CG.openMap = ''; T.key = ''; CG.err = D.dm ? '' : 'Your DM has taken that map off the table.'; drawCampMain(); return; }
+  const key = CG.cid + '/' + id + '/' + (D.dm ? 'dm' : 'pl'), fresh = T.key !== key;
+  if (fresh) {
+    clearTimeout(T.timer);
+    Object.assign(T, { key, cid: CG.cid, id, dm: D.dm, dirty: false, pending: 0, err: '', preview: false, armed: '', gesture: null, hover: null, needFit: true, docUpdated: -1, undo: [], snap: null });
+    T.pointers.clear();
+  }
+  if (fresh || (!T.dirty && !T.pending && (Number(doc.updated) || 0) !== T.docUpdated)) tableLoad(doc, fresh);
+  T.name = String(doc.name || 'Untitled map'); T.shared = D.dm ? !!doc.shared : true;
+  if (T.dm && !T.bad && !T.dirty && !T.pending) tableLibSync(doc);
+  tableBar(); tableNote(); tableResize();
+}
+function tableLoad(doc, fresh) {
+  let m = null;
+  try { m = deserialize(doc.id, doc, !T.dm); } catch (e) { m = null; }
+  T.bad = !m; T.docUpdated = Number(doc.updated) || 0;
+  if (!m) { T.base = null; T.cells = T.fog = T.masked = null; T.rect = undefined; return; }
+  const hadRect = !fresh && !!tableRect();
+  T.base = { grid: m.grid, orient: m.orient, w: m.w, h: m.h };
+  if (T.dm) { T.cells = m.cells; T.fog = decodeFog(doc, m.w * m.h); T.hasDoors = m.cells.includes(DOOR); tableRemask(); }
+  else { T.cells = null; T.fog = null; T.masked = m.cells; T.rect = undefined; }
+  T.cover = null; T.cellsDirty = true; T.undo = []; T.snap = null;
+  if (T.base.grid === 'hex' && T.tool === 'room') T.tool = 'brush';
+  if (!fresh && !hadRect && tableRect()) T.needFit = true;
+}
+/* The campaign keeps its own copy of a map. If you have edited the map under Creating since, take the newer version, keeping what was uncovered. */
+function tableLibSync(doc) {
+  if (store.kind !== 'cloud') return;
+  const lib = store.docs.find((d) => d.id === doc.id);
+  if (!lib || !((Number(lib.updated) || 0) > (Number(doc.srcUpdated) || 0))) return;
+  let m;
+  try { m = deserialize(lib.id, lib); } catch (e) { return; }
+  const old = T.base, fog = new Uint8Array(m.w * m.h);
+  if (old && old.grid === m.grid && (old.orient || '') === (m.orient || '')) {
+    for (let r = 0; r < Math.min(m.h, old.h); r++) for (let c = 0; c < Math.min(m.w, old.w); c++) fog[r * m.w + c] = T.fog[r * old.w + c];
+  }
+  const resized = !old || old.w !== m.w || old.h !== m.h || old.grid !== m.grid;
+  T.base = { grid: m.grid, orient: m.orient, w: m.w, h: m.h }; T.cells = m.cells; T.fog = fog; T.name = m.name; T.hasDoors = m.cells.includes(DOOR);
+  tableRemask(); T.cover = null; T.cellsDirty = true; T.undo = []; T.snap = null;
+  if (resized) T.needFit = true;
+  if (T.base.grid === 'hex' && T.tool === 'room') T.tool = 'brush';
+  const now = Date.now();
+  T.docUpdated = now;
+  const ops = [{ path: tablePath(), set: Object.assign(serialize(m), { srcUpdated: Number(lib.updated) || 0, shared: !!doc.shared, added: Number(doc.added) || now, updated: now }, fogBody(fog)) }];
+  if (doc.shared) ops.push({ path: tablePath(true), set: sharedBody(m, m.name, T.masked, now) });
+  tableWrite(ops);
+}
+
+/* ---- saving what is uncovered ---- */
+function tableWrite(ops) {
+  const key = T.key;
+  T.pending++; T.err = '';
+  tableStatus();
+  let p;
+  try { p = DB.batch(ops); } catch (e) { p = Promise.reject(e); }
+  p.then(() => { if (T.key !== key) return; T.pending = Math.max(0, T.pending - 1); tableStatus(); },
+    (e) => { console.warn('map save', e); if (T.key !== key) return; T.pending = Math.max(0, T.pending - 1); T.err = 'Not saved. ' + dbErrText(e); tableStatus(); });
+}
+function tableSave(extra) {
+  clearTimeout(T.timer); T.timer = 0;
+  if (!T.dm || !T.base || T.bad) return;
+  const now = Date.now();
+  T.dirty = false; T.docUpdated = now;
+  tableRemask();
+  const ops = [{ path: tablePath(), update: Object.assign({ updated: now }, extra || {}, fogBody(T.fog)) }];
+  if (T.shared) ops.push({ path: tablePath(true), set: sharedBody(T.base, T.name, T.masked, now) });
+  else if (extra) ops.push({ path: tablePath(true), del: true });
+  tableWrite(ops);
+}
+function tableFlush() { if (T.dirty && T.el) tableSave(); }
+function tableSetShared(on) { T.shared = on; tableSave({ shared: on }); tableBar(); }
+function tableApply(list, v) {
+  let changed = false;
+  const w = T.base.w;
+  for (const [c, r] of list) {
+    const i = r * w + c;
+    if (T.fog[i] === v) continue;
+    if (!T.snap) T.snap = T.fog.slice();
+    T.fog[i] = v; changed = true;
+  }
+  if (changed) { T.cover = null; T.dirty = true; if (T.preview) { tableRemask(); T.cellsDirty = true; } }
+  return changed;
+}
+/* One finished change (a stroke, a box, a room): remember how things were, and save shortly. */
+function tableCommit() {
+  if (T.snap) { T.undo.push(T.snap); if (T.undo.length > 30) T.undo.shift(); T.snap = null; tableBar(); }
+  if (!T.dirty) return;
+  clearTimeout(T.timer);
+  T.timer = setTimeout(() => tableSave(), 450);
+  tableStatus(); tableRedraw();
+}
+function tableAll(v) { tableApply(rectCellsOf(T.base, 0, 0, T.base.w - 1, T.base.h - 1), v); tableCommit(); }
+function tableUndo() {
+  if (!T.undo.length || T.gesture) return;
+  T.fog = T.undo.pop(); T.snap = null;
+  T.cover = null; T.dirty = true;
+  if (T.preview) { tableRemask(); T.cellsDirty = true; }
+  tableBar(); tableCommit();
+}
+function rectCellsOf(m, c0, r0, c1, r1) {
+  const out = [];
+  const ca = clamp(Math.min(c0, c1), 0, m.w - 1), cb = clamp(Math.max(c0, c1), 0, m.w - 1), ra = clamp(Math.min(r0, r1), 0, m.h - 1), rb = clamp(Math.max(r0, r1), 0, m.h - 1);
+  for (let r = ra; r <= rb; r++) for (let c = ca; c <= cb; c++) out.push([c, r]);
+  return out;
+}
+/* A room: the floor reachable from this square without passing a door, and the doors around it.
+   A map with no doors at all has nothing to stop at, so there a room is one unbroken patch of the same floor. */
+function roomCells(c, r) {
+  const w = T.base.w, hh = T.base.h, cells = T.cells, i0 = r * w + c, same = !T.hasDoors;
+  if (!cells[i0]) return [];
+  if (cells[i0] === DOOR) return [[c, r]];
+  const seen = new Uint8Array(w * hh), out = [[c, r]], stack = [i0];
+  seen[i0] = 1;
+  while (stack.length) {
+    const i = stack.pop(), x = i % w, y = (i - x) / w;
+    for (const [nx, ny] of [[x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]]) {
+      if (nx < 0 || ny < 0 || nx >= w || ny >= hh) continue;
+      const j = ny * w + nx;
+      if (seen[j] || !cells[j] || (same && cells[j] !== cells[i0])) continue;
+      seen[j] = 1; out.push([nx, ny]);
+      if (cells[j] !== DOOR) stack.push(j);
+    }
+  }
+  return out;
+}
+
+/* ---- toolbar and messages ---- */
+function segb(items, current, onPick, label) {
+  return h('div', { class: 'segb', role: 'group', 'aria-label': label }, items.map((it) => h('button', { type: 'button', 'aria-pressed': String(it.value === current), title: it.title || null, text: it.label, onclick: () => onPick(it.value) })));
+}
+function tableBar() {
+  const bar = T.bar;
+  if (!bar) return;
+  bar.textContent = '';
+  T.statusEl = h('span', { class: 'tbl-status', role: 'status' });
+  bar.append(h('button', { type: 'button', class: 'btn small', text: '← Maps', onclick: tableBack }), h('h3', { text: T.name || 'Map' }));
+  if (!T.base) return;
+  const hex = T.base.grid === 'hex';
+  if (!T.dm) { bar.append(h('span', { class: 'tbl-status', text: hex ? 'The parchment lifts as your DM uncovers the world.' : 'You see only what you have found so far.' })); return; }
+  const tools = [{ value: 'move', label: 'Move', title: 'Drag to slide the map' }, { value: 'brush', label: 'Brush', title: 'Paint over the parts to change' }, { value: 'box', label: 'Box', title: 'Drag out a rectangle' }];
+  if (!hex) tools.push({ value: 'room', label: 'Room', title: T.hasDoors ? 'Click a room: everything up to its doors and walls' : 'Click a room: the whole patch of that floor. Put Door squares in the doorways (under Creating) and this takes whole rooms instead' });
+  const size = h('input', { type: 'range', min: '1', max: '9', step: '1', 'aria-label': 'Brush size' });
+  size.value = String(T.brush);
+  size.addEventListener('input', () => { T.brush = clamp(Number(size.value), 1, 9); tableRedraw(); });
+  const see = h('input', { type: 'checkbox' });
+  see.checked = T.preview;
+  see.addEventListener('change', () => { T.preview = see.checked; tableRemask(); tableNote(); tableRedraw(true); });
+  const allBtn = (key, label, armedLabel, v) => (T.armed === key
+    ? [h('button', { type: 'button', class: 'btn small danger', text: armedLabel, onclick: () => { T.armed = ''; tableAll(v); tableBar(); } }), h('button', { type: 'button', class: 'btn small', text: 'Cancel', onclick: () => { T.armed = ''; tableBar(); } })]
+    : [h('button', { type: 'button', class: 'btn small', text: label, onclick: () => { T.armed = key; tableBar(); } })]);
+  bar.append(h('span', { class: 'sep' }),
+    segb([{ value: 1, label: 'Uncover', title: 'Take the cover off' }, { value: 0, label: 'Cover', title: 'Put the cover back' }], T.mode, (v) => { T.mode = v; tableBar(); tableRedraw(); }, 'What the tool does'),
+    segb(tools, T.tool, (v) => { T.tool = v; tableBar(); tableCursor(); tableRedraw(); }, 'Tool'),
+    h('label', { class: 'row', title: 'Brush size' }, h('span', { class: 'tbl-status', text: 'Size' }), size),
+    h('button', { type: 'button', class: 'btn small', text: 'Undo', title: 'Take back the last change', disabled: !T.undo.length, onclick: tableUndo }),
+    h('span', { class: 'sep' }),
+    ...allBtn('open', 'Uncover all', 'Yes, uncover everything', 1), ...allBtn('shut', 'Cover all', 'Yes, cover everything', 0),
+    h('span', { class: 'sep' }),
+    h('label', { class: 'check', title: 'Draw the map exactly as your players are sent it' }, see, ' See as players'),
+    h('button', { type: 'button', class: 'btn small' + (T.shared ? '' : ' primary'), text: T.shared ? 'Stop sharing' : 'Share with players', onclick: () => tableSetShared(!T.shared) }),
+    T.statusEl);
+  tableStatus();
+}
+function tableStatus() {
+  const el = T.statusEl;
+  if (!el || !T.dm) return;
+  el.textContent = T.err ? T.err : T.pending || T.dirty ? 'Saving…' : T.shared ? 'Players see this map, as you change it.' : 'Hidden from players.';
+  el.classList.toggle('err', !!T.err);
+}
+function tableNote() {
+  if (!T.noteEl) return;
+  let text = '';
+  if (T.bad) text = 'This map’s data is damaged and can’t be shown.';
+  else if (!T.renderer || !T.base) text = 'Unrolling the map…';
+  else if ((!T.dm || T.preview) && T.base.grid === 'square' && !tableFogRect()) text = T.dm ? 'Players see nothing yet: no part of this map is uncovered.' : 'Your DM hasn’t uncovered any of this place yet.';
+  T.noteEl.firstChild.textContent = text;
+  T.noteEl.hidden = !text;
+}
+
+/* ---- view ---- */
+/* What players have been shown of an interior: nothing outside it counts, so the view gives no hint of how far the place goes. */
+function tableFogRect() {
+  if (T.rect !== undefined) return T.rect;
+  const w = T.base.w, m = T.masked;
+  let c0 = 1e9, r0 = 1e9, c1 = -1, r1 = -1;
+  for (let i = 0; i < m.length; i++) if (m[i]) { const c = i % w, r = (i - c) / w; if (c < c0) c0 = c; if (c > c1) c1 = c; if (r < r0) r0 = r; if (r > r1) r1 = r; }
+  T.rect = c1 < 0 ? null : { x0: c0 - 1, y0: r0 - 1, x1: c1 + 2, y1: r1 + 2 };
+  return T.rect;
+}
+function tableRect() {
+  if (!T.base) return null;
+  if (!T.dm && T.base.grid === 'square') return tableFogRect();
+  const b = mapBounds(T.base), e = T.base.grid === 'square' ? 0.3 : 0;
+  return { x0: -e, y0: -e, x1: b.w + e, y1: b.h + e };
+}
+function tableFitScale(R) { const pad = Math.min(48, T.cw * 0.06); return Math.max(0.5, Math.min((T.cw - pad * 2) / (R.x1 - R.x0), (T.ch - pad * 2) / (R.y1 - R.y0))); }
+function tableMinScale(R) { return Math.min(MIN_SCALE, tableFitScale(R) * 0.5); }
+function tableClamp() {
+  const R = tableRect();
+  if (!R) return;
+  T.view.scale = clamp(T.view.scale, tableMinScale(R), MAX_SCALE);
+  T.view.x = clamp(T.view.x, R.x0, R.x1); T.view.y = clamp(T.view.y, R.y0, R.y1);
+}
+function tableFit() {
+  const R = tableRect();
+  if (!R) { T.view = { x: 0, y: 0, scale: BASE_SCALE }; return; }
+  T.view.scale = clamp(Math.min(tableFitScale(R), 96), tableMinScale(R), MAX_SCALE);
+  T.view.x = (R.x0 + R.x1) / 2; T.view.y = (R.y0 + R.y1) / 2;
+}
+function tableZoomAt(sx, sy, factor) {
+  const R = tableRect();
+  if (!R) return;
+  const [wx, wy] = tableWorld(sx, sy);
+  T.view.scale = clamp(T.view.scale * factor, tableMinScale(R), MAX_SCALE);
+  T.view.x = wx - (sx - T.cw / 2) / T.view.scale; T.view.y = wy - (sy - T.ch / 2) / T.view.scale;
+  tableClamp(); tableRedraw();
+}
+function tableWorld(sx, sy) { return [T.view.x + (sx - T.cw / 2) / T.view.scale, T.view.y + (sy - T.ch / 2) / T.view.scale]; }
+function tableResize() {
+  if (!T.el || !T.el.isConnected) return;
+  const r = T.stage.getBoundingClientRect();
+  if (r.width < 2 || r.height < 2) return;
+  T.cw = r.width; T.ch = r.height; T.dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const W = Math.round(T.cw * T.dpr), H = Math.round(T.ch * T.dpr);
+  for (const cv of [T.gl, T.ov]) if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
+  if (T.base) { if (T.needFit) { T.needFit = false; tableFit(); } else tableClamp(); }
+  tableRedraw();
+}
+function tableCursor() {
+  if (!T.ov) return;
+  const panning = T.gesture && (T.gesture.type === 'pan' || T.gesture.type === 'pinch');
+  T.ov.dataset.cursor = panning ? 'grabbing' : !T.dm || T.tool === 'move' ? 'grab' : 'cross';
+}
+
+/* ---- drawing ---- */
+function cellsPath(m, list) {
+  const p = new Path2D();
+  if (m.grid === 'square') {
+    let c0 = 1e9, r0 = 1e9, c1 = -1e9, r1 = -1e9;
+    for (const [c, r] of list) { if (c < c0) c0 = c; if (c > c1) c1 = c; if (r < r0) r0 = r; if (r > r1) r1 = r; }
+    p.rect(c0, r0, c1 - c0 + 1, r1 - r0 + 1);
+    return p;
+  }
+  const a0 = m.orient === 'flat' ? 0 : Math.PI / 6;
+  for (const [c, r] of list) {
+    const [cx, cy] = cellCenter(m, c, r);
+    for (let k = 0; k < 6; k++) { const a = a0 + (k * Math.PI) / 3, x = cx + Math.cos(a) * HEX_R, y = cy + Math.sin(a) * HEX_R; if (k) p.lineTo(x, y); else p.moveTo(x, y); }
+    p.closePath();
+  }
+  return p;
+}
+/* The DM's tint over everything still covered. */
+function tableCoverPath() {
+  const m = T.base, p = new Path2D(), w = m.w, fog = T.fog, cells = T.cells;
+  if (m.grid === 'square') {
+    for (let r = 0; r < m.h; r++) for (let c = 0; c < w; c++) {
+      if (fog[r * w + c] || !cells[r * w + c]) continue;
+      let e = c;
+      while (e + 1 < w && !fog[r * w + e + 1] && cells[r * w + e + 1]) e++;
+      p.rect(c, r, e - c + 1, 1);
+      c = e;
+    }
+    return p;
+  }
+  const a0 = m.orient === 'flat' ? 0 : Math.PI / 6, dx = [], dy = [];
+  for (let k = 0; k < 6; k++) { const a = a0 + (k * Math.PI) / 3; dx.push(Math.cos(a) * HEX_R * 1.02); dy.push(Math.sin(a) * HEX_R * 1.02); }
+  for (let r = 0; r < m.h; r++) for (let c = 0; c < w; c++) {
+    if (fog[r * w + c]) continue;
+    const [cx, cy] = cellCenter(m, c, r);
+    p.moveTo(cx + dx[0], cy + dy[0]);
+    for (let k = 1; k < 6; k++) p.lineTo(cx + dx[k], cy + dy[k]);
+    p.closePath();
+  }
+  return p;
+}
+function tableFrame() {
+  T.raf = 0;
+  if (!T.el || !T.el.isConnected || !T.renderer || !T.base) return;
+  const fogView = !T.dm || T.preview, hex = T.base.grid === 'hex', dark = fogView && !hex;
+  const map = { grid: T.base.grid, orient: T.base.orient, w: T.base.w, h: T.base.h, cells: fogView ? T.masked : T.cells };
+  T.stage.classList.toggle('dark', dark);
+  T.renderer.draw(map, T.view, { grid: true, dpr: T.dpr, colors: dark ? Object.assign({}, colors, { stage: colors.void }) : colors, cellsDirty: T.cellsDirty, fog: fogView });
+  T.cellsDirty = false;
+  const ctx = T.ctx, s = T.view.scale * T.dpr;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, T.ov.width, T.ov.height);
+  if (!T.dm) return;
+  ctx.setTransform(s, 0, 0, s, T.ov.width / 2 - T.view.x * s, T.ov.height / 2 - T.view.y * s);
+  if (!T.preview) {
+    if (!T.cover) T.cover = tableCoverPath();
+    ctx.fillStyle = hex ? 'rgba(228, 207, 152, 0.62)' : 'rgba(0, 0, 0, 0.64)';
+    ctx.fill(T.cover);
+  }
+  let list = null;
+  const g = T.gesture;
+  if (g && g.type === 'rect') list = rectCellsOf(T.base, g.c0, g.r0, g.c1, g.r1);
+  else if (T.hover && T.tool !== 'move' && (!g || g.type === 'paint')) {
+    if (T.tool === 'brush') list = brushCellsOf(T.base, T.brush, T.hover.wx, T.hover.wy);
+    else { const [c, r] = worldToCell(T.base, T.hover.wx, T.hover.wy); list = inMap(T.base, c, r) ? [[c, r]] : null; }
+  }
+  if (!list || !list.length) return;
+  const p = cellsPath(T.base, list);
+  ctx.fillStyle = T.mode ? 'rgba(255, 255, 255, 0.14)' : 'rgba(0, 0, 0, 0.2)'; ctx.fill(p);
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = 3.5 / T.view.scale; ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'; ctx.stroke(p);
+  ctx.lineWidth = 1.5 / T.view.scale; ctx.strokeStyle = '#ffffff'; ctx.stroke(p);
+}
+
+/* ---- pointer input ---- */
+function tableEvents() {
+  const ov = T.ov;
+  const xy = (e) => { const r = ov.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  const pinchStart = () => {
+    const pts = [...T.pointers.values()], mx = (pts[0].x + pts[1].x) / 2, my = (pts[0].y + pts[1].y) / 2;
+    T.gesture = { type: 'pinch', dist: Math.max(10, Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y)), scale: T.view.scale, world: tableWorld(mx, my) };
+  };
+  ov.addEventListener('pointerdown', (e) => {
+    if (!T.base || !T.renderer) return;
+    const [x, y] = xy(e);
+    try { ov.setPointerCapture(e.pointerId); } catch (err) { /* pointer already gone */ }
+    T.pointers.set(e.pointerId, { x, y });
+    if (T.pointers.size === 2) { if (T.gesture && T.gesture.type === 'paint') tableCommit(); pinchStart(); tableCursor(); tableRedraw(); return; }
+    if (T.pointers.size > 2 || T.gesture) return;
+    const [wx, wy] = tableWorld(x, y);
+    T.hover = e.pointerType === 'mouse' ? { wx, wy } : null;
+    if (!T.dm || T.tool === 'move' || e.button !== 0) { T.gesture = { type: 'pan', id: e.pointerId, x, y }; e.preventDefault(); }
+    else if (T.tool === 'brush') { T.gesture = { type: 'paint', id: e.pointerId, wx, wy }; tableApply(brushCellsOf(T.base, T.brush, wx, wy), T.mode); }
+    else if (T.tool === 'box') { const cell = worldToCell(T.base, wx, wy), c = clamp(cell[0], 0, T.base.w - 1), r = clamp(cell[1], 0, T.base.h - 1); T.gesture = { type: 'rect', id: e.pointerId, c0: c, r0: r, c1: c, r1: r }; }
+    else { const [c, r] = worldToCell(T.base, wx, wy); if (inMap(T.base, c, r) && T.base.grid === 'square' && tableApply(roomCells(c, r), T.mode)) tableCommit(); T.gesture = { type: 'click', id: e.pointerId }; }
+    tableCursor(); tableRedraw();
+  });
+  ov.addEventListener('pointermove', (e) => {
+    if (!T.base) return;
+    const [x, y] = xy(e), [wx, wy] = tableWorld(x, y), p = T.pointers.get(e.pointerId), g = T.gesture;
+    if (p) { p.x = x; p.y = y; }
+    if (e.pointerType === 'mouse') T.hover = { wx, wy };
+    if (g && g.type === 'pinch' && T.pointers.size >= 2) {
+      const R = tableRect();
+      if (R) {
+        const pts = [...T.pointers.values()], mx = (pts[0].x + pts[1].x) / 2, my = (pts[0].y + pts[1].y) / 2;
+        const dist = Math.max(10, Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y));
+        T.view.scale = clamp((g.scale * dist) / g.dist, tableMinScale(R), MAX_SCALE);
+        T.view.x = g.world[0] - (mx - T.cw / 2) / T.view.scale; T.view.y = g.world[1] - (my - T.ch / 2) / T.view.scale;
+        tableClamp();
+      }
+    } else if (g && g.id === e.pointerId) {
+      if (g.type === 'pan') { T.view.x -= (x - g.x) / T.view.scale; T.view.y -= (y - g.y) / T.view.scale; g.x = x; g.y = y; tableClamp(); }
+      else if (g.type === 'paint') {
+        const dx = wx - g.wx, dy = wy - g.wy, steps = Math.max(1, Math.ceil(Math.hypot(dx, dy) / 0.35));
+        for (let i = 1; i <= steps; i++) tableApply(brushCellsOf(T.base, T.brush, g.wx + (dx * i) / steps, g.wy + (dy * i) / steps), T.mode);
+        g.wx = wx; g.wy = wy;
+      } else if (g.type === 'rect') { const cell = worldToCell(T.base, wx, wy); g.c1 = clamp(cell[0], 0, T.base.w - 1); g.r1 = clamp(cell[1], 0, T.base.h - 1); }
+    }
+    tableRedraw();
+  });
+  const end = (e, cancelled) => {
+    const had = T.pointers.delete(e.pointerId), g = T.gesture;
+    try { ov.releasePointerCapture(e.pointerId); } catch (err) { /* not captured */ }
+    if (!g) return;
+    if (g.type === 'pinch') { if (T.pointers.size < 2) T.gesture = null; else if (had) pinchStart(); }
+    else if (g.id === e.pointerId && had) {
+      if (g.type === 'rect' && !cancelled && T.base) tableApply(rectCellsOf(T.base, g.c0, g.r0, g.c1, g.r1), T.mode);
+      T.gesture = null;
+      if (g.type === 'paint' || g.type === 'rect') tableCommit();
+    }
+    tableCursor(); tableRedraw();
+  };
+  ov.addEventListener('pointerup', (e) => end(e, false));
+  ov.addEventListener('pointercancel', (e) => end(e, true));
+  ov.addEventListener('lostpointercapture', (e) => { if (T.pointers.has(e.pointerId)) end(e, false); });
+  ov.addEventListener('pointerleave', () => { T.hover = null; tableRedraw(); });
+  ov.addEventListener('contextmenu', (e) => e.preventDefault());
+  ov.addEventListener('auxclick', (e) => e.preventDefault());
+  ov.addEventListener('mousedown', (e) => { if (e.button === 1) e.preventDefault(); });
+  T.stage.addEventListener('wheel', (e) => {
+    if (!T.base) return;
+    e.preventDefault();
+    const [sx, sy] = xy(e);
+    let dy = e.deltaY;
+    if (e.deltaMode === 1) dy *= 16; else if (e.deltaMode === 2) dy *= T.ch;
+    tableZoomAt(sx, sy, clamp(Math.exp(-dy * (e.ctrlKey || e.metaKey ? 0.01 : 0.0016)), 0.5, 2));
+  }, { passive: false });
+  /* Safari reports trackpad pinches as gesture events. */
+  T.stage.addEventListener('gesturestart', (e) => { e.preventDefault(); T.zoomBase = T.view.scale; });
+  T.stage.addEventListener('gesturechange', (e) => { e.preventDefault(); if (!T.zoomBase || !T.base) return; const [sx, sy] = xy(e); tableZoomAt(sx, sy, (T.zoomBase * e.scale) / T.view.scale); });
+  T.stage.addEventListener('gestureend', (e) => { e.preventDefault(); T.zoomBase = 0; });
+}
+document.addEventListener('visibilitychange', () => { if (document.hidden) { sheetFlush(); tableFlush(); } });
 
 /* ---------- start-up ---------- */
 function nextFrame() { return new Promise((res) => requestAnimationFrame(() => setTimeout(res, 0))); }
+/* Textures are painted once, the first time a map has to be drawn (in the builder or on a campaign's map table). */
+let texPromise = null, noisePixels = null;
+const NOISE_SIZE = 256;
+function ensureTextures() {
+  if (!texPromise) texPromise = (async () => {
+    await nextFrame();
+    const list = [];
+    for (const key of TEXTURE_KEYS) {
+      const t = buildTexture(key);
+      list.push(t); texByKey[key] = t;
+      if (list.length % 3 === 0) await nextFrame();
+    }
+    noisePixels = buildNoisePixels(NOISE_SIZE);
+    textures = list;
+    return list;
+  })();
+  return texPromise;
+}
+function makeRenderer(canvas) {
+  let r = null;
+  try { if (!window.__forceCanvas2D) r = createGLRenderer(canvas, textures, noisePixels, NOISE_SIZE); }
+  catch (e) { console.error(e); r = null; }
+  return r || createCanvasRenderer(canvas, textures);
+}
+let commonReady = false;
+function initCommon() {
+  if (commonReady) return;
+  commonReady = true;
+  readColors();
+  const onTheme = () => { readColors(); miniDirty = true; requestDraw(); tableRedraw(true); };
+  try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', onTheme); } catch (e) { /* older browsers */ }
+  try { new MutationObserver(onTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] }); } catch (e) { /* ignore */ }
+}
 let booted = false;
 async function boot(saved) {
   if (booted) return;
@@ -3561,25 +4977,13 @@ async function boot(saved) {
   saved = saved || {};
   S.grid = prefGet('grid', '1') === '1'; S.mini = prefGet('mini', '1') === '1'; S.wheelPan = prefGet('wheelpan', '0') === '1';
   $('opt-grid').checked = S.grid; $('opt-mini').checked = S.mini; $('opt-wheelpan').checked = S.wheelPan;
-  readColors();
+  initCommon();
   resizeStage();
   if (window.ResizeObserver) new ResizeObserver(resizeStage).observe(stageEl); else window.addEventListener('resize', resizeStage);
-  const onTheme = () => { readColors(); miniDirty = true; requestDraw(); };
-  try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', onTheme); } catch (e) { /* older browsers */ }
-  try { new MutationObserver(onTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] }); } catch (e) { /* ignore */ }
 
-  await nextFrame();
-  textures = [];
-  for (const key of TEXTURE_KEYS) {
-    const t = buildTexture(key);
-    textures.push(t); texByKey[key] = t;
-    if (textures.length % 3 === 0) await nextFrame();
-  }
-  const noiseSize = 256, noise = buildNoisePixels(noiseSize);
-  try { if (!window.__forceCanvas2D) renderer = createGLRenderer(glCanvas, textures, noise, noiseSize); }
-  catch (e) { console.error(e); renderer = null; }
-  if (!renderer) {
-    renderer = createCanvasRenderer(glCanvas, textures);
+  await ensureTextures();
+  renderer = makeRenderer(glCanvas);
+  if (renderer.kind !== 'gl') {
     $('mode-note').textContent = 'Simplified drawing: this browser has no WebGL 2, so borders are not blended.';
     $('mode-note').hidden = false;
   }
@@ -3594,11 +4998,10 @@ async function boot(saved) {
   requestDraw();
   initStore();
   if (saved.ref && saved.ref.st) { try { for (const k of Object.keys(REF.st)) Object.assign(REF.st[k], saved.ref.st[k] || {}); } catch (e) { /* keep defaults */ } }
-  const hashTab = (location.hash || '').replace('#', '');
-  const firstTab = TABS.includes(hashTab) ? hashTab : (saved.ref && saved.ref.tab) || prefGet('tab', 'map');
-  if (firstTab !== 'map') showTab(firstTab);
-  window.addEventListener('hashchange', () => { const t = (location.hash || '').replace('#', ''); if (TABS.includes(t)) showTab(t); });
+  const firstTab = tabFromName((location.hash || '').replace('#', '')) || (saved.ref && saved.ref.tab) || prefGet('tab', 'map');
+  showTab(firstTab);
 }
+window.addEventListener('hashchange', () => { const t = tabFromName((location.hash || '').replace('#', '')); if (t) showTab(t); });
 (function start() {
   if (!window.Cloud) { showGate({ phase: 'error', error: 'Part of this site (cloud.js) did not load. Reload the page.', uid: '' }); return; }
   Cloud.onState(onCloud);
