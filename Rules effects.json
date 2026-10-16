@@ -1,0 +1,4705 @@
+{
+ "version": 1,
+ "about": "Mechanics for the character builder, keyed by the IDs in the Player's Handbook (2024) CSVs. Names, summaries, levels, tables and lists come from the CSVs; this file only says what the rules DO. Each source lists effects; see README-character-builder.md for every effect type and how to add house rules.",
+ "classes": {
+  "barbarian": {
+   "recommend": {
+    "scores": {
+     "str": 15,
+     "dex": 13,
+     "con": 14,
+     "int": 10,
+     "wis": 12,
+     "cha": 8
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "greataxe"
+        },
+        {
+         "id": "handaxe",
+         "qty": 4
+        },
+        {
+         "id": "explorers-pack"
+        }
+       ],
+       "gp": 15
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 75
+      }
+     ]
+    }
+   ],
+   "multiclass": [
+    {
+     "type": "proficiency",
+     "kind": "weapon",
+     "value": "martial"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "shield"
+    }
+   ],
+   "effects": [
+    {
+     "type": "resource",
+     "id": "rage",
+     "name": "Rage",
+     "max": "table:Rages",
+     "recharge": "short1"
+    },
+    {
+     "type": "stat",
+     "id": "rage-damage",
+     "name": "Rage Damage",
+     "value": "table:Rage Damage"
+    },
+    {
+     "type": "ac_formula",
+     "id": "unarmored-defense",
+     "label": "Unarmored Defense",
+     "abilities": [
+      "dex",
+      "con"
+     ],
+     "shield": true
+    },
+    {
+     "type": "weapon_mastery_choice",
+     "id": "mastery",
+     "count": "table:Weapon Mastery",
+     "filter": "melee"
+    },
+    {
+     "type": "advantage",
+     "on": "Dexterity saving throws",
+     "vs": "unless Incapacitated",
+     "minLevel": 2
+    },
+    {
+     "type": "proficiency_choice",
+     "id": "primal-knowledge",
+     "label": "Primal Knowledge: one more Barbarian skill",
+     "kind": "skill",
+     "count": 1,
+     "options": {
+      "from": "class"
+     },
+     "minLevel": 3
+    },
+    {
+     "type": "attacks_per_action",
+     "value": 2,
+     "minLevel": 5
+    },
+    {
+     "type": "speed_bonus",
+     "value": 10,
+     "when": "no_heavy",
+     "label": "Fast Movement",
+     "minLevel": 5
+    },
+    {
+     "type": "advantage",
+     "on": "Initiative rolls",
+     "minLevel": 7
+    },
+    {
+     "type": "ability_bonus",
+     "ability": "str",
+     "value": 4,
+     "max": 25,
+     "label": "Primal Champion",
+     "minLevel": 20
+    },
+    {
+     "type": "ability_bonus",
+     "ability": "con",
+     "value": 4,
+     "max": 25,
+     "label": "Primal Champion",
+     "minLevel": 20
+    }
+   ]
+  },
+  "bard": {
+   "recommend": {
+    "scores": {
+     "str": 8,
+     "dex": 14,
+     "con": 12,
+     "int": 13,
+     "wis": 10,
+     "cha": 15
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "proficiency_choice",
+     "id": "instruments",
+     "label": "Three Musical Instruments",
+     "kind": "tool",
+     "count": 3,
+     "options": {
+      "instruments": true
+     }
+    },
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "leather-armor"
+        },
+        {
+         "id": "dagger",
+         "qty": 2
+        },
+        {
+         "id": "musical-instrument",
+         "variant": "@instrument"
+        },
+        {
+         "id": "entertainers-pack"
+        }
+       ],
+       "gp": 19
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 90
+      }
+     ]
+    }
+   ],
+   "multiclass": [
+    {
+     "type": "proficiency_choice",
+     "id": "mc-skill",
+     "label": "One skill of your choice",
+     "kind": "skill",
+     "count": 1,
+     "options": "any"
+    },
+    {
+     "type": "proficiency_choice",
+     "id": "mc-instrument",
+     "label": "One Musical Instrument",
+     "kind": "tool",
+     "count": 1,
+     "options": {
+      "instruments": true
+     }
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "light"
+    }
+   ],
+   "effects": [
+    {
+     "type": "spellcasting",
+     "ability": "cha",
+     "kind": "full",
+     "list": "Bard"
+    },
+    {
+     "type": "resource",
+     "id": "bardic-inspiration",
+     "name": "Bardic Inspiration",
+     "max": "mod:cha",
+     "min": 1,
+     "recharge": "long"
+    },
+    {
+     "type": "resource",
+     "id": "bardic-inspiration",
+     "name": "Bardic Inspiration",
+     "max": "mod:cha",
+     "min": 1,
+     "recharge": "short",
+     "minLevel": 5,
+     "label": "Font of Inspiration"
+    },
+    {
+     "type": "stat",
+     "id": "bardic-die",
+     "name": "Bardic Inspiration die",
+     "value": "table:Bardic Inspiration Die"
+    },
+    {
+     "type": "expertise_choice",
+     "id": "expertise-2",
+     "label": "Expertise (two skills)",
+     "count": 2,
+     "minLevel": 2
+    },
+    {
+     "type": "jack_of_all_trades",
+     "minLevel": 2
+    },
+    {
+     "type": "expertise_choice",
+     "id": "expertise-9",
+     "label": "Expertise (two more skills)",
+     "count": 2,
+     "minLevel": 9
+    },
+    {
+     "type": "spell_lists",
+     "lists": [
+      "Cleric",
+      "Druid",
+      "Wizard"
+     ],
+     "label": "Magical Secrets",
+     "minLevel": 10
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Power Word Heal",
+      "Power Word Kill"
+     ],
+     "ability": "class",
+     "label": "Words of Creation",
+     "minLevel": 20
+    }
+   ]
+  },
+  "cleric": {
+   "recommend": {
+    "scores": {
+     "str": 14,
+     "dex": 8,
+     "con": 13,
+     "int": 10,
+     "wis": 15,
+     "cha": 12
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "chain-shirt"
+        },
+        {
+         "id": "shield"
+        },
+        {
+         "id": "mace"
+        },
+        {
+         "id": "holy-symbol-amulet"
+        },
+        {
+         "id": "priests-pack"
+        }
+       ],
+       "gp": 7
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 110
+      }
+     ]
+    }
+   ],
+   "multiclass": [
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "light"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "medium"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "shield"
+    }
+   ],
+   "effects": [
+    {
+     "type": "spellcasting",
+     "ability": "wis",
+     "kind": "full",
+     "list": "Cleric"
+    },
+    {
+     "type": "choice",
+     "id": "divine-order",
+     "label": "Divine Order",
+     "optionType": "Divine Order",
+     "options": [
+      {
+       "value": "Protector",
+       "effects": [
+        {
+         "type": "proficiency",
+         "kind": "weapon",
+         "value": "martial"
+        },
+        {
+         "type": "proficiency",
+         "kind": "armor",
+         "value": "heavy"
+        }
+       ]
+      },
+      {
+       "value": "Thaumaturge",
+       "effects": [
+        {
+         "type": "cantrip_bonus",
+         "value": 1
+        },
+        {
+         "type": "check_bonus",
+         "skills": [
+          "Arcana",
+          "Religion"
+         ],
+         "value": "mod:wis",
+         "min": 1,
+         "VERIFY": "minimum +1"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "resource",
+     "id": "channel-divinity",
+     "name": "Channel Divinity",
+     "max": "table:Channel Divinity",
+     "recharge": "short1",
+     "minLevel": 2
+    },
+    {
+     "type": "choice",
+     "id": "blessed-strikes",
+     "label": "Blessed Strikes",
+     "minLevel": 7,
+     "options": [
+      {
+       "value": "Divine Strike"
+      },
+      {
+       "value": "Potent Spellcasting"
+      }
+     ]
+    }
+   ]
+  },
+  "druid": {
+   "recommend": {
+    "scores": {
+     "str": 8,
+     "dex": 12,
+     "con": 14,
+     "int": 13,
+     "wis": 15,
+     "cha": 10
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "leather-armor"
+        },
+        {
+         "id": "shield"
+        },
+        {
+         "id": "sickle"
+        },
+        {
+         "id": "druidic-focus-wooden-staff"
+        },
+        {
+         "id": "explorers-pack"
+        },
+        {
+         "id": "herbalism-kit"
+        }
+       ],
+       "gp": 9
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 50
+      }
+     ]
+    }
+   ],
+   "multiclass": [
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "light"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "shield"
+    }
+   ],
+   "effects": [
+    {
+     "type": "spellcasting",
+     "ability": "wis",
+     "kind": "full",
+     "list": "Druid"
+    },
+    {
+     "type": "proficiency",
+     "kind": "language",
+     "value": "Druidic",
+     "label": "Druidic"
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Speak with Animals"
+     ],
+     "ability": "class",
+     "label": "Druidic"
+    },
+    {
+     "type": "choice",
+     "id": "primal-order",
+     "label": "Primal Order",
+     "optionType": "Primal Order",
+     "options": [
+      {
+       "value": "Magician",
+       "effects": [
+        {
+         "type": "cantrip_bonus",
+         "value": 1
+        },
+        {
+         "type": "check_bonus",
+         "skills": [
+          "Arcana",
+          "Nature"
+         ],
+         "value": "mod:wis",
+         "min": 1,
+         "VERIFY": "minimum +1"
+        }
+       ]
+      },
+      {
+       "value": "Warden",
+       "effects": [
+        {
+         "type": "proficiency",
+         "kind": "weapon",
+         "value": "martial"
+        },
+        {
+         "type": "proficiency",
+         "kind": "armor",
+         "value": "medium"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "resource",
+     "id": "wild-shape",
+     "name": "Wild Shape",
+     "max": "table:Wild Shape",
+     "recharge": "short1",
+     "minLevel": 2
+    },
+    {
+     "type": "choice",
+     "id": "elemental-fury",
+     "label": "Elemental Fury",
+     "minLevel": 7,
+     "options": [
+      {
+       "value": "Potent Spellcasting"
+      },
+      {
+       "value": "Primal Strike"
+      }
+     ]
+    }
+   ]
+  },
+  "fighter": {
+   "recommend": {
+    "scores": {
+     "str": 15,
+     "dex": 14,
+     "con": 13,
+     "int": 8,
+     "wis": 10,
+     "cha": 12
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "chain-mail"
+        },
+        {
+         "id": "greatsword"
+        },
+        {
+         "id": "flail"
+        },
+        {
+         "id": "javelin",
+         "qty": 8
+        },
+        {
+         "id": "dungeoneers-pack"
+        }
+       ],
+       "gp": 4
+      },
+      {
+       "key": "B",
+       "items": [
+        {
+         "id": "studded-leather-armor"
+        },
+        {
+         "id": "scimitar"
+        },
+        {
+         "id": "shortsword"
+        },
+        {
+         "id": "longbow"
+        },
+        {
+         "id": "ammunition-arrows-20"
+        },
+        {
+         "id": "quiver"
+        },
+        {
+         "id": "dungeoneers-pack"
+        }
+       ],
+       "gp": 11
+      },
+      {
+       "key": "C",
+       "items": [],
+       "gp": 155
+      }
+     ]
+    }
+   ],
+   "multiclass": [
+    {
+     "type": "proficiency",
+     "kind": "weapon",
+     "value": "martial"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "light"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "medium"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "shield"
+    }
+   ],
+   "effects": [
+    {
+     "type": "feat_choice",
+     "id": "style",
+     "label": "Fighting Style",
+     "category": "Fighting Style"
+    },
+    {
+     "type": "resource",
+     "id": "second-wind",
+     "name": "Second Wind",
+     "max": "table:Second Wind",
+     "recharge": "short1"
+    },
+    {
+     "type": "weapon_mastery_choice",
+     "id": "mastery",
+     "count": "table:Weapon Mastery"
+    },
+    {
+     "type": "resource",
+     "id": "action-surge",
+     "name": "Action Surge",
+     "max": {
+      "2": 1,
+      "17": 2
+     },
+     "recharge": "short",
+     "minLevel": 2
+    },
+    {
+     "type": "attacks_per_action",
+     "value": 2,
+     "minLevel": 5
+    },
+    {
+     "type": "resource",
+     "id": "indomitable",
+     "name": "Indomitable",
+     "max": {
+      "9": 1,
+      "13": 2,
+      "17": 3
+     },
+     "recharge": "long",
+     "minLevel": 9
+    },
+    {
+     "type": "attacks_per_action",
+     "value": 3,
+     "minLevel": 11
+    },
+    {
+     "type": "attacks_per_action",
+     "value": 4,
+     "minLevel": 20
+    }
+   ]
+  },
+  "monk": {
+   "recommend": {
+    "scores": {
+     "str": 12,
+     "dex": 15,
+     "con": 13,
+     "int": 10,
+     "wis": 14,
+     "cha": 8
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "proficiency_choice",
+     "id": "tool",
+     "label": "One Artisan's Tools or Musical Instrument",
+     "kind": "tool",
+     "count": 1,
+     "options": {
+      "artisan": true,
+      "instruments": true
+     }
+    },
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "spear"
+        },
+        {
+         "id": "dagger",
+         "qty": 5
+        },
+        {
+         "id": "@tool"
+        },
+        {
+         "id": "explorers-pack"
+        }
+       ],
+       "gp": 11
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 50
+      }
+     ]
+    }
+   ],
+   "multiclass": [],
+   "effects": [
+    {
+     "type": "martial_arts",
+     "die": "table:Martial Arts"
+    },
+    {
+     "type": "stat",
+     "id": "martial-arts",
+     "name": "Martial Arts die",
+     "value": "table:Martial Arts"
+    },
+    {
+     "type": "ac_formula",
+     "id": "unarmored-defense",
+     "label": "Unarmored Defense",
+     "abilities": [
+      "dex",
+      "wis"
+     ],
+     "shield": false
+    },
+    {
+     "type": "resource",
+     "id": "focus",
+     "name": "Focus Points",
+     "max": "table:Focus Points",
+     "recharge": "short",
+     "minLevel": 2
+    },
+    {
+     "type": "speed_bonus",
+     "value": "table:Unarmored Movement",
+     "when": "unarmored_noshield",
+     "label": "Unarmored Movement",
+     "minLevel": 2
+    },
+    {
+     "type": "attacks_per_action",
+     "value": 2,
+     "minLevel": 5
+    },
+    {
+     "type": "save_proficiency_all",
+     "label": "Disciplined Survivor",
+     "minLevel": 14
+    },
+    {
+     "type": "ability_bonus",
+     "ability": "dex",
+     "value": 4,
+     "max": 25,
+     "label": "Body and Mind",
+     "minLevel": 20
+    },
+    {
+     "type": "ability_bonus",
+     "ability": "wis",
+     "value": 4,
+     "max": 25,
+     "label": "Body and Mind",
+     "minLevel": 20
+    }
+   ]
+  },
+  "paladin": {
+   "recommend": {
+    "scores": {
+     "str": 15,
+     "dex": 10,
+     "con": 13,
+     "int": 8,
+     "wis": 12,
+     "cha": 14
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "chain-mail"
+        },
+        {
+         "id": "shield"
+        },
+        {
+         "id": "longsword"
+        },
+        {
+         "id": "javelin",
+         "qty": 6
+        },
+        {
+         "id": "holy-symbol-amulet"
+        },
+        {
+         "id": "priests-pack"
+        }
+       ],
+       "gp": 9
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 150
+      }
+     ]
+    }
+   ],
+   "multiclass": [
+    {
+     "type": "proficiency",
+     "kind": "weapon",
+     "value": "martial"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "light"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "medium"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "shield"
+    }
+   ],
+   "effects": [
+    {
+     "type": "spellcasting",
+     "ability": "cha",
+     "kind": "half",
+     "list": "Paladin"
+    },
+    {
+     "type": "resource",
+     "id": "lay-on-hands",
+     "name": "Lay On Hands pool",
+     "max": "table:Lay On Hands Pool",
+     "recharge": "long"
+    },
+    {
+     "type": "weapon_mastery_choice",
+     "id": "mastery",
+     "count": 2
+    },
+    {
+     "type": "choice",
+     "id": "fighting-style",
+     "label": "Fighting Style",
+     "minLevel": 2,
+     "options": [
+      {
+       "value": "feat",
+       "label": "A Fighting Style feat",
+       "effects": [
+        {
+         "type": "feat_choice",
+         "id": "style-feat",
+         "label": "Fighting Style feat",
+         "category": "Fighting Style"
+        }
+       ]
+      },
+      {
+       "value": "Blessed Warrior",
+       "effects": [
+        {
+         "type": "spell_choice",
+         "id": "blessed-warrior",
+         "label": "Blessed Warrior: two Cleric cantrips",
+         "count": 2,
+         "levels": [
+          0
+         ],
+         "lists": [
+          "Cleric"
+         ],
+         "ability": "cha",
+         "always": true
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Divine Smite"
+     ],
+     "ability": "class",
+     "free": "long",
+     "label": "Paladin's Smite",
+     "minLevel": 2
+    },
+    {
+     "type": "resource",
+     "id": "channel-divinity",
+     "name": "Channel Divinity",
+     "max": "table:Channel Divinity",
+     "recharge": "short1",
+     "minLevel": 3
+    },
+    {
+     "type": "attacks_per_action",
+     "value": 2,
+     "minLevel": 5
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Find Steed"
+     ],
+     "ability": "class",
+     "free": "long",
+     "label": "Faithful Steed",
+     "minLevel": 5
+    },
+    {
+     "type": "save_bonus",
+     "value": "mod:cha",
+     "min": 1,
+     "label": "Aura of Protection",
+     "minLevel": 6
+    },
+    {
+     "type": "immunity",
+     "condition": "Frightened",
+     "label": "Aura of Courage",
+     "minLevel": 10
+    }
+   ]
+  },
+  "ranger": {
+   "recommend": {
+    "scores": {
+     "str": 12,
+     "dex": 15,
+     "con": 13,
+     "int": 8,
+     "wis": 14,
+     "cha": 10
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "studded-leather-armor"
+        },
+        {
+         "id": "scimitar"
+        },
+        {
+         "id": "shortsword"
+        },
+        {
+         "id": "longbow"
+        },
+        {
+         "id": "ammunition-arrows-20"
+        },
+        {
+         "id": "quiver"
+        },
+        {
+         "id": "druidic-focus-sprig-of-mistletoe"
+        },
+        {
+         "id": "explorers-pack"
+        }
+       ],
+       "gp": 7
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 150
+      }
+     ]
+    }
+   ],
+   "multiclass": [
+    {
+     "type": "proficiency",
+     "kind": "weapon",
+     "value": "martial"
+    },
+    {
+     "type": "proficiency_choice",
+     "id": "mc-skill",
+     "label": "One Ranger skill",
+     "kind": "skill",
+     "count": 1,
+     "options": {
+      "from": "class"
+     }
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "light"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "medium"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "shield"
+    }
+   ],
+   "effects": [
+    {
+     "type": "spellcasting",
+     "ability": "wis",
+     "kind": "half",
+     "list": "Ranger"
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Hunter's Mark"
+     ],
+     "ability": "class",
+     "free": "table:Favored Enemy (free Hunter's Mark)",
+     "label": "Favored Enemy"
+    },
+    {
+     "type": "weapon_mastery_choice",
+     "id": "mastery",
+     "count": 2
+    },
+    {
+     "type": "expertise_choice",
+     "id": "deft-explorer",
+     "label": "Deft Explorer: Expertise in one skill",
+     "count": 1,
+     "minLevel": 2
+    },
+    {
+     "type": "proficiency_choice",
+     "id": "deft-languages",
+     "label": "Deft Explorer: two languages",
+     "kind": "language",
+     "count": 2,
+     "options": "any",
+     "minLevel": 2
+    },
+    {
+     "type": "choice",
+     "id": "fighting-style",
+     "label": "Fighting Style",
+     "minLevel": 2,
+     "options": [
+      {
+       "value": "feat",
+       "label": "A Fighting Style feat",
+       "effects": [
+        {
+         "type": "feat_choice",
+         "id": "style-feat",
+         "label": "Fighting Style feat",
+         "category": "Fighting Style"
+        }
+       ]
+      },
+      {
+       "value": "Druidic Warrior",
+       "effects": [
+        {
+         "type": "spell_choice",
+         "id": "druidic-warrior",
+         "label": "Druidic Warrior: two Druid cantrips",
+         "count": 2,
+         "levels": [
+          0
+         ],
+         "lists": [
+          "Druid"
+         ],
+         "ability": "wis",
+         "always": true
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "attacks_per_action",
+     "value": 2,
+     "minLevel": 5
+    },
+    {
+     "type": "speed_bonus",
+     "value": 10,
+     "when": "no_heavy",
+     "label": "Roving",
+     "minLevel": 6
+    },
+    {
+     "type": "speed_mode",
+     "mode": "Climb",
+     "value": "walk",
+     "label": "Roving",
+     "minLevel": 6
+    },
+    {
+     "type": "speed_mode",
+     "mode": "Swim",
+     "value": "walk",
+     "label": "Roving",
+     "minLevel": 6
+    },
+    {
+     "type": "expertise_choice",
+     "id": "expertise-9",
+     "label": "Expertise (two more skills)",
+     "count": 2,
+     "minLevel": 9
+    },
+    {
+     "type": "resource",
+     "id": "tireless",
+     "name": "Tireless",
+     "max": "mod:wis",
+     "min": 1,
+     "recharge": "long",
+     "minLevel": 10
+    },
+    {
+     "type": "resource",
+     "id": "natures-veil",
+     "name": "Nature's Veil",
+     "max": "mod:wis",
+     "min": 1,
+     "recharge": "long",
+     "minLevel": 14
+    },
+    {
+     "type": "sense",
+     "sense": "Blindsight",
+     "range": 30,
+     "label": "Feral Senses",
+     "minLevel": 18
+    }
+   ]
+  },
+  "rogue": {
+   "recommend": {
+    "scores": {
+     "str": 12,
+     "dex": 15,
+     "con": 13,
+     "int": 14,
+     "wis": 10,
+     "cha": 8
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "leather-armor"
+        },
+        {
+         "id": "dagger",
+         "qty": 2
+        },
+        {
+         "id": "shortsword"
+        },
+        {
+         "id": "shortbow"
+        },
+        {
+         "id": "ammunition-arrows-20"
+        },
+        {
+         "id": "quiver"
+        },
+        {
+         "id": "thieves-tools"
+        },
+        {
+         "id": "burglars-pack"
+        }
+       ],
+       "gp": 8
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 100
+      }
+     ]
+    }
+   ],
+   "multiclass": [
+    {
+     "type": "proficiency_choice",
+     "id": "mc-skill",
+     "label": "One Rogue skill",
+     "kind": "skill",
+     "count": 1,
+     "options": {
+      "from": "class"
+     }
+    },
+    {
+     "type": "proficiency",
+     "kind": "tool",
+     "value": "Thieves' Tools"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "light"
+    }
+   ],
+   "effects": [
+    {
+     "type": "expertise_choice",
+     "id": "expertise-1",
+     "label": "Expertise (two skills)",
+     "count": 2
+    },
+    {
+     "type": "stat",
+     "id": "sneak-attack",
+     "name": "Sneak Attack",
+     "value": "table:Sneak Attack"
+    },
+    {
+     "type": "proficiency",
+     "kind": "language",
+     "value": "Thieves' Cant",
+     "label": "Thieves' Cant"
+    },
+    {
+     "type": "proficiency_choice",
+     "id": "cant-language",
+     "label": "Thieves' Cant: one other language",
+     "kind": "language",
+     "count": 1,
+     "options": "any"
+    },
+    {
+     "type": "weapon_mastery_choice",
+     "id": "mastery",
+     "count": 2
+    },
+    {
+     "type": "expertise_choice",
+     "id": "expertise-6",
+     "label": "Expertise (two more skills)",
+     "count": 2,
+     "minLevel": 6
+    },
+    {
+     "type": "proficiency",
+     "kind": "save",
+     "value": "wis",
+     "label": "Slippery Mind",
+     "minLevel": 15
+    },
+    {
+     "type": "proficiency",
+     "kind": "save",
+     "value": "cha",
+     "label": "Slippery Mind",
+     "minLevel": 15
+    }
+   ]
+  },
+  "sorcerer": {
+   "recommend": {
+    "scores": {
+     "str": 10,
+     "dex": 13,
+     "con": 14,
+     "int": 8,
+     "wis": 12,
+     "cha": 15
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "spear"
+        },
+        {
+         "id": "dagger",
+         "qty": 2
+        },
+        {
+         "id": "arcane-focus-crystal"
+        },
+        {
+         "id": "dungeoneers-pack"
+        }
+       ],
+       "gp": 28
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 50
+      }
+     ]
+    }
+   ],
+   "multiclass": [],
+   "effects": [
+    {
+     "type": "spellcasting",
+     "ability": "cha",
+     "kind": "full",
+     "list": "Sorcerer"
+    },
+    {
+     "type": "resource",
+     "id": "innate-sorcery",
+     "name": "Innate Sorcery",
+     "max": 2,
+     "recharge": "long"
+    },
+    {
+     "type": "resource",
+     "id": "sorcery-points",
+     "name": "Sorcery Points",
+     "max": "table:Sorcery Points",
+     "recharge": "long",
+     "minLevel": 2
+    },
+    {
+     "type": "option_choice",
+     "id": "metamagic",
+     "label": "Metamagic",
+     "optionType": "Metamagic",
+     "count": {
+      "2": 2,
+      "10": 4,
+      "17": 6
+     },
+     "minLevel": 2
+    }
+   ]
+  },
+  "warlock": {
+   "recommend": {
+    "scores": {
+     "str": 8,
+     "dex": 14,
+     "con": 13,
+     "int": 12,
+     "wis": 10,
+     "cha": 15
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "leather-armor"
+        },
+        {
+         "id": "sickle"
+        },
+        {
+         "id": "dagger",
+         "qty": 2
+        },
+        {
+         "id": "arcane-focus-orb"
+        },
+        {
+         "id": "book",
+         "variant": "occult lore"
+        },
+        {
+         "id": "scholars-pack"
+        }
+       ],
+       "gp": 15
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 100
+      }
+     ]
+    }
+   ],
+   "multiclass": [
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "light"
+    }
+   ],
+   "effects": [
+    {
+     "type": "spellcasting",
+     "ability": "cha",
+     "kind": "pact",
+     "list": "Warlock"
+    },
+    {
+     "type": "option_choice",
+     "id": "invocations",
+     "label": "Eldritch Invocations",
+     "optionType": "Eldritch Invocation",
+     "count": "table:Eldritch Invocations"
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Contact Other Plane"
+     ],
+     "ability": "class",
+     "free": "long",
+     "label": "Contact Patron",
+     "minLevel": 9
+    },
+    {
+     "type": "spell_choice",
+     "id": "arcanum-6",
+     "label": "Mystic Arcanum (level 6)",
+     "count": 1,
+     "levels": [
+      6
+     ],
+     "lists": [
+      "Warlock"
+     ],
+     "ability": "class",
+     "free": "long",
+     "always": true,
+     "minLevel": 11
+    },
+    {
+     "type": "spell_choice",
+     "id": "arcanum-7",
+     "label": "Mystic Arcanum (level 7)",
+     "count": 1,
+     "levels": [
+      7
+     ],
+     "lists": [
+      "Warlock"
+     ],
+     "ability": "class",
+     "free": "long",
+     "always": true,
+     "minLevel": 13
+    },
+    {
+     "type": "spell_choice",
+     "id": "arcanum-8",
+     "label": "Mystic Arcanum (level 8)",
+     "count": 1,
+     "levels": [
+      8
+     ],
+     "lists": [
+      "Warlock"
+     ],
+     "ability": "class",
+     "free": "long",
+     "always": true,
+     "minLevel": 15
+    },
+    {
+     "type": "spell_choice",
+     "id": "arcanum-9",
+     "label": "Mystic Arcanum (level 9)",
+     "count": 1,
+     "levels": [
+      9
+     ],
+     "lists": [
+      "Warlock"
+     ],
+     "ability": "class",
+     "free": "long",
+     "always": true,
+     "minLevel": 17
+    }
+   ]
+  },
+  "wizard": {
+   "recommend": {
+    "scores": {
+     "str": 8,
+     "dex": 12,
+     "con": 13,
+     "int": 15,
+     "wis": 14,
+     "cha": 10
+    },
+    "VERIFY": "standard-array suggestion as remembered from the PHB"
+   },
+   "start": [
+    {
+     "type": "equipment_option",
+     "id": "equipment",
+     "options": [
+      {
+       "key": "A",
+       "items": [
+        {
+         "id": "dagger",
+         "qty": 2
+        },
+        {
+         "id": "arcane-focus-staff"
+        },
+        {
+         "id": "robe"
+        },
+        {
+         "id": "spellbook"
+        },
+        {
+         "id": "scholars-pack"
+        }
+       ],
+       "gp": 5
+      },
+      {
+       "key": "B",
+       "items": [],
+       "gp": 55
+      }
+     ]
+    }
+   ],
+   "multiclass": [],
+   "effects": [
+    {
+     "type": "spellcasting",
+     "ability": "int",
+     "kind": "full",
+     "list": "Wizard",
+     "book": {
+      "first": 6,
+      "perLevel": 2
+     }
+    },
+    {
+     "type": "resource",
+     "id": "arcane-recovery",
+     "name": "Arcane Recovery",
+     "max": 1,
+     "recharge": "long"
+    },
+    {
+     "type": "expertise_choice",
+     "id": "scholar",
+     "label": "Scholar: Expertise in one of these",
+     "count": 1,
+     "options": [
+      "Arcana",
+      "History",
+      "Investigation",
+      "Medicine",
+      "Nature",
+      "Religion"
+     ],
+     "minLevel": 2
+    },
+    {
+     "type": "spell_choice",
+     "id": "mastery-1",
+     "label": "Spell Mastery (level 1 spell)",
+     "count": 1,
+     "levels": [
+      1
+     ],
+     "fromBook": true,
+     "ability": "class",
+     "always": true,
+     "minLevel": 18
+    },
+    {
+     "type": "spell_choice",
+     "id": "mastery-2",
+     "label": "Spell Mastery (level 2 spell)",
+     "count": 1,
+     "levels": [
+      2
+     ],
+     "fromBook": true,
+     "ability": "class",
+     "always": true,
+     "minLevel": 18
+    },
+    {
+     "type": "spell_choice",
+     "id": "signature",
+     "label": "Signature Spells (two level 3 spells)",
+     "count": 2,
+     "levels": [
+      3
+     ],
+     "fromBook": true,
+     "ability": "class",
+     "always": true,
+     "free": "short",
+     "minLevel": 20
+    }
+   ]
+  }
+ },
+ "subclasses": {
+  "path-of-the-berserker": {
+   "effects": []
+  },
+  "path-of-the-wild-heart": {
+   "effects": [
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Beast Sense",
+      "Speak with Animals"
+     ],
+     "ability": "wis",
+     "ritualOnly": true,
+     "label": "Animal Speaker"
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Commune with Nature"
+     ],
+     "ability": "wis",
+     "ritualOnly": true,
+     "label": "Nature Speaker",
+     "minLevel": 10
+    }
+   ]
+  },
+  "path-of-the-world-tree": {
+   "effects": []
+  },
+  "path-of-the-zealot": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "warrior-of-the-gods",
+     "name": "Warrior of the Gods (d12s)",
+     "max": {
+      "3": 4,
+      "6": 5,
+      "12": 6,
+      "17": 7
+     },
+     "recharge": "long"
+    }
+   ]
+  },
+  "college-of-dance": {
+   "effects": [
+    {
+     "type": "ac_formula",
+     "id": "dazzling-footwork",
+     "label": "Dazzling Footwork",
+     "abilities": [
+      "dex",
+      "cha"
+     ],
+     "shield": false
+    },
+    {
+     "type": "unarmed",
+     "die": "stat:bardic-die",
+     "ability": "dex",
+     "label": "Dazzling Footwork"
+    }
+   ]
+  },
+  "college-of-glamour": {
+   "effects": []
+  },
+  "college-of-lore": {
+   "effects": [
+    {
+     "type": "proficiency_choice",
+     "id": "bonus-proficiencies",
+     "label": "Bonus Proficiencies: three skills",
+     "kind": "skill",
+     "count": 3,
+     "options": "any"
+    },
+    {
+     "type": "spell_choice",
+     "id": "magical-discoveries",
+     "label": "Magical Discoveries: two spells",
+     "count": 2,
+     "levels": "castable",
+     "lists": [
+      "Cleric",
+      "Druid",
+      "Wizard"
+     ],
+     "ability": "class",
+     "always": true,
+     "minLevel": 6
+    }
+   ]
+  },
+  "college-of-valor": {
+   "effects": [
+    {
+     "type": "proficiency",
+     "kind": "weapon",
+     "value": "martial",
+     "label": "Martial Training"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "medium",
+     "label": "Martial Training"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "shield",
+     "label": "Martial Training"
+    },
+    {
+     "type": "attacks_per_action",
+     "value": 2,
+     "minLevel": 6
+    }
+   ]
+  },
+  "life-domain": {
+   "effects": []
+  },
+  "light-domain": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "warding-flare",
+     "name": "Warding Flare",
+     "max": "mod:wis",
+     "min": 1,
+     "recharge": "long"
+    },
+    {
+     "type": "resource",
+     "id": "warding-flare",
+     "name": "Warding Flare",
+     "max": "mod:wis",
+     "min": 1,
+     "recharge": "short",
+     "minLevel": 6
+    },
+    {
+     "type": "resource",
+     "id": "corona-of-light",
+     "name": "Corona of Light",
+     "max": "mod:wis",
+     "min": 1,
+     "recharge": "long",
+     "minLevel": 17
+    }
+   ]
+  },
+  "trickery-domain": {
+   "effects": []
+  },
+  "war-domain": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "war-priest",
+     "name": "War Priest",
+     "max": "mod:wis",
+     "min": 1,
+     "recharge": "short"
+    },
+    {
+     "type": "resistance",
+     "damage": "Bludgeoning",
+     "label": "Avatar of Battle",
+     "minLevel": 17
+    },
+    {
+     "type": "resistance",
+     "damage": "Piercing",
+     "label": "Avatar of Battle",
+     "minLevel": 17
+    },
+    {
+     "type": "resistance",
+     "damage": "Slashing",
+     "label": "Avatar of Battle",
+     "minLevel": 17
+    }
+   ]
+  },
+  "circle-of-the-land": {
+   "effects": [
+    {
+     "type": "choice",
+     "id": "land",
+     "label": "Land (changeable after each Long Rest)",
+     "spellVariant": true,
+     "options": [
+      {
+       "value": "Arid",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Fire",
+         "label": "Nature's Ward",
+         "minLevel": 10
+        }
+       ]
+      },
+      {
+       "value": "Polar",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Cold",
+         "label": "Nature's Ward",
+         "minLevel": 10
+        }
+       ]
+      },
+      {
+       "value": "Temperate",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Lightning",
+         "label": "Nature's Ward",
+         "minLevel": 10
+        }
+       ]
+      },
+      {
+       "value": "Tropical",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Poison",
+         "label": "Nature's Ward",
+         "minLevel": 10
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "immunity",
+     "condition": "Poisoned",
+     "label": "Nature's Ward",
+     "minLevel": 10
+    }
+   ]
+  },
+  "circle-of-the-moon": {
+   "effects": []
+  },
+  "circle-of-the-sea": {
+   "effects": [
+    {
+     "type": "speed_mode",
+     "mode": "Swim",
+     "value": "walk",
+     "label": "Aquatic Affinity",
+     "minLevel": 6
+    }
+   ]
+  },
+  "circle-of-the-stars": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "star-map",
+     "name": "Star Map: Guiding Bolt without a slot",
+     "max": "mod:wis",
+     "min": 1,
+     "recharge": "long"
+    }
+   ]
+  },
+  "battle-master": {
+   "effects": [
+    {
+     "type": "option_choice",
+     "id": "maneuvers",
+     "label": "Maneuvers",
+     "optionType": "Maneuver",
+     "count": {
+      "3": 3,
+      "7": 5,
+      "10": 7,
+      "15": 9
+     }
+    },
+    {
+     "type": "resource",
+     "id": "superiority-dice",
+     "name": "Superiority Dice",
+     "max": {
+      "3": 4,
+      "7": 5,
+      "15": 6
+     },
+     "recharge": "short"
+    },
+    {
+     "type": "stat",
+     "id": "superiority-die",
+     "name": "Superiority die",
+     "value": {
+      "3": "d8",
+      "10": "d10",
+      "18": "d12"
+     }
+    },
+    {
+     "type": "proficiency_choice",
+     "id": "student-tool",
+     "label": "Student of War: one Artisan's Tools",
+     "kind": "tool",
+     "count": 1,
+     "options": {
+      "artisan": true
+     }
+    },
+    {
+     "type": "proficiency_choice",
+     "id": "student-skill",
+     "label": "Student of War: one Fighter skill",
+     "kind": "skill",
+     "count": 1,
+     "options": {
+      "from": "class"
+     }
+    }
+   ]
+  },
+  "champion": {
+   "effects": [
+    {
+     "type": "advantage",
+     "on": "Initiative rolls and Athletics checks",
+     "label": "Remarkable Athlete"
+    },
+    {
+     "type": "feat_choice",
+     "id": "style-2",
+     "label": "Additional Fighting Style",
+     "category": "Fighting Style",
+     "minLevel": 7
+    }
+   ]
+  },
+  "eldritch-knight": {
+   "effects": [
+    {
+     "type": "spellcasting",
+     "ability": "int",
+     "kind": "third",
+     "list": "Wizard",
+     "cantrips": {
+      "3": 2,
+      "10": 3
+     },
+     "VERIFY": "2024 Eldritch Knight chooses from the whole Wizard list (no school limit)"
+    }
+   ]
+  },
+  "psi-warrior": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "psionic-dice",
+     "name": "Psionic Energy Dice",
+     "max": {
+      "3": 4,
+      "5": 6,
+      "9": 8,
+      "13": 10,
+      "17": 12
+     },
+     "recharge": "short1"
+    },
+    {
+     "type": "stat",
+     "id": "psionic-die",
+     "name": "Psionic Energy die",
+     "value": {
+      "3": "d6",
+      "5": "d8",
+      "11": "d10",
+      "17": "d12"
+     }
+    },
+    {
+     "type": "resistance",
+     "damage": "Psychic",
+     "label": "Guarded Mind",
+     "minLevel": 10
+    }
+   ]
+  },
+  "warrior-of-mercy": {
+   "effects": [
+    {
+     "type": "proficiency",
+     "kind": "skill",
+     "value": "Insight",
+     "label": "Implements of Mercy"
+    },
+    {
+     "type": "proficiency",
+     "kind": "skill",
+     "value": "Medicine",
+     "label": "Implements of Mercy"
+    },
+    {
+     "type": "proficiency",
+     "kind": "tool",
+     "value": "Herbalism Kit",
+     "label": "Implements of Mercy"
+    }
+   ]
+  },
+  "warrior-of-shadow": {
+   "effects": [
+    {
+     "type": "sense",
+     "sense": "Darkvision",
+     "range": 60,
+     "stack": true,
+     "label": "Shadow Arts"
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Minor Illusion"
+     ],
+     "ability": "wis",
+     "label": "Shadow Arts"
+    }
+   ]
+  },
+  "warrior-of-the-elements": {
+   "effects": [
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Elementalism"
+     ],
+     "ability": "wis",
+     "label": "Manipulate Elements"
+    }
+   ]
+  },
+  "warrior-of-the-open-hand": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "wholeness-of-body",
+     "name": "Wholeness of Body",
+     "max": "mod:wis",
+     "min": 1,
+     "recharge": "long",
+     "minLevel": 6
+    }
+   ]
+  },
+  "oath-of-devotion": {
+   "effects": []
+  },
+  "oath-of-glory": {
+   "effects": [
+    {
+     "type": "speed_bonus",
+     "value": 10,
+     "when": "always",
+     "label": "Aura of Alacrity",
+     "minLevel": 7
+    },
+    {
+     "type": "resource",
+     "id": "glorious-defense",
+     "name": "Glorious Defense",
+     "max": "mod:cha",
+     "min": 1,
+     "recharge": "long",
+     "minLevel": 15
+    }
+   ]
+  },
+  "oath-of-the-ancients": {
+   "effects": []
+  },
+  "oath-of-vengeance": {
+   "effects": []
+  },
+  "beast-master": {
+   "effects": []
+  },
+  "fey-wanderer": {
+   "effects": [
+    {
+     "type": "proficiency_choice",
+     "id": "glamour-skill",
+     "label": "Otherworldly Glamour: one skill",
+     "kind": "skill",
+     "count": 1,
+     "options": [
+      "Deception",
+      "Performance",
+      "Persuasion"
+     ]
+    },
+    {
+     "type": "check_bonus",
+     "ability": "cha",
+     "value": "mod:wis",
+     "min": 1,
+     "label": "Otherworldly Glamour",
+     "VERIFY": "minimum +1"
+    },
+    {
+     "type": "advantage",
+     "on": "saving throws",
+     "vs": "Charmed and Frightened",
+     "label": "Beguiling Twist",
+     "minLevel": 7
+    },
+    {
+     "type": "resource",
+     "id": "misty-wanderer",
+     "name": "Misty Wanderer (Misty Step)",
+     "max": "mod:wis",
+     "min": 1,
+     "recharge": "long",
+     "minLevel": 15
+    }
+   ]
+  },
+  "gloom-stalker": {
+   "effects": [
+    {
+     "type": "initiative_bonus",
+     "value": "mod:wis",
+     "label": "Dread Ambusher"
+    },
+    {
+     "type": "resource",
+     "id": "dread-ambusher",
+     "name": "Dread Ambusher strikes",
+     "max": "mod:wis",
+     "min": 1,
+     "recharge": "long"
+    },
+    {
+     "type": "sense",
+     "sense": "Darkvision",
+     "range": 60,
+     "stack": true,
+     "label": "Umbral Sight"
+    },
+    {
+     "type": "save_proficiency_choice",
+     "id": "iron-mind",
+     "label": "Iron Mind",
+     "preferred": "wis",
+     "alt": [
+      "int",
+      "cha"
+     ],
+     "minLevel": 7
+    }
+   ]
+  },
+  "hunter": {
+   "effects": []
+  },
+  "arcane-trickster": {
+   "effects": [
+    {
+     "type": "spellcasting",
+     "ability": "int",
+     "kind": "third",
+     "list": "Wizard",
+     "cantrips": {
+      "3": 2,
+      "10": 3
+     },
+     "VERIFY": "2024 Arcane Trickster chooses from the whole Wizard list (no school limit)"
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Mage Hand"
+     ],
+     "ability": "int",
+     "label": "Spellcasting (Arcane Trickster)"
+    }
+   ]
+  },
+  "assassin": {
+   "effects": [
+    {
+     "type": "proficiency",
+     "kind": "tool",
+     "value": "Disguise Kit",
+     "label": "Assassin's Tools"
+    },
+    {
+     "type": "proficiency",
+     "kind": "tool",
+     "value": "Poisoner's Kit",
+     "label": "Assassin's Tools"
+    },
+    {
+     "type": "advantage",
+     "on": "Initiative rolls",
+     "label": "Assassinate"
+    }
+   ]
+  },
+  "soulknife": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "psionic-dice",
+     "name": "Psionic Energy Dice",
+     "max": {
+      "3": 4,
+      "5": 6,
+      "9": 8,
+      "13": 10,
+      "17": 12
+     },
+     "recharge": "short1"
+    },
+    {
+     "type": "stat",
+     "id": "psionic-die",
+     "name": "Psionic Energy die",
+     "value": {
+      "3": "d6",
+      "5": "d8",
+      "11": "d10",
+      "17": "d12"
+     }
+    },
+    {
+     "type": "attack",
+     "name": "Psychic Blade",
+     "damage": "1d6",
+     "damageType": "Psychic",
+     "properties": "Finesse, Thrown (Range 60/120)",
+     "mastery": "Vex",
+     "proficient": true,
+     "label": "Psychic Blades"
+    }
+   ]
+  },
+  "thief": {
+   "effects": [
+    {
+     "type": "speed_mode",
+     "mode": "Climb",
+     "value": "walk",
+     "label": "Second-Story Work"
+    }
+   ]
+  },
+  "aberrant-sorcery": {
+   "effects": [
+    {
+     "type": "resistance",
+     "damage": "Psychic",
+     "label": "Psychic Defenses",
+     "minLevel": 6
+    },
+    {
+     "type": "advantage",
+     "on": "saving throws",
+     "vs": "Charmed and Frightened",
+     "label": "Psychic Defenses",
+     "minLevel": 6
+    }
+   ]
+  },
+  "clockwork-sorcery": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "restore-balance",
+     "name": "Restore Balance",
+     "max": "mod:cha",
+     "min": 1,
+     "recharge": "long"
+    }
+   ]
+  },
+  "draconic-sorcery": {
+   "effects": [
+    {
+     "type": "hp_per_level",
+     "value": 1,
+     "per": "class",
+     "label": "Draconic Resilience"
+    },
+    {
+     "type": "ac_formula",
+     "id": "draconic-resilience",
+     "label": "Draconic Resilience",
+     "abilities": [
+      "dex",
+      "cha"
+     ],
+     "shield": true
+    },
+    {
+     "type": "choice",
+     "id": "elemental-affinity",
+     "label": "Elemental Affinity",
+     "minLevel": 6,
+     "options": [
+      {
+       "value": "Acid",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Acid",
+         "label": "Elemental Affinity"
+        }
+       ]
+      },
+      {
+       "value": "Cold",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Cold",
+         "label": "Elemental Affinity"
+        }
+       ]
+      },
+      {
+       "value": "Fire",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Fire",
+         "label": "Elemental Affinity"
+        }
+       ]
+      },
+      {
+       "value": "Lightning",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Lightning",
+         "label": "Elemental Affinity"
+        }
+       ]
+      },
+      {
+       "value": "Poison",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Poison",
+         "label": "Elemental Affinity"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "wild-magic-sorcery": {
+   "effects": []
+  },
+  "archfey-patron": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "steps-of-the-fey",
+     "name": "Steps of the Fey (Misty Step)",
+     "max": "mod:cha",
+     "min": 1,
+     "recharge": "long"
+    },
+    {
+     "type": "immunity",
+     "condition": "Charmed",
+     "label": "Beguiling Defenses",
+     "minLevel": 10
+    }
+   ]
+  },
+  "celestial-patron": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "healing-light",
+     "name": "Healing Light (d6s)",
+     "max": "1+level",
+     "recharge": "long"
+    },
+    {
+     "type": "resistance",
+     "damage": "Radiant",
+     "label": "Radiant Soul",
+     "minLevel": 6
+    }
+   ]
+  },
+  "fiend-patron": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "dark-ones-own-luck",
+     "name": "Dark One's Own Luck",
+     "max": "mod:cha",
+     "min": 1,
+     "recharge": "long",
+     "minLevel": 6
+    }
+   ]
+  },
+  "great-old-one-patron": {
+   "effects": [
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Hex"
+     ],
+     "ability": "class",
+     "label": "Eldritch Hex",
+     "minLevel": 10
+    },
+    {
+     "type": "resistance",
+     "damage": "Psychic",
+     "label": "Thought Shield",
+     "minLevel": 10
+    }
+   ]
+  },
+  "abjurer": {
+   "effects": []
+  },
+  "diviner": {
+   "effects": []
+  },
+  "evoker": {
+   "effects": []
+  },
+  "illusionist": {
+   "effects": [
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Minor Illusion"
+     ],
+     "ability": "class",
+     "label": "Improved Illusions"
+    }
+   ]
+  }
+ },
+ "species": {
+  "aasimar": {
+   "effects": [
+    {
+     "type": "resistance",
+     "damage": "Necrotic",
+     "label": "Celestial Resistance"
+    },
+    {
+     "type": "resistance",
+     "damage": "Radiant",
+     "label": "Celestial Resistance"
+    },
+    {
+     "type": "resource",
+     "id": "healing-hands",
+     "name": "Healing Hands",
+     "max": 1,
+     "recharge": "long"
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Light"
+     ],
+     "ability": "cha",
+     "label": "Light Bearer"
+    },
+    {
+     "type": "resource",
+     "id": "celestial-revelation",
+     "name": "Celestial Revelation",
+     "max": 1,
+     "recharge": "long",
+     "minLevel": 3
+    }
+   ]
+  },
+  "dragonborn": {
+   "effects": [
+    {
+     "type": "choice",
+     "id": "ancestry",
+     "label": "Draconic Ancestry",
+     "options": [
+      {
+       "value": "Black",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Acid",
+         "label": "Damage Resistance"
+        },
+        {
+         "type": "attack",
+         "kind": "breath",
+         "name": "Breath Weapon (Acid)",
+         "damageType": "Acid",
+         "label": "Breath Weapon"
+        }
+       ]
+      },
+      {
+       "value": "Blue",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Lightning",
+         "label": "Damage Resistance"
+        },
+        {
+         "type": "attack",
+         "kind": "breath",
+         "name": "Breath Weapon (Lightning)",
+         "damageType": "Lightning",
+         "label": "Breath Weapon"
+        }
+       ]
+      },
+      {
+       "value": "Brass",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Fire",
+         "label": "Damage Resistance"
+        },
+        {
+         "type": "attack",
+         "kind": "breath",
+         "name": "Breath Weapon (Fire)",
+         "damageType": "Fire",
+         "label": "Breath Weapon"
+        }
+       ]
+      },
+      {
+       "value": "Bronze",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Lightning",
+         "label": "Damage Resistance"
+        },
+        {
+         "type": "attack",
+         "kind": "breath",
+         "name": "Breath Weapon (Lightning)",
+         "damageType": "Lightning",
+         "label": "Breath Weapon"
+        }
+       ]
+      },
+      {
+       "value": "Copper",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Acid",
+         "label": "Damage Resistance"
+        },
+        {
+         "type": "attack",
+         "kind": "breath",
+         "name": "Breath Weapon (Acid)",
+         "damageType": "Acid",
+         "label": "Breath Weapon"
+        }
+       ]
+      },
+      {
+       "value": "Gold",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Fire",
+         "label": "Damage Resistance"
+        },
+        {
+         "type": "attack",
+         "kind": "breath",
+         "name": "Breath Weapon (Fire)",
+         "damageType": "Fire",
+         "label": "Breath Weapon"
+        }
+       ]
+      },
+      {
+       "value": "Green",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Poison",
+         "label": "Damage Resistance"
+        },
+        {
+         "type": "attack",
+         "kind": "breath",
+         "name": "Breath Weapon (Poison)",
+         "damageType": "Poison",
+         "label": "Breath Weapon"
+        }
+       ]
+      },
+      {
+       "value": "Red",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Fire",
+         "label": "Damage Resistance"
+        },
+        {
+         "type": "attack",
+         "kind": "breath",
+         "name": "Breath Weapon (Fire)",
+         "damageType": "Fire",
+         "label": "Breath Weapon"
+        }
+       ]
+      },
+      {
+       "value": "Silver",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Cold",
+         "label": "Damage Resistance"
+        },
+        {
+         "type": "attack",
+         "kind": "breath",
+         "name": "Breath Weapon (Cold)",
+         "damageType": "Cold",
+         "label": "Breath Weapon"
+        }
+       ]
+      },
+      {
+       "value": "White",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Cold",
+         "label": "Damage Resistance"
+        },
+        {
+         "type": "attack",
+         "kind": "breath",
+         "name": "Breath Weapon (Cold)",
+         "damageType": "Cold",
+         "label": "Breath Weapon"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "resource",
+     "id": "breath-weapon",
+     "name": "Breath Weapon",
+     "max": "PB",
+     "recharge": "long"
+    },
+    {
+     "type": "resource",
+     "id": "draconic-flight",
+     "name": "Draconic Flight",
+     "max": 1,
+     "recharge": "long",
+     "minLevel": 5
+    }
+   ]
+  },
+  "dwarf": {
+   "effects": [
+    {
+     "type": "resistance",
+     "damage": "Poison",
+     "label": "Dwarven Resilience"
+    },
+    {
+     "type": "advantage",
+     "on": "saving throws",
+     "vs": "Poisoned",
+     "label": "Dwarven Resilience"
+    },
+    {
+     "type": "hp_per_level",
+     "value": 1,
+     "per": "character",
+     "label": "Dwarven Toughness"
+    },
+    {
+     "type": "resource",
+     "id": "stonecunning",
+     "name": "Stonecunning",
+     "max": "PB",
+     "recharge": "long"
+    }
+   ]
+  },
+  "elf": {
+   "effects": [
+    {
+     "type": "choice",
+     "id": "lineage",
+     "label": "Elven Lineage",
+     "options": [
+      {
+       "value": "Drow",
+       "effects": [
+        {
+         "type": "sense",
+         "sense": "Darkvision",
+         "range": 120,
+         "label": "Drow"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Dancing Lights"
+         ],
+         "ability": "choice:spell-ability",
+         "label": "Drow"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Faerie Fire"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "Drow",
+         "minLevel": 3
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Darkness"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "Drow",
+         "minLevel": 5
+        }
+       ]
+      },
+      {
+       "value": "High Elf",
+       "effects": [
+        {
+         "type": "spell_choice",
+         "id": "high-elf-cantrip",
+         "label": "High Elf cantrip (Prestidigitation, or another Wizard cantrip)",
+         "count": 1,
+         "levels": [
+          0
+         ],
+         "lists": [
+          "Wizard"
+         ],
+         "ability": "choice:spell-ability",
+         "always": true,
+         "default": [
+          "prestidigitation"
+         ]
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Detect Magic"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "High Elf",
+         "minLevel": 3
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Misty Step"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "High Elf",
+         "minLevel": 5
+        }
+       ]
+      },
+      {
+       "value": "Wood Elf",
+       "effects": [
+        {
+         "type": "set_speed",
+         "value": 35,
+         "label": "Wood Elf"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Druidcraft"
+         ],
+         "ability": "choice:spell-ability",
+         "label": "Wood Elf"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Longstrider"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "Wood Elf",
+         "minLevel": 3
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Pass without Trace"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "Wood Elf",
+         "minLevel": 5
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "choice",
+     "id": "spell-ability",
+     "label": "Spellcasting ability for your lineage spells",
+     "abilityPick": true,
+     "options": [
+      {
+       "value": "int"
+      },
+      {
+       "value": "wis"
+      },
+      {
+       "value": "cha"
+      }
+     ]
+    },
+    {
+     "type": "proficiency_choice",
+     "id": "keen-senses",
+     "label": "Keen Senses",
+     "kind": "skill",
+     "count": 1,
+     "options": [
+      "Insight",
+      "Perception",
+      "Survival"
+     ]
+    },
+    {
+     "type": "advantage",
+     "on": "saving throws",
+     "vs": "Charmed",
+     "label": "Fey Ancestry"
+    }
+   ]
+  },
+  "gnome": {
+   "effects": [
+    {
+     "type": "advantage",
+     "on": "Intelligence, Wisdom and Charisma saving throws",
+     "label": "Gnomish Cunning"
+    },
+    {
+     "type": "choice",
+     "id": "lineage",
+     "label": "Gnomish Lineage",
+     "options": [
+      {
+       "value": "Forest Gnome",
+       "effects": [
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Minor Illusion"
+         ],
+         "ability": "choice:spell-ability",
+         "label": "Forest Gnome"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Speak with Animals"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "PB",
+         "label": "Forest Gnome"
+        }
+       ]
+      },
+      {
+       "value": "Rock Gnome",
+       "effects": [
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Mending",
+          "Prestidigitation"
+         ],
+         "ability": "choice:spell-ability",
+         "label": "Rock Gnome"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "choice",
+     "id": "spell-ability",
+     "label": "Spellcasting ability for your lineage spells",
+     "abilityPick": true,
+     "options": [
+      {
+       "value": "int"
+      },
+      {
+       "value": "wis"
+      },
+      {
+       "value": "cha"
+      }
+     ]
+    }
+   ]
+  },
+  "goliath": {
+   "effects": [
+    {
+     "type": "choice",
+     "id": "ancestry",
+     "label": "Giant Ancestry",
+     "options": [
+      {
+       "value": "Cloud's Jaunt"
+      },
+      {
+       "value": "Fire's Burn"
+      },
+      {
+       "value": "Frost's Chill"
+      },
+      {
+       "value": "Hill's Tumble"
+      },
+      {
+       "value": "Stone's Endurance"
+      },
+      {
+       "value": "Storm's Thunder"
+      }
+     ]
+    },
+    {
+     "type": "resource",
+     "id": "giant-ancestry",
+     "name": "Giant Ancestry",
+     "max": "PB",
+     "recharge": "long"
+    },
+    {
+     "type": "resource",
+     "id": "large-form",
+     "name": "Large Form",
+     "max": 1,
+     "recharge": "long",
+     "minLevel": 5
+    },
+    {
+     "type": "carry_size",
+     "steps": 1,
+     "label": "Powerful Build"
+    }
+   ]
+  },
+  "halfling": {
+   "effects": [
+    {
+     "type": "advantage",
+     "on": "saving throws",
+     "vs": "Frightened",
+     "label": "Brave"
+    }
+   ]
+  },
+  "human": {
+   "effects": [
+    {
+     "type": "proficiency_choice",
+     "id": "skillful",
+     "label": "Skillful: one skill",
+     "kind": "skill",
+     "count": 1,
+     "options": "any"
+    },
+    {
+     "type": "feat_choice",
+     "id": "versatile",
+     "label": "Versatile: an Origin feat",
+     "category": "Origin"
+    }
+   ]
+  },
+  "orc": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "adrenaline-rush",
+     "name": "Adrenaline Rush",
+     "max": "PB",
+     "recharge": "short"
+    },
+    {
+     "type": "resource",
+     "id": "relentless-endurance",
+     "name": "Relentless Endurance",
+     "max": 1,
+     "recharge": "long"
+    }
+   ]
+  },
+  "tiefling": {
+   "effects": [
+    {
+     "type": "choice",
+     "id": "legacy",
+     "label": "Fiendish Legacy",
+     "options": [
+      {
+       "value": "Abyssal",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Poison",
+         "label": "Abyssal"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Poison Spray"
+         ],
+         "ability": "choice:spell-ability",
+         "label": "Abyssal"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Ray of Sickness"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "Abyssal",
+         "minLevel": 3
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Hold Person"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "Abyssal",
+         "minLevel": 5
+        }
+       ]
+      },
+      {
+       "value": "Chthonic",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Necrotic",
+         "label": "Chthonic"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Chill Touch"
+         ],
+         "ability": "choice:spell-ability",
+         "label": "Chthonic"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "False Life"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "Chthonic",
+         "minLevel": 3
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Ray of Enfeeblement"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "Chthonic",
+         "minLevel": 5
+        }
+       ]
+      },
+      {
+       "value": "Infernal",
+       "effects": [
+        {
+         "type": "resistance",
+         "damage": "Fire",
+         "label": "Infernal"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Fire Bolt"
+         ],
+         "ability": "choice:spell-ability",
+         "label": "Infernal"
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Hellish Rebuke"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "Infernal",
+         "minLevel": 3
+        },
+        {
+         "type": "spell_grant",
+         "spells": [
+          "Darkness"
+         ],
+         "ability": "choice:spell-ability",
+         "free": "long",
+         "label": "Infernal",
+         "minLevel": 5
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "choice",
+     "id": "spell-ability",
+     "label": "Spellcasting ability for your legacy spells",
+     "abilityPick": true,
+     "options": [
+      {
+       "value": "int"
+      },
+      {
+       "value": "wis"
+      },
+      {
+       "value": "cha"
+      }
+     ]
+    },
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Thaumaturgy"
+     ],
+     "ability": "choice:spell-ability",
+     "label": "Otherworldly Presence"
+    }
+   ]
+  }
+ },
+ "backgrounds": {
+  "acolyte": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "calligraphers-supplies"
+      },
+      {
+       "id": "book",
+       "variant": "prayers"
+      },
+      {
+       "id": "holy-symbol-amulet"
+      },
+      {
+       "id": "parchment",
+       "qty": 10
+      },
+      {
+       "id": "robe"
+      }
+     ],
+     "gp": 8
+    }
+   }
+  },
+  "artisan": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "@tool"
+      },
+      {
+       "id": "pouch",
+       "qty": 2
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 32
+    }
+   }
+  },
+  "charlatan": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "forgery-kit"
+      },
+      {
+       "id": "costume"
+      },
+      {
+       "id": "clothes-fine"
+      }
+     ],
+     "gp": 15
+    }
+   }
+  },
+  "criminal": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "dagger",
+       "qty": 2
+      },
+      {
+       "id": "thieves-tools"
+      },
+      {
+       "id": "crowbar"
+      },
+      {
+       "id": "pouch",
+       "qty": 2
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 16
+    }
+   }
+  },
+  "entertainer": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "@tool"
+      },
+      {
+       "id": "costume",
+       "qty": 2
+      },
+      {
+       "id": "mirror"
+      },
+      {
+       "id": "perfume"
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 11
+    }
+   }
+  },
+  "farmer": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "sickle"
+      },
+      {
+       "id": "carpenters-tools"
+      },
+      {
+       "id": "healers-kit"
+      },
+      {
+       "id": "pot-iron"
+      },
+      {
+       "id": "shovel"
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 30
+    }
+   }
+  },
+  "guard": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "spear"
+      },
+      {
+       "id": "light-crossbow"
+      },
+      {
+       "id": "ammunition-bolts-20"
+      },
+      {
+       "id": "@tool"
+      },
+      {
+       "id": "lantern-hooded"
+      },
+      {
+       "id": "manacles"
+      },
+      {
+       "id": "quiver"
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 12
+    }
+   }
+  },
+  "guide": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "shortbow"
+      },
+      {
+       "id": "ammunition-arrows-20"
+      },
+      {
+       "id": "cartographers-tools"
+      },
+      {
+       "id": "bedroll"
+      },
+      {
+       "id": "quiver"
+      },
+      {
+       "id": "tent"
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 3
+    }
+   }
+  },
+  "hermit": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "quarterstaff"
+      },
+      {
+       "id": "herbalism-kit"
+      },
+      {
+       "id": "bedroll"
+      },
+      {
+       "id": "book",
+       "variant": "philosophy"
+      },
+      {
+       "id": "lamp"
+      },
+      {
+       "id": "oil",
+       "qty": 3
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 16
+    }
+   }
+  },
+  "merchant": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "navigators-tools"
+      },
+      {
+       "id": "pouch",
+       "qty": 2
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 22
+    }
+   }
+  },
+  "noble": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "@tool"
+      },
+      {
+       "id": "clothes-fine"
+      },
+      {
+       "id": "perfume"
+      }
+     ],
+     "gp": 29
+    }
+   }
+  },
+  "sage": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "quarterstaff"
+      },
+      {
+       "id": "calligraphers-supplies"
+      },
+      {
+       "id": "book",
+       "variant": "history"
+      },
+      {
+       "id": "parchment",
+       "qty": 8
+      },
+      {
+       "id": "robe"
+      }
+     ],
+     "gp": 8
+    }
+   }
+  },
+  "sailor": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "dagger"
+      },
+      {
+       "id": "navigators-tools"
+      },
+      {
+       "id": "rope"
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 20
+    }
+   }
+  },
+  "scribe": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "calligraphers-supplies"
+      },
+      {
+       "id": "clothes-fine"
+      },
+      {
+       "id": "lamp"
+      },
+      {
+       "id": "oil",
+       "qty": 3
+      },
+      {
+       "id": "parchment",
+       "qty": 12
+      }
+     ],
+     "gp": 23
+    }
+   }
+  },
+  "soldier": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "spear"
+      },
+      {
+       "id": "shortbow"
+      },
+      {
+       "id": "ammunition-arrows-20"
+      },
+      {
+       "id": "@tool"
+      },
+      {
+       "id": "healers-kit"
+      },
+      {
+       "id": "quiver"
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 14
+    }
+   }
+  },
+  "wayfarer": {
+   "equipment": {
+    "A": {
+     "items": [
+      {
+       "id": "dagger",
+       "qty": 2
+      },
+      {
+       "id": "thieves-tools"
+      },
+      {
+       "id": "gaming-set",
+       "variant": "@pick"
+      },
+      {
+       "id": "bedroll"
+      },
+      {
+       "id": "pouch",
+       "qty": 2
+      },
+      {
+       "id": "clothes-travelers"
+      }
+     ],
+     "gp": 16
+    }
+   }
+  }
+ },
+ "feats": {
+  "alert": {
+   "effects": [
+    {
+     "type": "initiative_bonus",
+     "value": "PB",
+     "label": "Alert"
+    }
+   ]
+  },
+  "crafter": {
+   "effects": [
+    {
+     "type": "proficiency_choice",
+     "id": "tools",
+     "label": "Three Artisan's Tools",
+     "kind": "tool",
+     "count": 3,
+     "options": {
+      "artisan": true
+     }
+    }
+   ]
+  },
+  "healer": {
+   "effects": []
+  },
+  "lucky": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "luck-points",
+     "name": "Luck Points",
+     "max": "PB",
+     "recharge": "long"
+    }
+   ]
+  },
+  "magic-initiate": {
+   "effects": [
+    {
+     "type": "choice",
+     "id": "list",
+     "label": "Spell list",
+     "param": "list",
+     "options": [
+      {
+       "value": "Cleric"
+      },
+      {
+       "value": "Druid"
+      },
+      {
+       "value": "Wizard"
+      }
+     ]
+    },
+    {
+     "type": "choice",
+     "id": "ability",
+     "label": "Spellcasting ability",
+     "abilityPick": true,
+     "options": [
+      {
+       "value": "int"
+      },
+      {
+       "value": "wis"
+      },
+      {
+       "value": "cha"
+      }
+     ]
+    },
+    {
+     "type": "spell_choice",
+     "id": "cantrips",
+     "label": "Two cantrips",
+     "count": 2,
+     "levels": [
+      0
+     ],
+     "lists": "param:list",
+     "ability": "choice:ability",
+     "always": true
+    },
+    {
+     "type": "spell_choice",
+     "id": "spell",
+     "label": "One level 1 spell",
+     "count": 1,
+     "levels": [
+      1
+     ],
+     "lists": "param:list",
+     "ability": "choice:ability",
+     "always": true,
+     "free": "long"
+    }
+   ]
+  },
+  "musician": {
+   "effects": [
+    {
+     "type": "proficiency_choice",
+     "id": "instruments",
+     "label": "Three Musical Instruments",
+     "kind": "tool",
+     "count": 3,
+     "options": {
+      "instruments": true
+     }
+    },
+    {
+     "type": "resource",
+     "id": "encouraging-song",
+     "name": "Heroic Inspiration for allies (after a rest)",
+     "max": "PB",
+     "recharge": "short"
+    }
+   ]
+  },
+  "savage-attacker": {
+   "effects": []
+  },
+  "skilled": {
+   "effects": [
+    {
+     "type": "proficiency_choice",
+     "id": "picks",
+     "label": "Three skills or tools",
+     "kind": "skill_or_tool",
+     "count": 3,
+     "options": "any"
+    }
+   ]
+  },
+  "tavern-brawler": {
+   "effects": [
+    {
+     "type": "unarmed",
+     "die": "1d4",
+     "ability": "str",
+     "label": "Tavern Brawler"
+    },
+    {
+     "type": "proficiency",
+     "kind": "weapon",
+     "value": "improvised",
+     "label": "Tavern Brawler"
+    }
+   ]
+  },
+  "tough": {
+   "effects": [
+    {
+     "type": "hp_per_level",
+     "value": 2,
+     "per": "character",
+     "label": "Tough"
+    }
+   ]
+  },
+  "ability-score-improvement": {
+   "effects": []
+  },
+  "actor": {
+   "effects": []
+  },
+  "athlete": {
+   "effects": [
+    {
+     "type": "speed_mode",
+     "mode": "Climb",
+     "value": "walk",
+     "label": "Athlete"
+    }
+   ]
+  },
+  "charger": {
+   "effects": []
+  },
+  "chef": {
+   "effects": [
+    {
+     "type": "proficiency",
+     "kind": "tool",
+     "value": "Cook's Utensils",
+     "label": "Chef"
+    }
+   ]
+  },
+  "crossbow-expert": {
+   "effects": []
+  },
+  "crusher": {
+   "effects": []
+  },
+  "defensive-duelist": {
+   "effects": []
+  },
+  "dual-wielder": {
+   "effects": []
+  },
+  "durable": {
+   "effects": [
+    {
+     "type": "advantage",
+     "on": "Death Saving Throws",
+     "label": "Durable"
+    }
+   ]
+  },
+  "elemental-adept": {
+   "effects": [
+    {
+     "type": "choice",
+     "id": "element",
+     "label": "Damage type",
+     "options": [
+      {
+       "value": "Acid"
+      },
+      {
+       "value": "Cold"
+      },
+      {
+       "value": "Fire"
+      },
+      {
+       "value": "Lightning"
+      },
+      {
+       "value": "Thunder"
+      }
+     ]
+    }
+   ]
+  },
+  "fey-touched": {
+   "effects": [
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Misty Step"
+     ],
+     "ability": "asi",
+     "free": "long",
+     "label": "Fey-Touched"
+    },
+    {
+     "type": "spell_choice",
+     "id": "spell",
+     "label": "One level 1 Divination or Enchantment spell",
+     "count": 1,
+     "levels": [
+      1
+     ],
+     "lists": "any",
+     "schools": [
+      "Divination",
+      "Enchantment"
+     ],
+     "ability": "asi",
+     "always": true,
+     "free": "long"
+    }
+   ]
+  },
+  "grappler": {
+   "effects": []
+  },
+  "great-weapon-master": {
+   "effects": []
+  },
+  "heavily-armored": {
+   "effects": [
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "heavy",
+     "label": "Heavily Armored"
+    }
+   ]
+  },
+  "heavy-armor-master": {
+   "effects": []
+  },
+  "inspiring-leader": {
+   "effects": []
+  },
+  "keen-mind": {
+   "effects": [
+    {
+     "type": "prof_or_expertise_choice",
+     "id": "skill",
+     "label": "Proficiency, or Expertise if you already have it",
+     "options": [
+      "Arcana",
+      "History",
+      "Investigation",
+      "Nature",
+      "Religion"
+     ]
+    }
+   ]
+  },
+  "lightly-armored": {
+   "effects": [
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "light",
+     "label": "Lightly Armored"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "shield",
+     "label": "Lightly Armored"
+    }
+   ]
+  },
+  "mage-slayer": {
+   "effects": []
+  },
+  "martial-weapon-training": {
+   "effects": [
+    {
+     "type": "proficiency",
+     "kind": "weapon",
+     "value": "martial",
+     "label": "Martial Weapon Training"
+    }
+   ]
+  },
+  "medium-armor-master": {
+   "effects": [
+    {
+     "type": "ac_dex_max",
+     "category": "Medium",
+     "value": 3,
+     "minDex": 16,
+     "label": "Medium Armor Master"
+    }
+   ]
+  },
+  "moderately-armored": {
+   "effects": [
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "medium",
+     "label": "Moderately Armored"
+    },
+    {
+     "type": "proficiency",
+     "kind": "armor",
+     "value": "shield",
+     "label": "Moderately Armored"
+    }
+   ]
+  },
+  "mounted-combatant": {
+   "effects": []
+  },
+  "observant": {
+   "effects": [
+    {
+     "type": "prof_or_expertise_choice",
+     "id": "skill",
+     "label": "Proficiency, or Expertise if you already have it",
+     "options": [
+      "Insight",
+      "Investigation",
+      "Perception"
+     ]
+    }
+   ]
+  },
+  "piercer": {
+   "effects": []
+  },
+  "poisoner": {
+   "effects": [
+    {
+     "type": "proficiency",
+     "kind": "tool",
+     "value": "Poisoner's Kit",
+     "label": "Poisoner"
+    }
+   ]
+  },
+  "polearm-master": {
+   "effects": []
+  },
+  "resilient": {
+   "effects": [
+    {
+     "type": "save_from_asi",
+     "label": "Resilient"
+    }
+   ]
+  },
+  "ritual-caster": {
+   "effects": [
+    {
+     "type": "spell_choice",
+     "id": "rituals",
+     "label": "Level 1 Ritual spells (as many as your Proficiency Bonus)",
+     "count": "PB",
+     "levels": [
+      1
+     ],
+     "lists": "any",
+     "ritual": true,
+     "ability": "asi",
+     "always": true
+    }
+   ]
+  },
+  "sentinel": {
+   "effects": []
+  },
+  "shadow-touched": {
+   "effects": [
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Invisibility"
+     ],
+     "ability": "asi",
+     "free": "long",
+     "label": "Shadow-Touched"
+    },
+    {
+     "type": "spell_choice",
+     "id": "spell",
+     "label": "One level 1 Illusion or Necromancy spell",
+     "count": 1,
+     "levels": [
+      1
+     ],
+     "lists": "any",
+     "schools": [
+      "Illusion",
+      "Necromancy"
+     ],
+     "ability": "asi",
+     "always": true,
+     "free": "long"
+    }
+   ]
+  },
+  "sharpshooter": {
+   "effects": []
+  },
+  "shield-master": {
+   "effects": []
+  },
+  "skill-expert": {
+   "effects": [
+    {
+     "type": "proficiency_choice",
+     "id": "skill",
+     "label": "One skill",
+     "kind": "skill",
+     "count": 1,
+     "options": "any"
+    },
+    {
+     "type": "expertise_choice",
+     "id": "expertise",
+     "label": "Expertise in one skill",
+     "count": 1
+    }
+   ]
+  },
+  "skulker": {
+   "effects": [
+    {
+     "type": "sense",
+     "sense": "Blindsight",
+     "range": 10,
+     "label": "Skulker"
+    }
+   ]
+  },
+  "slasher": {
+   "effects": []
+  },
+  "speedy": {
+   "effects": [
+    {
+     "type": "speed_bonus",
+     "value": 10,
+     "when": "always",
+     "label": "Speedy"
+    }
+   ]
+  },
+  "spell-sniper": {
+   "effects": []
+  },
+  "telekinetic": {
+   "effects": [
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Mage Hand"
+     ],
+     "ability": "asi",
+     "label": "Telekinetic"
+    }
+   ]
+  },
+  "telepathic": {
+   "effects": [
+    {
+     "type": "spell_grant",
+     "spells": [
+      "Detect Thoughts"
+     ],
+     "ability": "asi",
+     "free": "long",
+     "label": "Telepathic"
+    }
+   ]
+  },
+  "war-caster": {
+   "effects": [
+    {
+     "type": "advantage",
+     "on": "Constitution saving throws to keep Concentration",
+     "label": "War Caster"
+    }
+   ]
+  },
+  "weapon-master": {
+   "effects": [
+    {
+     "type": "weapon_mastery_choice",
+     "id": "mastery",
+     "count": 1,
+     "label": "Weapon Master"
+    }
+   ]
+  },
+  "archery": {
+   "effects": [
+    {
+     "type": "attack_bonus",
+     "value": 2,
+     "when": "ranged",
+     "label": "Archery"
+    }
+   ]
+  },
+  "blind-fighting": {
+   "effects": [
+    {
+     "type": "sense",
+     "sense": "Blindsight",
+     "range": 10,
+     "label": "Blind Fighting"
+    }
+   ]
+  },
+  "defense": {
+   "effects": [
+    {
+     "type": "ac_bonus",
+     "value": 1,
+     "when": "armored",
+     "label": "Defense"
+    }
+   ]
+  },
+  "dueling": {
+   "effects": []
+  },
+  "great-weapon-fighting": {
+   "effects": []
+  },
+  "interception": {
+   "effects": []
+  },
+  "protection": {
+   "effects": []
+  },
+  "thrown-weapon-fighting": {
+   "effects": [
+    {
+     "type": "damage_bonus",
+     "value": 2,
+     "when": "thrown",
+     "label": "Thrown Weapon Fighting"
+    }
+   ]
+  },
+  "two-weapon-fighting": {
+   "effects": []
+  },
+  "unarmed-fighting": {
+   "effects": [
+    {
+     "type": "unarmed",
+     "die": "1d6",
+     "ability": "str",
+     "note": "1d8 if both hands are free",
+     "label": "Unarmed Fighting"
+    }
+   ]
+  },
+  "boon-of-combat-prowess": {
+   "effects": []
+  },
+  "boon-of-dimensional-travel": {
+   "effects": []
+  },
+  "boon-of-energy-resistance": {
+   "effects": [
+    {
+     "type": "resistance_choice",
+     "id": "types",
+     "label": "Two damage types (changeable after a Long Rest)",
+     "count": 2,
+     "options": [
+      "Acid",
+      "Cold",
+      "Fire",
+      "Lightning",
+      "Necrotic",
+      "Poison",
+      "Psychic",
+      "Radiant",
+      "Thunder"
+     ]
+    }
+   ]
+  },
+  "boon-of-fate": {
+   "effects": []
+  },
+  "boon-of-fortitude": {
+   "effects": [
+    {
+     "type": "hp_flat",
+     "value": 40,
+     "label": "Boon of Fortitude"
+    }
+   ]
+  },
+  "boon-of-irresistible-offense": {
+   "effects": []
+  },
+  "boon-of-recovery": {
+   "effects": [
+    {
+     "type": "resource",
+     "id": "recovery-dice",
+     "name": "Boon of Recovery (d10s)",
+     "max": 10,
+     "recharge": "long"
+    }
+   ]
+  },
+  "boon-of-skill": {
+   "effects": [
+    {
+     "type": "proficiency_all_skills",
+     "label": "Boon of Skill"
+    },
+    {
+     "type": "expertise_choice",
+     "id": "expertise",
+     "label": "Expertise in one skill",
+     "count": 1
+    }
+   ]
+  },
+  "boon-of-speed": {
+   "effects": [
+    {
+     "type": "speed_bonus",
+     "value": 30,
+     "when": "always",
+     "label": "Boon of Speed"
+    }
+   ]
+  },
+  "boon-of-spell-recall": {
+   "effects": []
+  },
+  "boon-of-the-night-spirit": {
+   "effects": []
+  },
+  "boon-of-truesight": {
+   "effects": [
+    {
+     "type": "sense",
+     "sense": "Truesight",
+     "range": 60,
+     "label": "Boon of Truesight"
+    }
+   ]
+  }
+ },
+ "options": {
+  "Eldritch Invocation": {
+   "Armor of Shadows": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Mage Armor"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "Armor of Shadows"
+     }
+    ]
+   },
+   "Ascendant Step": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Levitate"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "Ascendant Step"
+     }
+    ]
+   },
+   "Devil's Sight": {
+    "effects": [
+     {
+      "type": "sense",
+      "sense": "Devil's Sight",
+      "range": 120,
+      "label": "Devil's Sight"
+     }
+    ]
+   },
+   "Eldritch Mind": {
+    "effects": [
+     {
+      "type": "advantage",
+      "on": "Constitution saving throws to keep Concentration",
+      "label": "Eldritch Mind"
+     }
+    ]
+   },
+   "Fiendish Vigor": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "False Life"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "Fiendish Vigor"
+     }
+    ]
+   },
+   "Gift of the Depths": {
+    "effects": [
+     {
+      "type": "speed_mode",
+      "mode": "Swim",
+      "value": "walk",
+      "label": "Gift of the Depths"
+     },
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Water Breathing"
+      ],
+      "ability": "class",
+      "free": "long",
+      "label": "Gift of the Depths"
+     }
+    ]
+   },
+   "Lessons of the First Ones": {
+    "effects": [
+     {
+      "type": "feat_choice",
+      "id": "feat",
+      "label": "An Origin feat",
+      "category": "Origin"
+     }
+    ]
+   },
+   "Mask of Many Faces": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Disguise Self"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "Mask of Many Faces"
+     }
+    ]
+   },
+   "Master of Myriad Forms": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Alter Self"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "Master of Myriad Forms"
+     }
+    ]
+   },
+   "Misty Visions": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Silent Image"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "Misty Visions"
+     }
+    ]
+   },
+   "One with Shadows": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Invisibility"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "One with Shadows"
+     }
+    ]
+   },
+   "Otherworldly Leap": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Jump"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "Otherworldly Leap"
+     }
+    ]
+   },
+   "Pact of the Chain": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Find Familiar"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "Pact of the Chain"
+     }
+    ]
+   },
+   "Pact of the Tome": {
+    "effects": [
+     {
+      "type": "spell_choice",
+      "id": "tome-cantrips",
+      "label": "Book of Shadows: three cantrips (any list)",
+      "count": 3,
+      "levels": [
+       0
+      ],
+      "lists": "any",
+      "ability": "class",
+      "always": true
+     },
+     {
+      "type": "spell_choice",
+      "id": "tome-rituals",
+      "label": "Book of Shadows: two level 1 Ritual spells (any list)",
+      "count": 2,
+      "levels": [
+       1
+      ],
+      "lists": "any",
+      "ritual": true,
+      "ability": "class",
+      "always": true
+     }
+    ]
+   },
+   "Visions of Distant Realms": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Arcane Eye"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "Visions of Distant Realms"
+     }
+    ]
+   },
+   "Whispers of the Grave": {
+    "effects": [
+     {
+      "type": "spell_grant",
+      "spells": [
+       "Speak with Dead"
+      ],
+      "ability": "class",
+      "atWill": true,
+      "label": "Whispers of the Grave"
+     }
+    ]
+   },
+   "Witch Sight": {
+    "effects": [
+     {
+      "type": "sense",
+      "sense": "Truesight",
+      "range": 30,
+      "label": "Witch Sight"
+     }
+    ]
+   }
+  }
+ },
+ "items": {
+  "spellbook": {
+   "name": "Spellbook",
+   "kind": "gear",
+   "weight": 3,
+   "gp": 50,
+   "VERIFY": "Spellbook isn't in gear.csv; weight 3 lb and 50 GP as remembered"
+  }
+ }
+}
